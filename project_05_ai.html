@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/png" href="anubis.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jill-Design</title>
+  <style>
+  :root {
+    --bg: #0e0e10; --surface: #1a1a1f; --surface2: #242429;
+    --border: #2e2e36; --accent: #6e6ef9; --accent2: #a78bfa;
+    --cyan: #22d3ee; --text: #f0f0f5; --muted: #8888a0; --r: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text);
+    font-family: -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+    line-height: 1.7; }
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(14,14,16,.92); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    height: 60px; padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .logo { font-weight: 700; font-size: .95rem; letter-spacing: .05em;
+    display: flex; align-items: center; gap: 6px; color: var(--muted);
+    text-decoration: none; }
+  nav .logo:hover { color: var(--text); }
+  nav ul { list-style: none; display: flex; gap: 24px; }
+  nav a { color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+  nav a:hover { color: var(--text); }
+  @media(max-width:600px){ nav { padding: 0 20px; } }
+
+  .project-hero { max-width: 900px; margin: 0 auto; padding: 72px 40px 56px; border-bottom: 1px solid var(--border); }
+  @media(max-width:600px){ .project-hero { padding: 48px 20px 40px; } }
+  .proj-num { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
+  .proj-title { font-size: clamp(2rem,5vw,3.5rem); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 12px; }
+  .proj-subtitle { font-size: 1rem; color: var(--muted); max-width: 600px; margin-bottom: 20px; }
+  .proj-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .badge { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); font-size: .72rem; padding: 4px 11px; border-radius: 100px; letter-spacing: .04em; }
+  .badge.hi { background: linear-gradient(135deg,#22d3ee18,#6e6ef918); border-color: #22d3ee50; color: var(--cyan); }
+  .proj-meta { display: flex; gap: 32px; flex-wrap: wrap; }
+  .meta-item .meta-label { color: var(--muted); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 3px; }
+  .meta-item .meta-val { font-size: .9rem; font-weight: 600; }
+
+  .proj-cover { max-width: 900px; margin: 0 auto; padding: 40px 40px 0; }
+  .proj-cover img { width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block; }
+  @media(max-width:600px){ .proj-cover { padding: 24px 20px 0; } }
+
+  .content { max-width: 900px; margin: 0 auto; padding: 56px 40px 80px; }
+  @media(max-width:600px){ .content { padding: 36px 20px 60px; } }
+  .section { margin-bottom: 52px; }
+  .section-label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; font-weight: 600; }
+  .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+  .section p { font-size: .95rem; color: var(--muted); line-height: 1.8; max-width: none; margin-bottom: 16px; }
+  .results-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .results-list li { display: flex; align-items: flex-start; gap: 10px; font-size: .9rem; color: var(--muted); line-height: 1.65; }
+  .results-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 8px; }
+  .results-list li strong { color: var(--text); }
+
+  /* Screenshot grid */
+  .screenshots { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .screenshots img { width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block; transition: opacity .2s; }
+  .screenshots img:hover { opacity: .85; }
+  .screenshots.col2 { grid-template-columns: repeat(2, 1fr); }
+  .screenshots.col1 { grid-template-columns: 1fr; }
+  @media(max-width:600px){ .screenshots, .screenshots.col2 { grid-template-columns: 1fr; } }
+
+  /* Caption sub-label */
+  .sub-label { font-size: .72rem; color: var(--muted); margin-top: 8px; margin-bottom: 20px; font-style: italic; }
+
+  .proj-footer { border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; padding: 40px 40px 80px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+  .back-link:hover { color: var(--text); }
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 20px; border-radius: 8px; font-size: .85rem; font-weight: 700; text-decoration: none; transition: opacity .2s, transform .15s; border: none; cursor: pointer; }
+  .btn:hover { opacity: .85; transform: translateY(-1px); }
+  .btn-primary { background: linear-gradient(135deg,#6e6ef9,#a78bfa); color: #fff; }
+  @media(max-width:600px){ .proj-footer { padding: 28px 20px 60px; } }
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="home.html">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    張宸禎 Portfolio
+  </a>
+  <ul>
+    <li><a href="about.html">關於我</a></li>
+    <li><a href="mailto:stud9372@gmail.com">聯絡</a></li>
+  </ul>
+</nav>
+
+<div class="proj-cover" style="padding-top:32px;">
+  <img src="cover_05_ai.png" alt="AI 工作流">
+</div>
+
+<div class="project-hero" style="padding-top:36px; padding-bottom:40px;">
+  <div class="proj-num">05 — AI 應用 · 2024–2025</div>
+  <div class="proj-badges">
+    <span class="badge hi">AI Vibe Coding</span>
+    <span class="badge hi">Figma Make</span>
+    <span class="badge">快速原型驗證</span>
+    <span class="badge">團隊賦能</span>
+  </div>
+  <div class="proj-meta">
+    <div class="meta-item"><div class="meta-label">年份</div><div class="meta-val">2024–2025</div></div>
+    <div class="meta-item"><div class="meta-label">角色</div><div class="meta-val">設計師・Scrum 成員</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="section">
+    <div class="section-label">背景</div>
+    <p>目標是把 AI 工具嵌入設計流程各階段——從前期發想、動效驗證、多版本發散。我很重視團隊溝通效益，所以也時常應用至跨團隊溝通共識整理，找出具體可複製的應用方式，並帶動整個設計團隊跟上。</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">加速設計決策</div>
+    <p>Moment 首頁需要複雜動效，傳統作法要等工程師實作後才能確認效果。我用 AI Vibe Coding 快速生成動效原型，在設計階段就驗證視覺想法，大幅縮短「想像→確認」的週期。</p>
+    <div class="screenshots">
+      <img src="作品集素材/AI 工具專案/首頁動態應用.png" alt="首頁動態應用">
+      <img src="作品集素材/AI 工具專案/動態應用_2.png" alt="動態應用 2">
+      <img src="作品集素材/AI 工具專案/動態應用_1.png" alt="動態應用 1">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">應用二 · 流程比較：Prototype 快速多版本發散</div>
+    <p>設計決策需要對比多個方向時，用 AI 快速產出不同版本的互動流程，讓討論有具體的視覺依據，加速收斂。</p>
+
+  </div>
+
+  <div class="section">
+    <div class="section-label">團隊溝通</div>
+    <p>工作坊後大量的便利貼與討論記錄，用 AI 幫助整理、分類、產出可讀的結論文件，提升後續推進效率。</p>
+    <div class="screenshots col2">
+      <img src="作品集素材/AI 工具專案/組織溝通AI協助2.png" alt="Scrum Retro 主動優化溝通">
+      <img src="作品集素材/AI 工具專案/組織溝通AI協助1.png" alt="組織溝通 AI 協助">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">應用四 · 設計優化提案：AI 輔助問題診斷</div>
+    <p>現有頁面的體驗問題，用 AI 幫助快速列出潛在問題清單、整理優化方向，再由設計師判斷優先級，提升提案品質與說服力。</p>
+    <div class="screenshots col2">
+      <img src="作品集素材/AI 工具專案/優化提案協助/重點設計優化協助3.png" alt="優化提案 1">
+      <img src="作品集素材/AI 工具專案/優化提案協助/重點設計優化協助13.png" alt="優化提案 2">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">成果</div>
+    <ul class="results-list">
+      <li>大幅縮短複雜動效驗證時間，減少文字敘述的代溝，讓設計即開發</li>
+      <li>產出原型協助團隊決策溝通</li>
+      <li>製作專題簡報進行內部分享，<strong>帶動設計團隊建立 AI 協作能力</strong></li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="proj-footer">
+  <a class="back-link" href="home.html">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    回到作品集
+  </a>
+  <a href="mailto:stud9372@gmail.com?subject=作品集詢問 — AI 工具整合設計工作流" class="btn btn-primary">聯絡我</a>
+</div>
+
+<div id="lb" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;cursor:zoom-out;align-items:center;justify-content:center;">
+  <img id="lb-img" src="" style="max-width:90vw;max-height:90vh;border-radius:8px;object-fit:contain;">
+</div>
+<script>
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lb-img');
+document.querySelectorAll('.screenshots img').forEach(img=>{
+  img.style.cursor='zoom-in';
+  img.addEventListener('click',e=>{lbImg.src=img.src;lb.style.display='flex';e.stopPropagation();});
+});
+lb.addEventListener('click',()=>{lb.style.display='none';lbImg.src='';});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.style.display='none';lbImg.src='';}});
+</script>
+</body>
+</html>

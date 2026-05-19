@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <link rel="icon" type="image/png" href="anubis.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jill-Design</title>
+  <style>
+    :root {
+      --bg: #0e0e10;
+      --surface: #1a1a1f;
+      --surface2: #242429;
+      --border: #2e2e36;
+      --accent: #6e6ef9;
+      --accent2: #a78bfa;
+      --cyan: #22d3ee;
+      --text: #f0f0f5;
+      --muted: #8888a0;
+      --r: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(14,14,16,.92); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      height: 60px; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    nav .logo { font-weight: 700; font-size: .95rem; letter-spacing: .05em; }
+    nav ul { list-style: none; display: flex; gap: 24px; }
+    nav a { color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+    nav a:hover { color: var(--text); }
+    @media(max-width:600px){
+      nav { padding: 0 20px; }
+      nav ul { gap: 16px; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 860px; margin: 0 auto;
+      padding: 96px 40px 80px;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 5.5rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -.03em; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 12px; flex-wrap: nowrap;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg,#6e6ef9,#a78bfa);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-anubis-inline {
+      height: 0.75em;
+      width: auto;
+      display: inline-block;
+      vertical-align: middle;
+      filter: drop-shadow(0 0 8px rgba(167,139,250,.5));
+      flex-shrink: 0;
+    }
+    .hero-desc { font-size: 1.05rem; color: var(--muted); max-width: 520px; margin-bottom: 36px; }
+    .hero-meta { display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 40px; }
+    .meta-item .meta-label {
+      color: var(--muted); font-size: .7rem;
+      letter-spacing: .08em; text-transform: uppercase; margin-bottom: 3px;
+    }
+    .meta-item .meta-val { font-size: .9rem; font-weight: 600; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 14px 28px; border-radius: 10px; font-size: 1rem;
+      font-weight: 700; text-decoration: none; transition: opacity .2s, transform .15s;
+      cursor: pointer; border: none;
+    }
+    .btn:hover { opacity: .85; transform: translateY(-1px); }
+    .btn-primary { background: linear-gradient(135deg,#6e6ef9,#a78bfa); color: #fff; }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    @media(max-width:600px){ .hero { padding: 64px 20px 60px; } }
+
+    /* ── PRODUCTS ROW ── */
+    .products-row {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 40px 64px;
+      border-top: 1px solid var(--border);
+    }
+    .products-row-label {
+      font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); padding-top: 32px; margin-bottom: 18px;
+    }
+    .products-chips {
+      display: flex; flex-wrap: wrap; gap: 12px;
+    }
+    .product-chip {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 18px;
+      transition: border-color .2s;
+    }
+    .product-chip:hover { border-color: #6e6ef960; }
+    .product-chip-name { font-size: .92rem; font-weight: 700; }
+    .product-chip-role {
+      font-size: .68rem; letter-spacing: .06em;
+      color: var(--accent2); background: linear-gradient(135deg,#6e6ef918,#a78bfa18);
+      border: 1px solid #a78bfa30; border-radius: 100px; padding: 2px 9px;
+    }
+    @media(max-width:600px){
+      .products-row { padding: 0 20px 48px; }
+      .product-chip { padding: 10px 14px; }
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 40px 28px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: baseline; justify-content: space-between;
+      flex-wrap: wrap; gap: 8px;
+    }
+    .section-header h2 {
+      font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); padding-top: 32px;
+    }
+    @media(max-width:600px){ .section-header { padding: 0 20px 20px; } }
+
+    /* ── PROJECT GRID ── */
+    .projects {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 40px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    @media(max-width:600px){
+      .projects { padding: 0 20px 60px; grid-template-columns: 1fr; }
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color .2s, transform .15s, box-shadow .2s;
+      position: relative;
+      text-decoration: none; color: inherit;
+    }
+    .project-card:hover {
+      border-color: #6e6ef960;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(110,110,249,.12);
+    }
+
+    /* cover image */
+    .card-cover {
+      width: 100%; aspect-ratio: 16/9;
+      object-fit: cover; object-position: center top;
+      display: block;
+      border-bottom: 1px solid var(--border);
+      transition: opacity .2s;
+    }
+    .project-card:hover .card-cover { opacity: .92; }
+
+    /* card body */
+    .card-body { padding: 22px 24px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+
+    .card-num {
+      font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent); font-weight: 700;
+    }
+    .card-title { font-size: 1.1rem; font-weight: 800; line-height: 1.3; }
+    .card-subtitle { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+    .card-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+    .badge {
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--muted); font-size: .68rem; padding: 3px 9px;
+      border-radius: 100px;
+    }
+    .badge.hi {
+      background: linear-gradient(135deg,#22d3ee18,#6e6ef918);
+      border-color: #22d3ee50; color: var(--cyan);
+    }
+    .card-more {
+      margin-top: auto; padding-top: 14px;
+      display: flex; align-items: center; gap: 5px;
+      font-size: .78rem; color: var(--accent2); font-weight: 600;
+      border-top: 1px solid var(--border);
+      transition: gap .2s;
+    }
+    .project-card:hover .card-more { gap: 9px; }
+
+    /* ── CONTACT SECTION ── */
+    .contact-section {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 40px 100px;
+      border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+      align-items: center; padding-top: 56px;
+    }
+    .contact-text h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; }
+    .contact-text p { font-size: .92rem; color: var(--muted); line-height: 1.75; max-width: 360px; }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; }
+    .contact-link {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 20px;
+      text-decoration: none; color: var(--text);
+      font-size: .88rem; font-weight: 600;
+      transition: border-color .2s, transform .15s;
+    }
+    .contact-link:hover { border-color: var(--accent); transform: translateX(4px); }
+    .contact-link .icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-link .icon.mail { background: linear-gradient(135deg,#6e6ef930,#a78bfa30); color: var(--accent2); }
+    .contact-link .icon.li { background: #0a66c215; color: #0a66c2; }
+    .contact-link-meta { display: flex; flex-direction: column; gap: 1px; }
+    .contact-link-label { font-size: .7rem; color: var(--muted); font-weight: 400; text-transform: uppercase; letter-spacing: .06em; }
+    @media(max-width:760px){
+      .contact-section { grid-template-columns: 1fr; gap: 28px; padding: 40px 20px 60px; }
+      .contact-text p { max-width: 100%; }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-name { font-size: .82rem; color: var(--muted); }
+    .footer-note { font-size: .78rem; color: #55556a; }
+    @media(max-width:600px){ footer { padding: 20px; } }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="logo">張宸禎 Portfolio</div>
+  <ul>
+    <li><a href="about.html">關於我</a></li>
+    <li><a href="#projects">作品</a></li>
+    <li><a href="#contact">聯絡</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <h1>Hello, I'm <span>JILL</span><img src="anubis.png" alt="" class="hero-anubis-inline"></h1>
+  <p class="hero-desc">
+    A Product Designer — 擅長主導 0→1 產品建構、跨團隊共創、激勵機制設計，
+    並將 AI 工具整合進設計工作流。
+  </p>
+
+  <div class="hero-meta">
+    <div class="meta-item">
+      <div class="meta-label">職稱</div>
+      <div class="meta-val">資深設計師</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">擅長</div>
+      <div class="meta-val">0→1 · 遊戲化 · AI 整合</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">精選案例</div>
+      <div class="meta-val">5 個專案</div>
+    </div>
+  </div>
+
+  <div class="hero-cta">
+    <a href="about.html" class="btn btn-primary">About Me</a>
+    <a href="張宸禎_Resume.pdf" target="_blank" class="btn btn-ghost">
+      Resume
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<div class="section-header" id="projects">
+  <h2>精選案例</h2>
+</div>
+
+<div class="projects">
+
+  <!-- 01 GamaPass -->
+  <a class="project-card" href="project_01_gamapass.html">
+    <img class="card-cover" src="cover_01_gamapass.png" alt="GamaPass 介面截圖">
+    <div class="card-body">
+      <div class="card-num">01 — 帳號系統 · 2024</div>
+      <div class="card-title">從 0 到 1 全集團會員帳號整合</div>
+      <div class="card-subtitle">集團統一帳號平台全程主導，從 IA 規劃到系統上線，解決跨平台會員移轉與邊緣情境</div>
+      <div class="card-badges">
+        <span class="badge">0→1</span>
+        <span class="badge">IA 規劃</span>
+        <span class="badge">帳號系統</span>
+        <span class="badge">跨平台整合</span>
+      </div>
+      <div class="card-more">
+        了解更多
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </div>
+  </a>
+
+  <!-- 02 hidol -->
+  <a class="project-card" href="project_02_hidol.html">
+    <img class="card-cover" src="cover_02_hidol.png" alt="hidol 品牌封面">
+    <div class="card-body">
+      <div class="card-num">02 — 社群平台 · 2024</div>
+      <div class="card-title">在 hidol 開啟你的推坑宇宙</div>
+      <div class="card-subtitle">粉絲社群平台全鏈路建構，從工作坊共創到 App 上線，凝聚跨職能共識並落地多模組功能</div>
+      <div class="card-badges">
+        <span class="badge">0→1</span>
+        <span class="badge">MVP 規劃</span>
+        <span class="badge">粉絲社群</span>
+        <span class="badge">多模組</span>
+      </div>
+      <div class="card-more">
+        了解更多
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </div>
+  </a>
+
+  <!-- 03 Moment -->
+  <a class="project-card" href="project_03_moment.html">
+    <img class="card-cover" src="cover_03_moment.png" alt="Moment 功能截圖">
+    <div class="card-body">
+      <div class="card-num">03 — 工具設計 · 2024–2025</div>
+      <div class="card-title">紀錄型粉絲工具 Moment</div>
+      <div class="card-subtitle">工作坊共識轉化為產品，以「工具剛需」切入新用戶族群，引入 AI 輔助動效驗證</div>
+      <div class="card-badges">
+        <span class="badge">工具設計</span>
+        <span class="badge">用戶體驗</span>
+        <span class="badge hi">AI 輔助</span>
+      </div>
+      <div class="card-more">
+        了解更多
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </div>
+  </a>
+
+  <!-- 04 成就機制 -->
+  <a class="project-card" href="project_04_achievement.html">
+    <img class="card-cover" src="cover_04_achievement.png" alt="成就機制截圖">
+    <div class="card-body">
+      <div class="card-num">04 — 遊戲化設計 · 2025</div>
+      <div class="card-title">用戶成就與獎勵機制</div>
+      <div class="card-subtitle">從後端計算邏輯到前端視覺的全鏈路成就系統，上線兩週用戶互動率提升 150%</div>
+      <div class="card-badges">
+        <span class="badge">遊戲化</span>
+        <span class="badge">激勵機制</span>
+        <span class="badge">全鏈路</span>
+      </div>
+      <div class="card-more">
+        了解更多
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </div>
+  </a>
+
+  <!-- 05 AI 工作流 -->
+  <a class="project-card" href="project_05_ai.html">
+    <img class="card-cover" src="cover_05_ai.png" alt="AI 工作流截圖" style="object-position: center center;">
+    <div class="card-body">
+      <div class="card-num">05 — AI 應用 · 2024–2025</div>
+      <div class="card-title">AI 工具整合設計工作流</div>
+      <div class="card-subtitle">將 AI Vibe Coding、Figma Make 等工具整合進設計各階段，帶動設計團隊建立 AI 協作能力</div>
+      <div class="card-badges">
+        <span class="badge hi">AI Vibe Coding</span>
+        <span class="badge hi">Figma Make</span>
+        <span class="badge">原型驗證</span>
+        <span class="badge">團隊賦能</span>
+      </div>
+      <div class="card-more">
+        了解更多
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<!-- ── CONTACT ── -->
+<div class="contact-section" id="contact">
+  <div class="contact-text">
+    <h3>想了解更多？</h3>
+    <p>對某個案例有興趣，或想聊聊合作機會？歡迎來信，或在 LinkedIn 找到我。</p>
+  </div>
+  <div class="contact-links">
+    <a href="mailto:stud9372@gmail.com?subject=作品集詢問" class="contact-link">
+      <div class="icon mail">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+      </div>
+      <div class="contact-link-meta">
+        <span class="contact-link-label">Email</span>
+        <span>stud9372@gmail.com</span>
+      </div>
+    </a>
+    <a href="https://linkedin.com/in/chenchen-chang-854729144" target="_blank" class="contact-link">
+      <div class="icon li">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+      </div>
+      <div class="contact-link-meta">
+        <span class="contact-link-label">LinkedIn</span>
+        <span>chenchen-chang-854729144</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-name">張宸禎 · Product Designer</div>
+  <div class="footer-note">
+    <a href="mailto:stud9372@gmail.com" style="color:inherit;text-decoration:none;">stud9372@gmail.com</a>
+    &nbsp;·&nbsp;
+    <a href="https://linkedin.com/in/chenchen-chang-854729144" target="_blank" style="color:inherit;text-decoration:none;">LinkedIn</a>
+  </div>
+</footer>
+
+</body>
+</html>

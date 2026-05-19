@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/png" href="anubis.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jill-Design</title>
+  <style>
+  :root {
+    --bg: #0e0e10; --surface: #1a1a1f; --surface2: #242429;
+    --border: #2e2e36; --accent: #6e6ef9; --accent2: #a78bfa;
+    --cyan: #22d3ee; --text: #f0f0f5; --muted: #8888a0; --r: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text);
+    font-family: -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+    line-height: 1.7; }
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(14,14,16,.92); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    height: 60px; padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .logo { font-weight: 700; font-size: .95rem; letter-spacing: .05em;
+    display: flex; align-items: center; gap: 6px; color: var(--muted);
+    text-decoration: none; }
+  nav .logo:hover { color: var(--text); }
+  nav ul { list-style: none; display: flex; gap: 24px; }
+  nav a { color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+  nav a:hover { color: var(--text); }
+  @media(max-width:600px){ nav { padding: 0 20px; } }
+
+  .project-hero { max-width: 900px; margin: 0 auto; padding: 72px 40px 56px; border-bottom: 1px solid var(--border); }
+  @media(max-width:600px){ .project-hero { padding: 48px 20px 40px; } }
+  .proj-num { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
+  .proj-title { font-size: clamp(2rem,5vw,3.5rem); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 12px; }
+  .proj-subtitle { font-size: 1rem; color: var(--muted); max-width: 600px; margin-bottom: 20px; }
+  .proj-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .badge { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); font-size: .72rem; padding: 4px 11px; border-radius: 100px; letter-spacing: .04em; }
+  .badge.hi { background: linear-gradient(135deg,#22d3ee18,#6e6ef918); border-color: #22d3ee50; color: var(--cyan); }
+  .proj-meta { display: flex; gap: 32px; flex-wrap: wrap; }
+  .meta-item .meta-label { color: var(--muted); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 3px; }
+  .meta-item .meta-val { font-size: .9rem; font-weight: 600; }
+
+  .proj-cover { max-width: 900px; margin: 0 auto; padding: 40px 40px 0; }
+  .proj-cover img { width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block; }
+  @media(max-width:600px){ .proj-cover { padding: 24px 20px 0; } }
+
+  .content { max-width: 900px; margin: 0 auto; padding: 56px 40px 80px; }
+  @media(max-width:600px){ .content { padding: 36px 20px 60px; } }
+  .section { margin-bottom: 52px; }
+  .section-label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; font-weight: 600; }
+  .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+  .section p { font-size: .95rem; color: var(--muted); line-height: 1.8; max-width: none; margin-bottom: 16px; }
+  .results-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .results-list li { display: flex; align-items: flex-start; gap: 10px; font-size: .9rem; color: var(--muted); line-height: 1.65; }
+  .results-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 8px; }
+  .results-list li strong { color: var(--text); }
+
+  /* Screenshot grid */
+  .screenshots { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .screenshots img { width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block; transition: opacity .2s; }
+  .screenshots img:hover { opacity: .85; }
+  .screenshots.col2 { grid-template-columns: repeat(2, 1fr); }
+  .screenshots.col1 { grid-template-columns: 1fr; }
+  @media(max-width:600px){ .screenshots, .screenshots.col2 { grid-template-columns: 1fr; } }
+
+  /* Caption sub-label */
+  .sub-label { font-size: .72rem; color: var(--muted); margin-top: 8px; margin-bottom: 20px; font-style: italic; }
+  .screenshots.col4 { grid-template-columns: repeat(4, 1fr); }
+  @media(max-width:720px){ .screenshots.col4 { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width:480px){ .screenshots.col4 { grid-template-columns: 1fr; } }
+  .screenshots.equal-h img { height: 340px; object-fit: contain; background: transparent; }
+  @media(max-width:600px){ .screenshots.equal-h img { height: 220px; } }
+
+  .proj-footer { border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; padding: 40px 40px 80px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+  .back-link:hover { color: var(--text); }
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 20px; border-radius: 8px; font-size: .85rem; font-weight: 700; text-decoration: none; transition: opacity .2s, transform .15s; border: none; cursor: pointer; }
+  .btn:hover { opacity: .85; transform: translateY(-1px); }
+  .btn-primary { background: linear-gradient(135deg,#6e6ef9,#a78bfa); color: #fff; }
+  @media(max-width:600px){ .proj-footer { padding: 28px 20px 60px; } }
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="home.html">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    張宸禎 Portfolio
+  </a>
+  <ul>
+    <li><a href="about.html">關於我</a></li>
+    <li><a href="mailto:stud9372@gmail.com">聯絡</a></li>
+  </ul>
+</nav>
+
+<div class="proj-cover" style="padding-top:32px;">
+  <img src="cover_02_hidol.png" alt="hidol">
+</div>
+
+<div class="project-hero" style="padding-top:36px; padding-bottom:40px;">
+  <div class="proj-num">02 — 社群平台 · 2024</div>
+  <div class="proj-badges">
+    <span class="badge">0→1 建構</span>
+    <span class="badge">工作坊</span>
+  </div>
+  <div class="proj-meta">
+    <div class="meta-item"><div class="meta-label">年份</div><div class="meta-val">2024</div></div>
+    <div class="meta-item"><div class="meta-label">角色</div><div class="meta-val">資深產品設計師（主導）</div></div>
+    <div class="meta-item"><div class="meta-label">上線</div><div class="meta-val">2024/07</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="section">
+    <div class="section-label">背景與問題</div>
+    <p>hidol 是遊戲橘子從 beanfun! 轉型後的全新粉絲社群平台，從零啟動。轉型初期，團隊面臨一個關鍵問題：原有服務（如 show 等功能）是否沿用？在新策略方向尚未清晰的情況下，討論容易陷入「舊功能要不要帶過來」的細節爭論，而非聚焦在新產品真正要解決的問題。</p>
+    <p>我的第一步，是將討論拉回到核心問題：這些功能是否符合新產品目的？以此為篩選標準，幫助團隊在新舊取捨之間建立共同的判斷依據，再進入 MVP 範疇的定義。</p>
+    <div class="screenshots col2" style="margin-top:16px;">
+      <img src="作品集素材/0-1專案_hidol/hidol＿初始5.png" alt="工作坊討論">
+      <img src="作品集素材/0-1專案_hidol/0-1_002.png" alt="設計執行">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Step 1 · 初始結論與產品方向</div>
+    <p>對新方向與舊產品的取捨達成基本共識後，梳理 hidol 的經營模式與平台服務層次——明確核心體驗的邊界，避免過度發散。</p>
+    <p>接著透過白板便利貼工作坊，將 MVP 範疇完整攤開，讓每個功能的「進或不進」都有明確依據。這一步讓團隊從分散的假設走向第一次真正的對焦，也成為後續設計全面展開的起點。</p>
+    <div class="screenshots col2" style="margin-top:16px;">
+      <img src="作品集素材/0-1專案_hidol/hidol_05_design1 1.png" alt="設計方向">
+      <img src="作品集素材/0-1專案_hidol/hidol_02_direction 1.png" alt="產品方向">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Step 2 · 0→1 設計執行</div>
+    <p>方向確立後，設計團隊展開分工。我主導的範疇涵蓋多條並行線：創作者平台基礎建設（內容排程、粉絲團管理、數據分析、人員權限管理）完成規劃與設計、即時互動體驗規劃、以及整體視覺系統的建立與落地。</p>
+    <p>多模組同時推進意味著每個決策都不是獨立的 IA 結構的一個選擇，會同時影響創作者端與用戶端的體驗邏輯。設計過程中持續與工程、PM 協作對焦，確保每個模組在技術可行性與用戶體驗之間取得平衡。</p>
+    <div class="screenshots col1" style="margin-top:16px;">
+      <img src="作品集素材/0-1專案_hidol/hidol_初始結論圖.png" alt="平台架構圖">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Step 3 · 上線成果</div>
+    <p class="sub-label" style="margin-bottom:16px;">2024/07/16 App Store & Google Play 同步上線</p>
+    <div class="screenshots col2 equal-h">
+      <img src="作品集素材/作品集使用/hidol_首頁.PNG" alt="首頁">
+      <img src="作品集素材/作品集使用/hidol_粉絲團首頁.PNG" alt="粉絲團">
+      <img src="作品集素材/0-1專案_hidol/AI 語音信.png" alt="AI 粉絲應用語音信">
+      <img src="作品集素材/0-1專案_hidol/創作者平台 - 數據後台.png" alt="創作者平台・數據後台">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">成果</div>
+    <ul class="results-list">
+      <li><strong>2024/07/16 正式上線</strong>，App Store 4.8★ / Google Play 4.1★</li>
+      <li>完成粉絲社群、AI 粉絲應用語音信、創作者平台等多模組建構</li>
+      <li>語音信於 <strong>2024/12/24</strong> 首發，獲社群正面回饋</li>
+      <li>後續 Moment、成就機制等核心功能均在此架構上延伸展開</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="proj-footer">
+  <a class="back-link" href="home.html">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    回到作品集
+  </a>
+  <a href="mailto:stud9372@gmail.com?subject=作品集詢問 — hidol — 從 0 到 1" class="btn btn-primary">聯絡我</a>
+</div>
+
+<div id="lb" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;cursor:zoom-out;align-items:center;justify-content:center;">
+  <img id="lb-img" src="" style="max-width:90vw;max-height:90vh;border-radius:8px;object-fit:contain;">
+</div>
+<script>
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lb-img');
+document.querySelectorAll('.screenshots img').forEach(img=>{
+  img.style.cursor='zoom-in';
+  img.addEventListener('click',e=>{lbImg.src=img.src;lb.style.display='flex';e.stopPropagation();});
+});
+lb.addEventListener('click',()=>{lb.style.display='none';lbImg.src='';});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.style.display='none';lbImg.src='';}});
+</script>
+</body>
+</html>

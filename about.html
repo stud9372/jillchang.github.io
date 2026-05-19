@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <link rel="icon" type="image/png" href="anubis.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jill-Design</title>
+  <style>
+    :root {
+      --bg: #0e0e10;
+      --surface: #1a1a1f;
+      --surface2: #242429;
+      --border: #2e2e36;
+      --accent: #6e6ef9;
+      --accent2: #a78bfa;
+      --cyan: #22d3ee;
+      --text: #f0f0f5;
+      --muted: #8888a0;
+      --r: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(14,14,16,.92); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      height: 60px; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    nav .logo { font-weight: 700; font-size: .95rem; letter-spacing: .05em; }
+    nav ul { list-style: none; display: flex; gap: 24px; }
+    nav a { color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+    nav a:hover { color: var(--text); }
+    .nav-back { display: flex; align-items: center; gap: 6px; }
+    @media(max-width:600px){ nav { padding: 0 20px; } }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 960px; margin: 0 auto;
+      padding: 80px 40px 72px;
+      display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start;
+    }
+    @media(max-width:680px){
+      .hero { grid-template-columns: 1fr; padding: 56px 20px 48px; }
+      .hero-avatar { display: none; }
+    }
+    .tag {
+      display: inline-block;
+      background: linear-gradient(135deg,#6e6ef930,#a78bfa30);
+      border: 1px solid #6e6ef960; color: var(--accent2);
+      font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2.8rem,6vw,5.5rem); font-weight: 800;
+      line-height: 1.2; letter-spacing: -.02em; margin-bottom: 6px;
+    }
+    .hero-en { font-size: .95rem; color: var(--muted); margin-bottom: 24px; }
+    .hero-intro {
+      font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 1.8;
+      max-width: 500px; margin-bottom: 28px;
+    }
+    .hero-stats { display: flex; gap: 28px; flex-wrap: wrap; }
+    .stat-item .stat-num {
+      font-size: 1.5rem; font-weight: 800;
+      background: linear-gradient(135deg,#6e6ef9,#a78bfa);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-item .stat-label { font-size: .72rem; color: var(--muted); letter-spacing: .04em; }
+
+    /* avatar */
+    .hero-avatar {
+      width: 160px; height: 160px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.18);
+      overflow: hidden; flex-shrink: 0; margin-top: 8px;
+      box-shadow: 0 0 0 5px rgba(255,255,255,0.05);
+    }
+    .hero-avatar img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center top;
+    }
+
+    /* ── CONTENT WRAPPER ── */
+    .content { max-width: 960px; margin: 0 auto; padding: 0 40px 80px; }
+    @media(max-width:600px){ .content { padding: 0 20px 60px; } }
+
+    /* ── SECTION ── */
+    .section { border-top: 1px solid var(--border); padding-top: 48px; margin-bottom: 56px; }
+    .section-label {
+      font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 24px;
+    }
+
+    /* ── PHILOSOPHY ── */
+    .philosophy-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    @media(max-width:640px){ .philosophy-grid { grid-template-columns: 1fr; } }
+    .phil-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 24px;
+    }
+    .phil-card-head {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+    }
+    .phil-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: linear-gradient(135deg,#6e6ef920,#a78bfa20);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .phil-title { font-size: .9rem; font-weight: 700; }
+    .phil-body { font-size: .85rem; color: var(--muted); line-height: 1.75; }
+
+    /* ── TIMELINE ── */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item {
+      display: grid; grid-template-columns: 120px 1px 1fr;
+      gap: 0 24px; position: relative;
+    }
+    .tl-date {
+      text-align: right; padding-top: 2px;
+      font-size: .78rem; color: var(--muted); line-height: 1.5;
+    }
+    .tl-line {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .tl-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0; margin-top: 5px;
+      box-shadow: 0 0 0 3px rgba(110,110,249,.2);
+    }
+    .tl-dot.edu { background: var(--muted); box-shadow: none; }
+    .tl-connector {
+      flex: 1; width: 1px; background: var(--border);
+      margin: 6px 0;
+    }
+    .timeline-item:last-child .tl-connector { display: none; }
+    .tl-body { padding-bottom: 32px; }
+    .tl-company { font-size: .72rem; color: var(--accent2); font-weight: 600; letter-spacing: .05em; margin-bottom: 3px; }
+    .tl-role { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .tl-duration { font-size: .75rem; color: var(--muted); margin-bottom: 12px; }
+    .tl-points { display: flex; flex-direction: column; gap: 5px; }
+    .tl-point {
+      font-size: .84rem; color: var(--muted); line-height: 1.65;
+      padding-left: 12px; position: relative;
+    }
+    .tl-point::before {
+      content: ''; position: absolute; left: 0; top: 9px;
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--border);
+    }
+    .tl-point strong { color: var(--text); font-weight: 600; }
+    .tl-edu-name { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .tl-edu-dept { font-size: .84rem; color: var(--muted); }
+    @media(max-width:600px){
+      .timeline-item { grid-template-columns: 80px 1px 1fr; gap: 0 16px; }
+      .tl-date { font-size: .72rem; }
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid { display: flex; flex-direction: column; gap: 20px; }
+    .skill-row { display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: start; }
+    @media(max-width:600px){ .skill-row { grid-template-columns: 1fr; gap: 8px; } }
+    .skill-cat { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 6px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag {
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text); font-size: .8rem; padding: 5px 13px;
+      border-radius: 100px;
+    }
+    .skill-tag.hi {
+      background: linear-gradient(135deg,#6e6ef918,#a78bfa18);
+      border-color: #6e6ef950; color: var(--accent2);
+    }
+    .skill-tag.cyan {
+      background: linear-gradient(135deg,#22d3ee15,#22d3ee08);
+      border-color: #22d3ee40; color: var(--cyan);
+    }
+
+    /* ── CONTACT CTA ── */
+    .contact-cta {
+      background: linear-gradient(135deg,#6e6ef910,#a78bfa08);
+      border: 1px solid #6e6ef930;
+      border-radius: 16px; padding: 40px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 24px;
+    }
+    .cta-text h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
+    .cta-text p { font-size: .88rem; color: var(--muted); }
+    .cta-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 20px; border-radius: 8px; font-size: .85rem;
+      font-weight: 700; text-decoration: none; transition: opacity .2s, transform .15s;
+      border: none; cursor: pointer;
+    }
+    .btn:hover { opacity: .85; transform: translateY(-1px); }
+    .btn-primary { background: linear-gradient(135deg,#6e6ef9,#a78bfa); color: #fff; }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    @media(max-width:600px){ .contact-cta { padding: 28px 24px; } }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a class="logo nav-back" href="home.html">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    張宸禎 Portfolio
+  </a>
+  <ul>
+    <li><a href="home.html#projects">作品</a></li>
+    <li><a href="mailto:stud9372@gmail.com">聯絡</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div>
+    <div class="tag">About Me</div>
+    <h1>張宸禎 · Jill</h1>
+    <div class="hero-en">Chen-Chen Chang &nbsp;·&nbsp; 資深產品設計師</div>
+    <p class="hero-intro">
+      5 年產品設計，最有感的時刻不是上線，是更早的那一步——把「大家都說不清楚的問題」定義清楚。從帳號整合、粉絲社群、遊戲化機制到 AI 工具，喜歡在不同形狀的產品裡嘗試各種新方式，協助團隊把混沌梳理成方向，從中獲取能量，持續在用戶體驗與創意發想的路上前行。
+    </p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">年設計經驗</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">個主導產品</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-avatar">
+    <img src="avatar.png" alt="張宸禎">
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- ── 工作經歷 ── -->
+  <div class="section">
+    <div class="section-label">工作經歷</div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="tl-date">2023/09<br/>–&nbsp;2026/05</div>
+        <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <div class="tl-company">遊戲橘子數位科技 · hidol</div>
+          <div class="tl-role">資深產品設計師</div>
+          <div class="tl-duration">2 年 8 個月</div>
+          <div class="tl-points">
+            <div class="tl-point">主導 hidol APP <strong>0→1 設計</strong>，App Store <strong>4.8★</strong> / Google Play 4.1★</div>
+            <div class="tl-point">以用戶行為洞察設計<strong>遊戲化成就與激勵機制</strong>，規劃完整任務動線，上線兩週互動率提升 <strong>150%</strong></div>
+            <div class="tl-point">hidol 核心功能 <strong>Moment</strong> 全程規劃：用研訪談 → 漏斗分析 → 流程優化 → 上線</div>
+            <div class="tl-point">導入 <strong>AI Vibe Coding</strong> 驗證複雜動效，Lottie 動效直接交付工程端；主辦內部分享帶動全團隊高保真原型能力</div>
+            <div class="tl-point">主持 <strong>20–30 人跨部門工作坊</strong>，對齊產品新方向，縮短跨部門理解成本</div>
+            <div class="tl-point">與設計團隊共同建立並維護 <strong>Design System</strong>，統一 Web / App 雙平台視覺規範</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-date">2020/09<br/>–&nbsp;2023/09</div>
+        <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <div class="tl-company">遊戲橘子數位科技 · beanfun!</div>
+          <div class="tl-role">產品設計師</div>
+          <div class="tl-duration">3 年</div>
+          <div class="tl-points">
+            <div class="tl-point"><strong>GamaPass</strong> 集團 8 個服務帳號整合體驗設計，協調跨部門需求，確保各帳號體系無縫對接，2024/05 上線</div>
+            <div class="tl-point">建立集團跨部門 <strong>DQC 設計品質檢驗流程</strong>，確保產品開發還原度與設計一致性</div>
+            <div class="tl-point">擔任集團<strong>內部設計顧問</strong>，支援多個子品牌 UX 諮詢與設計審查</div>
+            <div class="tl-point">建立數據教學與 Matomo 操作流程，推動設計團隊數據導向文化</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 學歷 -->
+      <div class="timeline-item">
+        <div class="tl-date">2018–2020</div>
+        <div class="tl-line"><div class="tl-dot edu"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <div class="tl-company">教育背景</div>
+          <div class="tl-edu-name">國立臺北教育大學</div>
+          <div class="tl-edu-dept">碩士 · 數位科技設計學系</div>
+          <div class="tl-edu-dept" style="margin-top:6px;font-size:.78rem;">論文：「互動程度對於擴增實境濾鏡之 AISAS 消費者行為與使用者經驗影響——以信用卡廣告為例」</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-date">2014–2018</div>
+        <div class="tl-line"><div class="tl-dot edu"></div><div class="tl-connector"></div></div>
+        <div class="tl-body">
+          <div class="tl-edu-name">銘傳大學</div>
+          <div class="tl-edu-dept">學士 · 數位媒體設計學系</div>
+          <div class="tl-edu-dept" style="margin-top:6px;font-size:.78rem;">畢業製作：「異遇妖譚 2.5D 遊戲製作」</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 技能工具 ── -->
+  <div class="section">
+    <div class="section-label">技能與工具</div>
+    <div class="skills-grid">
+      <div class="skill-row">
+        <div class="skill-cat">AI 工具</div>
+        <div class="skill-tags">
+          <span class="skill-tag hi">Claude Code</span>
+          <span class="skill-tag hi">AI Vibe Coding</span>
+          <span class="skill-tag hi">Figma Make</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-cat">設計工具</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">After Effects</span>
+          <span class="skill-tag">Lottie</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-cat">平台規範</div>
+        <div class="skill-tags">
+          <span class="skill-tag cyan">iOS HIG</span>
+          <span class="skill-tag cyan">Android Material</span>
+          <span class="skill-tag cyan">Web RWD</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-cat">方法 / 流程</div>
+        <div class="skill-tags">
+          <span class="skill-tag">用戶研究</span>
+          <span class="skill-tag">工作坊主持</span>
+          <span class="skill-tag">Design System</span>
+          <span class="skill-tag">DQC 流程</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 聯絡 ── -->
+  <div class="contact-cta">
+    <div class="cta-text">
+      <h3>想聊聊？</h3>
+      <p>無論是職缺機會、案例細節，或只是想交流，都歡迎找我。</p>
+    </div>
+    <div class="cta-btns">
+      <a href="mailto:stud9372@gmail.com" class="btn btn-primary">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+        stud9372@gmail.com
+      </a>
+      <a href="https://linkedin.com/in/chenchen-chang-854729144" target="_blank" class="btn btn-ghost">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

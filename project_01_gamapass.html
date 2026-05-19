@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/png" href="anubis.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jill-Design</title>
+  <style>
+  :root {
+    --bg: #0e0e10; --surface: #1a1a1f; --surface2: #242429;
+    --border: #2e2e36; --accent: #6e6ef9; --accent2: #a78bfa;
+    --cyan: #22d3ee; --text: #f0f0f5; --muted: #8888a0; --r: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text);
+    font-family: -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+    line-height: 1.7; }
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(14,14,16,.92); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    height: 60px; padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .logo { font-weight: 700; font-size: .95rem; letter-spacing: .05em;
+    display: flex; align-items: center; gap: 6px; color: var(--muted);
+    text-decoration: none; }
+  nav .logo:hover { color: var(--text); }
+  nav ul { list-style: none; display: flex; gap: 24px; }
+  nav a { color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+  nav a:hover { color: var(--text); }
+  @media(max-width:600px){ nav { padding: 0 20px; } }
+
+  .project-hero { max-width: 900px; margin: 0 auto; padding: 72px 40px 56px; border-bottom: 1px solid var(--border); }
+  @media(max-width:600px){ .project-hero { padding: 48px 20px 40px; } }
+  .proj-num { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
+  .proj-title { font-size: clamp(2rem,5vw,3.5rem); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 12px; }
+  .proj-subtitle { font-size: 1rem; color: var(--muted); max-width: 600px; margin-bottom: 20px; }
+  .proj-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .badge { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); font-size: .72rem; padding: 4px 11px; border-radius: 100px; letter-spacing: .04em; }
+  .badge.hi { background: linear-gradient(135deg,#22d3ee18,#6e6ef918); border-color: #22d3ee50; color: var(--cyan); }
+  .proj-meta { display: flex; gap: 32px; flex-wrap: wrap; }
+  .meta-item .meta-label { color: var(--muted); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 3px; }
+  .meta-item .meta-val { font-size: .9rem; font-weight: 600; }
+
+  .proj-cover { max-width: 900px; margin: 0 auto; padding: 40px 40px 0; }
+  .proj-cover img { width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block; }
+  @media(max-width:600px){ .proj-cover { padding: 24px 20px 0; } }
+
+  .content { max-width: 900px; margin: 0 auto; padding: 56px 40px 80px; }
+  @media(max-width:600px){ .content { padding: 36px 20px 60px; } }
+  .section { margin-bottom: 52px; }
+  .section-label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; font-weight: 600; }
+  .section p { font-size: .95rem; color: var(--muted); line-height: 1.8; max-width: 640px; margin-bottom: 16px; }
+  .results-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .results-list li { display: flex; align-items: flex-start; gap: 10px; font-size: .9rem; color: var(--muted); line-height: 1.65; }
+  .results-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 8px; }
+  .results-list li strong { color: var(--text); }
+
+  /* Screenshot grid */
+  .screenshots { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .screenshots img { width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block; transition: opacity .2s; }
+  .screenshots img:hover { opacity: .85; }
+  .screenshots.col2 { grid-template-columns: repeat(2, 1fr); }
+  .screenshots.col1 { grid-template-columns: 1fr; }
+  .screenshots.col3 { grid-template-columns: repeat(3, 1fr); }
+  @media(max-width:680px){ .screenshots, .screenshots.col2, .screenshots.col3 { grid-template-columns: 1fr; } }
+
+  /* doc style image — white bg */
+  .screenshots img.doc { background: #fff; object-fit: contain; }
+
+  /* Caption sub-label */
+  .sub-label { font-size: .72rem; color: var(--muted); margin-top: 8px; margin-bottom: 20px; font-style: italic; }
+  .screenshots.equal-h img { height: 480px; object-fit: cover; object-position: top; }
+  @media(max-width:600px){ .screenshots.equal-h img { height: 280px; } }
+
+  .proj-footer { border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; padding: 40px 40px 80px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+  .back-link:hover { color: var(--text); }
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 20px; border-radius: 8px; font-size: .85rem; font-weight: 700; text-decoration: none; transition: opacity .2s, transform .15s; border: none; cursor: pointer; }
+  .btn:hover { opacity: .85; transform: translateY(-1px); }
+  .btn-primary { background: linear-gradient(135deg,#6e6ef9,#a78bfa); color: #fff; }
+  @media(max-width:600px){ .proj-footer { padding: 28px 20px 60px; } }
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="home.html">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    張宸禎 Portfolio
+  </a>
+  <ul>
+    <li><a href="about.html">關於我</a></li>
+    <li><a href="mailto:stud9372@gmail.com">聯絡</a></li>
+  </ul>
+</nav>
+
+<div class="proj-cover" style="padding-top:32px;">
+  <img src="cover_01_gamapass.png" alt="GamaPass">
+</div>
+
+<div class="project-hero" style="padding-top:36px; padding-bottom:40px;">
+  <div class="proj-num">01 — 帳號系統 · 2024</div>
+  <div class="proj-badges">
+    <span class="badge">帳號系統</span>
+    <span class="badge">移轉設計</span>
+    <span class="badge">0→1 建構</span>
+  </div>
+  <div class="proj-meta">
+    <div class="meta-item"><div class="meta-label">年份</div><div class="meta-val">2024</div></div>
+    <div class="meta-item"><div class="meta-label">角色</div><div class="meta-val">資深產品設計師（主導）</div></div>
+    <div class="meta-item"><div class="meta-label">上線</div><div class="meta-val">2024</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="section">
+    <div class="section-label">背景與問題</div>
+    <p>橘子集團旗下有閑、beanfun!、遊戲橘子等服務各自維運獨立帳號系統，不同產品的用戶無法互通，管理成本高且用戶體驗割裂。</p>
+    <p>在安全性以及遊戲用戶多帳號的複雜情境下，設計低摩擦的跨服務移轉流程等複雜邊緣情境。</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">透過架構工具，取得共識</div>
+    <p>先梳理集團各平台的帳號狀態與用戶流，規劃整體帳號 IA，定義移轉前、中、後三個核心情境，再拆解各功能模組進行設計。</p>
+    <div class="screenshots col2" style="margin-top:16px;">
+      <img src="作品集素材/Gamapass/移轉/gamapass_初始規劃1.png" alt="初始架構規劃">
+      <img src="作品集素材/Gamapass/Gamapass_01.png" alt="移轉規劃文件">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">登入與帳號建立</div>
+    <p>設計 Keypage 作為統一登入入口，支援手機、信箱、第三方多種登入方式，並處理新舊裝置驗證、密碼重設等各式情境。</p>
+    <div class="screenshots equal-h">
+      <img src="作品集素材/作品集使用/Gamapass_登入.png" alt="登入頁面">
+      <img src="作品集素材/Gamapass/Keypage.png" alt="Keypage">
+      <img src="作品集素材/Gamapass/登入設定.png" alt="登入設定">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">設計考量一致性 及 減少過度設計</div>
+    <p>針對既有 beanfun! 用戶設計升級入口與移轉確認流程，確保資料完整遷移，同時保留選擇權讓用戶自主決定是否移轉。需處理帳號合併、手機號碼重複等多種邊緣情境。</p>
+    <div class="screenshots">
+      <img src="作品集素材/作品集使用/Gamapass_移轉.png" alt="移轉流程">
+      <img src="作品集素材/Gamapass/移轉/Keypage_登入(bf!升級入口).png" alt="beanfun! 升級入口">
+      <img src="作品集素材/Gamapass/會員中心.png" alt="會員中心">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">安全性設計</div>
+    <p>引入裝置管理與 Passkey 機制，提升帳號安全性，並設計引導流程降低用戶啟用阻力。</p>
+    <div class="screenshots">
+      <img src="作品集素材/Gamapass/安全裝置設定.png" alt="安全裝置">
+      <img src="作品集素材/Gamapass/Passkey 引導.png" alt="Passkey 引導">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">成果</div>
+    <ul class="results-list">
+      <li><strong>2024/05/22 正式上線</strong>，完成集團多平台會員帳戶整合與移轉</li>
+      <li>整合遊戲橘子會員數據，提升帳戶管理效率</li>
+      <li>確保會員體驗順暢過渡，為後續集團服務奠定基礎</li>
+      <li>建立跨部門 <strong>DQC 設計品質檢驗流程</strong>，確保開發還原度</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="proj-footer">
+  <a class="back-link" href="home.html">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    回到作品集
+  </a>
+  <a href="mailto:stud9372@gmail.com?subject=作品集詢問 — GamaPass — 從 0 到 1" class="btn btn-primary">聯絡我</a>
+</div>
+
+<div id="lb" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;cursor:zoom-out;align-items:center;justify-content:center;">
+  <img id="lb-img" src="" style="max-width:90vw;max-height:90vh;border-radius:8px;object-fit:contain;">
+</div>
+<script>
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lb-img');
+document.querySelectorAll('.screenshots img').forEach(img=>{
+  img.style.cursor='zoom-in';
+  img.addEventListener('click',e=>{lbImg.src=img.src;lb.style.display='flex';e.stopPropagation();});
+});
+lb.addEventListener('click',()=>{lb.style.display='none';lbImg.src='';});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.style.display='none';lbImg.src='';}});
+</script>
+</body>
+</html>

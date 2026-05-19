@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/png" href="anubis.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jill-Design</title>
+  <style>
+  :root {
+    --bg: #0e0e10; --surface: #1a1a1f; --surface2: #242429;
+    --border: #2e2e36; --accent: #6e6ef9; --accent2: #a78bfa;
+    --cyan: #22d3ee; --text: #f0f0f5; --muted: #8888a0; --r: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text);
+    font-family: -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+    line-height: 1.7; }
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(14,14,16,.92); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    height: 60px; padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .logo { font-weight: 700; font-size: .95rem; letter-spacing: .05em;
+    display: flex; align-items: center; gap: 6px; color: var(--muted);
+    text-decoration: none; }
+  nav .logo:hover { color: var(--text); }
+  nav ul { list-style: none; display: flex; gap: 24px; }
+  nav a { color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+  nav a:hover { color: var(--text); }
+  @media(max-width:600px){ nav { padding: 0 20px; } }
+
+  .project-hero { max-width: 900px; margin: 0 auto; padding: 72px 40px 56px; border-bottom: 1px solid var(--border); }
+  @media(max-width:600px){ .project-hero { padding: 48px 20px 40px; } }
+  .proj-num { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
+  .proj-title { font-size: clamp(2rem,5vw,3.5rem); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 12px; }
+  .proj-subtitle { font-size: 1rem; color: var(--muted); max-width: 600px; margin-bottom: 20px; }
+  .proj-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .badge { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); font-size: .72rem; padding: 4px 11px; border-radius: 100px; letter-spacing: .04em; }
+  .badge.hi { background: linear-gradient(135deg,#22d3ee18,#6e6ef918); border-color: #22d3ee50; color: var(--cyan); }
+  .proj-meta { display: flex; gap: 32px; flex-wrap: wrap; }
+  .meta-item .meta-label { color: var(--muted); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 3px; }
+  .meta-item .meta-val { font-size: .9rem; font-weight: 600; }
+
+  .proj-cover { max-width: 900px; margin: 0 auto; padding: 40px 40px 0; }
+  .proj-cover img { width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block; }
+  @media(max-width:600px){ .proj-cover { padding: 24px 20px 0; } }
+
+  .content { max-width: 900px; margin: 0 auto; padding: 56px 40px 80px; }
+  @media(max-width:600px){ .content { padding: 36px 20px 60px; } }
+  .section { margin-bottom: 52px; }
+  .section-label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; font-weight: 600; }
+  .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+  .section p { font-size: .95rem; color: var(--muted); line-height: 1.8; max-width: none; margin-bottom: 16px; }
+  .results-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .results-list li { display: flex; align-items: flex-start; gap: 10px; font-size: .9rem; color: var(--muted); line-height: 1.65; }
+  .results-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 8px; }
+  .results-list li strong { color: var(--text); }
+
+  /* Screenshot grid */
+  .screenshots { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .screenshots img { width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block; transition: opacity .2s; }
+  .screenshots img:hover { opacity: .85; }
+  .screenshots.col2 { grid-template-columns: repeat(2, 1fr); }
+  .screenshots.col1 { grid-template-columns: 1fr; }
+  .screenshots.equal-h img { height: 320px; object-fit: cover; object-position: center; }
+  @media(max-width:600px){ .screenshots, .screenshots.col2 { grid-template-columns: 1fr; } }
+
+  /* Caption sub-label */
+  .sub-label { font-size: .72rem; color: var(--muted); margin-top: 8px; margin-bottom: 20px; font-style: italic; }
+
+  .proj-footer { border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; padding: 40px 40px 80px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+  .back-link:hover { color: var(--text); }
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 20px; border-radius: 8px; font-size: .85rem; font-weight: 700; text-decoration: none; transition: opacity .2s, transform .15s; border: none; cursor: pointer; }
+  .btn:hover { opacity: .85; transform: translateY(-1px); }
+  .btn-primary { background: linear-gradient(135deg,#6e6ef9,#a78bfa); color: #fff; }
+  @media(max-width:600px){ .proj-footer { padding: 28px 20px 60px; } }
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="home.html">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    張宸禎 Portfolio
+  </a>
+  <ul>
+    <li><a href="about.html">關於我</a></li>
+    <li><a href="mailto:stud9372@gmail.com">聯絡</a></li>
+  </ul>
+</nav>
+
+<div class="proj-cover" style="padding-top:32px;">
+  <img src="cover_03_moment.png" alt="Moment">
+</div>
+
+<div class="project-hero" style="padding-top:36px; padding-bottom:40px;">
+  <div class="proj-num">03 — 工具設計 · 2024</div>
+  <div class="proj-badges">
+    <span class="badge">工作坊共創</span>
+    <span class="badge">核心功能開發</span>
+    <span class="badge">產品轉型</span>
+  </div>
+  <div class="proj-meta">
+    <div class="meta-item"><div class="meta-label">年份</div><div class="meta-val">2024</div></div>
+    <div class="meta-item"><div class="meta-label">角色</div><div class="meta-val">資深產品設計師（主導）</div></div>
+    <div class="meta-item"><div class="meta-label">上線</div><div class="meta-val">2024/10</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="section">
+    <div class="section-label">工作坊共創 · 產品落地</div>
+    <p>這個專案的起點是一份問卷。我們從 TA 中找到一個共同痛點：「無法整理、回顧追星旅程與投入成果」。</p>
+    <p>但這個問題大得難以直接設計。「追星的投入成果」是什麼？追韓團跟台灣明星的答案會一樣嗎？我們決定先不急著給答案——而是把公司裡真正熱愛追星的人找來，一起探索。</p>
+    <p>工作坊當天，我請每個人帶來一件自己追星時留下的小物。大家互相猜：這個人為什麼會留著這個？當下是什麼感受？這個破冰環節讓整個房間一下子活了——因為每個人心裡都有一個只有自己才懂的追星邏輯。</p>
+    <div class="screenshots col2 equal-h">
+      <img src="作品集素材/工作方/工作方照片.jpg" alt="工作坊現場">
+      <img src="作品集素材/0513版本/Moment專案/Moment專案_圖片1.png" alt="工作坊小物">
+    </div>
+    <p>破冰之後進入 Crazy Eight 腦力激盪，把大家腦中的奇思妙想先全部榨出來；接著看現有市面上的紀錄 app，為方向做第一次收斂；最後我用自製的翻轉卡，讓大家對自己的想法再挑戰一輪。</p>
+    <div class="screenshots col2">
+      <img src="作品集素材/0513版本/Moment專案/Moment專案_圖片2.png" alt="Crazy Eight 發散">
+      <img src="作品集素材/0513版本/Moment專案/Moment專案_圖片3-3.png" alt="方向收斂">
+    </div>
+    <p>但說實話，工作坊結束後才是最精彩的部分。我帶著滿桌的便利貼，從故事脈絡開始抽絲剝繭——找原因、找機會，從「留下紀錄」到「彰顯價值」到「持續動力」，一步步轉化成方案概念。再和 PM 團隊對焦目的、排定優先級，完成提案。</p>
+
+  </div>
+
+  <div class="section">
+    <div class="section-label">背景與問題</div>
+    <p>hidol 上線後轉向從 IP 主力轉為粉絲向。透過訪談發現粉絲有大量「想記錄和 IP 相遇時刻」的剛需，但市面上沒有專為追星場景設計的工具。再以工作坊快速發散與收斂出紀錄工具——Moment 以剛需為切入點，讓粉絲記錄日常追星行為。</p>
+    <div class="screenshots col2" style="margin-top:20px;">
+      <img src="作品集素材/0513版本/Moment專案/Moment專案_圖片3-3.png" alt="功能方向收斂">
+      <img src="作品集素材/0513版本/Moment專案/Moment專案_圖片4.png" alt="提案收斂">
+    </div>
+    <p style="color:var(--text); font-weight:600; margin-top:20px;">Moment，就從這裡開始成形。</p>
+    <div class="screenshots col2" style="margin-top:20px;">
+      <img src="作品集素材/Moment/Moment_個人檔案.PNG" alt="Moment 個人檔案頁">
+      <img src="作品集素材/Moment/Moment_內頁.PNG" alt="Moment 內頁">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">成果</div>
+    <ul class="results-list">
+      <li>App 端 <strong>2024 年 10 月</strong>上線，Web 端 11 月完整上線</li>
+      <li>成功將「工具剛需」轉化為平台核心功能</li>
+      <li>12 月起持續強化應用動機與流程優化</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="proj-footer">
+  <a class="back-link" href="home.html">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    回到作品集
+  </a>
+  <a href="mailto:stud9372@gmail.com?subject=作品集詢問 — Moment — 紀錄型粉絲工具" class="btn btn-primary">聯絡我</a>
+</div>
+
+<div id="lb" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;cursor:zoom-out;align-items:center;justify-content:center;">
+  <img id="lb-img" src="" style="max-width:90vw;max-height:90vh;border-radius:8px;object-fit:contain;">
+</div>
+<script>
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lb-img');
+document.querySelectorAll('.screenshots img').forEach(img=>{
+  img.style.cursor='zoom-in';
+  img.addEventListener('click',e=>{lbImg.src=img.src;lb.style.display='flex';e.stopPropagation();});
+});
+lb.addEventListener('click',()=>{lb.style.display='none';lbImg.src='';});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.style.display='none';lbImg.src='';}});
+</script>
+</body>
+</html>
