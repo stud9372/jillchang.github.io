@@ -52,7 +52,7 @@
   .section { margin-bottom: 52px; }
   .section-label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; font-weight: 600; }
   .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
-  .section p { font-size: .95rem; color: var(--muted); line-height: 1.8; max-width: 640px; margin-bottom: 16px; }
+  .section p { font-size: .95rem; color: var(--muted); line-height: 1.8; max-width: none; margin-bottom: 16px; }
   .results-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
   .results-list li { display: flex; align-items: flex-start; gap: 10px; font-size: .9rem; color: var(--muted); line-height: 1.65; }
   .results-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 8px; }
@@ -113,13 +113,19 @@
 <div class="content">
 
   <div class="section">
-    <div class="section-label">背景與問題</div>
-    <p>hidol 數據顯示用戶完成互動後缺乏成就感與回訪動機，需要正向反饋循環。結合用戶體驗與遊戲化，完成成就任務旅程，成功達成互動、停留率的提升。</p>
+    <div class="section-label">產品背景</div>
+    <p>hidol 是以粉絲為核心的社群平台，用戶的日常行為包含發文、互動、追蹤偶像動態。平台上線一段時間後，數據顯示一個問題：用戶完成互動之後，缺乏成就感與回訪的動機。他們做了事，但感覺不到被看見。</p>
   </div>
 
   <div class="section">
-    <div class="section-label">任務狀態設計</div>
-    <p>定義累積任務、比拼任務、得獎情境等多種任務類型，為每種狀態設計完整的視覺呈現（default / active / done / 已結束）。</p>
+    <div class="section-label">功能目標</div>
+    <p>成就系統要解決的核心問題是建立正向反饋循環，讓每一個小行動都有即時回應，讓「累積感」變成用戶留下來的理由。</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">切入點</div>
+    <p>專案啟動時，團隊對「任務」的想像不在同一個維度——設計、PM、營運各自有各自的畫面，討論繞了很久沒有辦法落地。我的切入點是先把共同的目標行為具體化：把互動次數、黏著度這些方向，對應回用戶實際會做的動作，建成一套任務旅程飛輪。框架一出來，大家突然有了共同語言——不是我說服了誰，而是站在同一張圖前面，討論開始往同一個方向走。</p>
+    <p>卡最久的競爭型任務爭議也在這個過程裡解開了。營運擔心競爭會破壞產品調性，透過飛輪結構讓大家看見：累積是核心記錄，競爭是點綴刺激，比例對了兩者不衝突。這個結論是大家一起看出來的。</p>
     <div class="screenshots col2 equal-h">
       <img src="作品集素材/成就相關截圖/任務飛輪.png" alt="任務飛輪設計">
       <img src="作品集素材/成就相關截圖/成就任務頁面.png" alt="成就任務頁面">
@@ -138,7 +144,7 @@
   <div class="section">
     <div class="section-label">成果</div>
     <ul class="results-list">
-      <li><strong>2025 年 7 月</strong>正式上線</li>
+      <li><strong>2025/07</strong> 正式上線</li>
       <li>上線兩週用戶停留與互動率 <strong>提升 150%</strong></li>
     </ul>
     <div class="screenshots col2 sm" style="margin-top:24px;">

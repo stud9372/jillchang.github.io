@@ -51,7 +51,7 @@
   @media(max-width:600px){ .content { padding: 36px 20px 60px; } }
   .section { margin-bottom: 52px; }
   .section-label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; font-weight: 600; }
-  .section p { font-size: .95rem; color: var(--muted); line-height: 1.8; max-width: 640px; margin-bottom: 16px; }
+  .section p { font-size: .95rem; color: var(--muted); line-height: 1.8; max-width: none; margin-bottom: 16px; }
   .results-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
   .results-list li { display: flex; align-items: flex-start; gap: 10px; font-size: .9rem; color: var(--muted); line-height: 1.65; }
   .results-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 8px; }
@@ -117,8 +117,8 @@
 
   <div class="section">
     <div class="section-label">背景與問題</div>
-    <p>橘子集團旗下有閑、beanfun!、遊戲橘子等服務各自維運獨立帳號系統，不同產品的用戶無法互通，管理成本高且用戶體驗割裂。</p>
-    <p>在安全性以及遊戲用戶多帳號的複雜情境下，設計低摩擦的跨服務移轉流程等複雜邊緣情境。</p>
+    <p>橘子集團旗下有閑、beanfun!、遊戲橘子等服務各自維運獨立帳號系統，不同產品用戶無法互通，管理成本高且體驗割裂。GamaPass 的目標是從零建立統一會員平台，讓跨服務的帳號移轉可以順暢發生。</p>
+    <p>需求方的立場很明確：流程越短越好，才能提升移轉率。但用戶對帳號安全的敏感度很高，流程縮得太短，省掉的不是摩擦，而是安全感。用戶沒有安全感，才是真正的轉換障礙。設計上的判斷因此有兩個方向並行：一是在關鍵步驟加入必要的說明與確認，讓用戶清楚自己在做什麼；二是透過視覺一致性與減少過度設計，讓整體畫面和流程本身就傳遞出可信賴的感覺，不靠額外說明，用戶看到介面就感覺安心。</p>
   </div>
 
   <div class="section">
@@ -162,10 +162,8 @@
   <div class="section">
     <div class="section-label">成果</div>
     <ul class="results-list">
-      <li><strong>2024/05/22 正式上線</strong>，完成集團多平台會員帳戶整合與移轉</li>
+      <li><strong>2024/05/22 正式上線</strong>，完成集團多平台會員帳號整合與移轉</li>
       <li>整合遊戲橘子會員數據，提升帳戶管理效率</li>
-      <li>確保會員體驗順暢過渡，為後續集團服務奠定基礎</li>
-      <li>建立跨部門 <strong>DQC 設計品質檢驗流程</strong>，確保開發還原度</li>
     </ul>
   </div>
 
