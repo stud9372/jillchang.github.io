@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <link rel="icon" type="image/png" href="anubis.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jill-Design</title>
+  <title>hidol 0→1 社群平台 — 張宸禎 Portfolio</title>
   <style>
   :root {
     --bg: #0e0e10; --surface: #1a1a1f; --surface2: #242429;
@@ -15,6 +15,7 @@
   body { background: var(--bg); color: var(--text);
     font-family: -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
     line-height: 1.7; }
+
   nav {
     position: sticky; top: 0; z-index: 100;
     background: rgba(14,14,16,.92); backdrop-filter: blur(14px);
@@ -31,6 +32,7 @@
   nav a:hover { color: var(--text); }
   @media(max-width:600px){ nav { padding: 0 20px; } }
 
+  /* Hero */
   .project-hero { max-width: 900px; margin: 0 auto; padding: 72px 40px 56px; border-bottom: 1px solid var(--border); }
   @media(max-width:600px){ .project-hero { padding: 48px 20px 40px; } }
   .proj-num { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
@@ -43,37 +45,110 @@
   .meta-item .meta-label { color: var(--muted); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 3px; }
   .meta-item .meta-val { font-size: .9rem; font-weight: 600; }
 
+  /* Cover */
   .proj-cover { max-width: 900px; margin: 0 auto; padding: 40px 40px 0; }
   .proj-cover img { width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block; }
   @media(max-width:600px){ .proj-cover { padding: 24px 20px 0; } }
 
+  /* Content */
   .content { max-width: 900px; margin: 0 auto; padding: 56px 40px 80px; }
   @media(max-width:600px){ .content { padding: 36px 20px 60px; } }
-  .section { margin-bottom: 52px; }
+  .section { margin-bottom: 60px; }
   .section-label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; font-weight: 600; }
-  .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
   .section p { font-size: .95rem; color: var(--muted); line-height: 1.8; max-width: none; margin-bottom: 16px; }
+  .sub-label { font-size: .72rem; color: var(--muted); margin-top: 8px; margin-bottom: 20px; font-style: italic; }
+
+  /* Screenshots */
+  .screenshots { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .screenshots img { width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block; transition: opacity .2s; cursor: zoom-in; }
+  .screenshots img:hover { opacity: .85; }
+  .screenshots.col2 { grid-template-columns: repeat(2, 1fr); }
+  .screenshots.col1 { grid-template-columns: 1fr; }
+  .screenshots.col4 { grid-template-columns: repeat(4, 1fr); }
+  @media(max-width:720px){ .screenshots.col4 { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width:600px){ .screenshots, .screenshots.col2 { grid-template-columns: 1fr; } }
+  .screenshots.equal-h img { height: 340px; object-fit: contain; background: transparent; }
+  @media(max-width:600px){ .screenshots.equal-h img { height: 220px; } }
+
+  /* Results list */
   .results-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
   .results-list li { display: flex; align-items: flex-start; gap: 10px; font-size: .9rem; color: var(--muted); line-height: 1.65; }
   .results-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 8px; }
   .results-list li strong { color: var(--text); }
 
-  /* Screenshot grid */
-  .screenshots { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
-  .screenshots img { width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block; transition: opacity .2s; }
-  .screenshots img:hover { opacity: .85; }
-  .screenshots.col2 { grid-template-columns: repeat(2, 1fr); }
-  .screenshots.col1 { grid-template-columns: 1fr; }
-  @media(max-width:600px){ .screenshots, .screenshots.col2 { grid-template-columns: 1fr; } }
+  /* Insight callout */
+  .insight-box {
+    background: linear-gradient(135deg, rgba(110,110,249,.08), rgba(167,139,250,.06));
+    border: 1px solid rgba(110,110,249,.28);
+    border-radius: 12px;
+    padding: 22px 26px;
+    margin: 24px 0;
+  }
+  .insight-box .ib-label { font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
+  .insight-box p { font-size: .95rem; color: var(--text); line-height: 1.75; margin: 0; font-style: italic; }
 
-  /* Caption sub-label */
-  .sub-label { font-size: .72rem; color: var(--muted); margin-top: 8px; margin-bottom: 20px; font-style: italic; }
-  .screenshots.col4 { grid-template-columns: repeat(4, 1fr); }
-  @media(max-width:720px){ .screenshots.col4 { grid-template-columns: repeat(2, 1fr); } }
-  @media(max-width:480px){ .screenshots.col4 { grid-template-columns: 1fr; } }
-  .screenshots.equal-h img { height: 340px; object-fit: contain; background: transparent; }
-  @media(max-width:600px){ .screenshots.equal-h img { height: 220px; } }
+  /* Design detail — two-column layout: text left, image right */
+  .detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+    margin: 24px 0;
+  }
+  .detail-layout .detail-text { display: flex; flex-direction: column; gap: 14px; }
+  .detail-layout .detail-text p { font-size: .9rem; color: var(--muted); line-height: 1.8; margin: 0; }
+  .detail-layout .detail-img img { width: 100%; border-radius: 10px; border: 1px solid var(--border); display: block; }
+  @media(max-width:680px){ .detail-layout { grid-template-columns: 1fr; } }
 
+  /* Color pill */
+  .color-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0 8px; }
+  .color-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 100px; padding: 6px 14px 6px 8px;
+    font-size: .8rem; color: var(--text);
+  }
+  .color-swatch { width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Tradeoff card */
+  .tradeoff-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .tradeoff-card {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px;
+  }
+  .tradeoff-card .tc-label { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 8px; }
+  .tradeoff-card .tc-main { font-size: .9rem; color: var(--text); line-height: 1.65; font-weight: 600; margin-bottom: 6px; }
+  .tradeoff-card .tc-sub { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+  .tradeoff-card.cut { border-color: rgba(239,68,68,.25); }
+  .tradeoff-card.cut .tc-label { color: #f87171; }
+  .tradeoff-card.keep { border-color: rgba(110,110,249,.3); }
+  .tradeoff-card.keep .tc-label { color: var(--accent2); }
+  @media(max-width:540px){ .tradeoff-row { grid-template-columns: 1fr; } }
+
+  /* Horizontal scroll showcase */
+  .scroll-wrap { position: relative; margin: 28px 0 8px; }
+  .scroll-track {
+    display: flex; gap: 14px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    padding-bottom: 12px; padding-right: 40px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+  }
+  .scroll-track::-webkit-scrollbar { height: 4px; }
+  .scroll-track::-webkit-scrollbar-track { background: transparent; }
+  .scroll-track::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .scroll-item {
+    flex: 0 0 auto; scroll-snap-align: start;
+    width: 200px;
+  }
+  .scroll-item img {
+    width: 100%; border-radius: 10px; border: 1px solid var(--border);
+    display: block; cursor: zoom-in; transition: opacity .2s;
+  }
+  .scroll-item img:hover { opacity: .85; }
+  .scroll-item .si-cap { font-size: .68rem; color: var(--muted); margin-top: 6px; text-align: center; }
+
+  /* Footer */
   .proj-footer { border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; padding: 40px 40px 80px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
   .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
   .back-link:hover { color: var(--text); }
@@ -81,9 +156,14 @@
   .btn:hover { opacity: .85; transform: translateY(-1px); }
   .btn-primary { background: linear-gradient(135deg,#6e6ef9,#a78bfa); color: #fff; }
   @media(max-width:600px){ .proj-footer { padding: 28px 20px 60px; } }
+
+  /* Lightbox */
+  #lb { display:none; position:fixed; inset:0; background:rgba(0,0,0,.88); z-index:1000; cursor:zoom-out; align-items:center; justify-content:center; }
+  #lb-img { max-width:90vw; max-height:90vh; border-radius:8px; object-fit:contain; }
 </style>
 </head>
 <body>
+
 <nav>
   <a class="logo" href="home.html">
     <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
@@ -95,14 +175,20 @@
   </ul>
 </nav>
 
+<!-- Cover first -->
 <div class="proj-cover" style="padding-top:32px;">
-  <img src="cover_02_hidol.png" alt="hidol">
+  <img src="cover_02_hidol.png" alt="hidol 社群平台">
 </div>
 
-<div class="project-hero" style="padding-top:36px; padding-bottom:40px;">
+<!-- Hero below cover -->
+<div class="project-hero" style="padding-top:40px; padding-bottom:44px;">
   <div class="proj-num">02 — 社群平台 · 2024</div>
+  <h1 class="proj-title">hidol — 從 0 到 1</h1>
+  <p class="proj-subtitle">以「讓 IP 發光」為核心設計觀，在策略對齊與設計執行同步推進中，打造一個讓粉絲感受到懂我的社群平台</p>
   <div class="proj-badges">
     <span class="badge">0→1 建構</span>
+    <span class="badge">設計策略</span>
+    <span class="badge">視覺系統</span>
     <span class="badge">工作坊</span>
   </div>
   <div class="proj-meta">
@@ -114,77 +200,186 @@
 
 <div class="content">
 
+  <!-- Section 1: 背景與核心洞察 -->
   <div class="section">
-    <div class="section-label">背景與問題</div>
+    <div class="section-label">背景與核心洞察</div>
     <p>hidol 是遊戲橘子從 beanfun! 轉型後的全新粉絲社群平台，從零啟動。轉型初期，討論容易陷入「舊功能要不要帶過來」的細節爭論，而非聚焦在新產品真正要解決的問題。</p>
-    <p>我的第一步是把討論拉回核心：這些功能是否符合新產品目的？但更根本的問題在於——hidol 的 IP 定義是什麼？動漫、圖文創作者、還是演藝明星？定義不清，MVP 就無法收斂。我們用需求金字塔把不同類型 IP 的用戶需求攤開，結合集團現有資源，判斷哪種 IP 是短期內最有條件操作的切入點。策略有了依據，取捨才有辦法真正落地。</p>
-    <div class="screenshots col2" style="margin-top:16px;">
-      <img src="作品集素材/0-1專案_hidol/hidol＿初始5.png" alt="工作坊討論">
-      <img src="作品集素材/0-1專案_hidol/0-1_002.png" alt="設計執行">
+    <p>我的第一步是把討論拉回核心——用需求金字塔把不同類型 IP 的用戶需求攤開，結合集團現有資源，找出哪種 IP 是短期內最有條件切入的。策略有了依據，取捨才有辦法真正落地。</p>
+    <p>隨著框架越來越清晰，一個核心洞察浮現出來：粉絲不只是想要「另一個追星 app」，他們真正想要的是一個<strong style="color:var(--text)">懂我熱愛的地方</strong>——和同溫層的連結感、被 IP 看見的距離感、以及能把個人喜好化為身分認同的空間。這個洞察成為 hidol 整體設計的起點。</p>
+
+    <div class="screenshots col2" style="margin-top:20px;">
+      <img src="作品集素材/0-1專案_hidol/hidol＿初始5.png" alt="工作坊討論過程">
+      <img src="作品集素材/0-1專案_hidol/hidol_02_direction 1.png" alt="策略方向梳理">
+    </div>
+    <p class="sub-label">工作坊討論 → 需求金字塔 → 策略方向對齊</p>
+  </div>
+
+  <!-- Section 2: 視覺底色 -->
+  <div class="section">
+    <div class="section-label">視覺底色 · 讓 IP 成為唯一主角</div>
+
+    <div class="insight-box">
+      <div class="ib-label">核心設計觀</div>
+      <p>「平台本身是底色，最精彩的永遠是 IP 與粉絲之間的故事。」</p>
+    </div>
+
+    <p>這個設計觀定義了 hidol 整個視覺系統的方向：平台本身不能搶戲，要成為最好的承載容器，把 IP 與粉絲之間的情感連結放在最顯眼的位置。</p>
+    <p>具體落地在視覺決策上，就是選擇了深色系作為整體基調。深色介面本身低調沉穩，不干擾 IP 的主題色與圖像，讓每一個粉絲團都能在同一套框架下發展出截然不同的視覺風格。為了在深色背景上保持層次感又不顯笨重，我們的色板捨棄純白，改用多階透明度來構築視覺層次：</p>
+
+    <div class="detail-layout">
+      <div class="detail-text">
+        <p>介面中的文字、底板、分隔線，全部來自同一個白色基礎色，以 <strong style="color:var(--text)">95% / 90% / 80% / 70%</strong> 四個透明度區間進行區分。這讓整個介面的灰階過渡保持和諧，不同 IP 主題疊上來時，底層的灰度關係也不會失控。</p>
+        <p>這個決策的另一層考量是工程效率——單一基礎色搭配透明度，比維護多組靜態灰色值更容易保持一致性，也更容易讓不同工程師的實作結果對齊設計稿。</p>
+      </div>
+      <div class="detail-img">
+        <img src="作品集素材/0-1專案_hidol/system_alpha_crop.png" alt="Alpha 透明度色表">
+        <p class="sub-label">Alpha 色表：以透明度取代靜態灰階，統一介面層次</p>
+      </div>
     </div>
   </div>
 
+  <!-- Section 3: 色彩語言與 IP 情感編碼 -->
   <div class="section">
-    <div class="section-label">Step 1 · 初始結論與產品方向</div>
-    <p>對新方向與舊產品的取捨達成基本共識後，梳理 hidol 的經營模式與平台服務層次——明確核心體驗的邊界，避免過度發散。</p>
-    <p>接著透過白板便利貼工作坊，將 MVP 範疇完整攤開，讓每個功能的「進或不進」都有明確依據。這一步讓團隊從分散的假設走向第一次真正的對焦，也成為後續設計全面展開的起點。</p>
-    <div class="screenshots col2" style="margin-top:16px;">
-      <img src="作品集素材/0-1專案_hidol/hidol_05_design1 1.png" alt="設計方向">
-      <img src="作品集素材/0-1專案_hidol/hidol_02_direction 1.png" alt="產品方向">
+    <div class="section-label">色彩語言 · IP 情感的視覺編碼</div>
+    <p>hidol 的介面裡存在三種視覺主體：IP 本身的品牌色、平台的官方行為、以及粉絲的互動行為。為了讓用戶在無須閱讀文字的情況下就能辨認脈絡，我們為每種主體制定了專屬的色彩語意。</p>
+
+    <div class="detail-layout" style="margin-top:24px;">
+      <div class="detail-img">
+        <img src="作品集素材/作品集使用/hidol_粉絲團首頁.PNG" alt="粉絲團首頁 — IP 色彩編碼">
+        <p class="sub-label">粉絲團首頁：三層色彩語意在同一個頁面共存</p>
+      </div>
+      <div class="detail-text">
+        <div class="color-row" style="flex-direction:column; gap:10px;">
+          <div class="color-pill">
+            <span class="color-swatch" style="background:#FF3B80;"></span>
+            粉色（#FF3B80）— IP 發文、心動互動
+          </div>
+          <div class="color-pill">
+            <span class="color-swatch" style="background:#7B5FE0;"></span>
+            紫色（#7B5FE0）— 官方活動、平台公告
+          </div>
+          <div class="color-pill">
+            <span class="color-swatch" style="background:rgba(110,110,249,.7);"></span>
+            五角形 icon — IP 身分識別標記
+          </div>
+        </div>
+        <p style="margin-top:16px;">其中最細膩的是「翻牌留言」的色彩邏輯。IP 貼文下的留言，只有 IP 主動回覆才會出現粉色高亮；沒被回應的留言維持灰色靜默。粉色在頁面中具有稀缺感——出現了，就代表被看見了。</p>
+      </div>
+    </div>
+
+    <div class="screenshots col1" style="margin-top:16px; max-width:320px;">
+      <img src="作品集素材/0-1專案_hidol/IP翻牌留言.png" alt="IP 翻牌留言 — 粉色高亮示意">
+    </div>
+    <p class="sub-label">翻牌留言：IP 回覆後粉色高亮，未翻牌維持灰色靜默</p>
+  </div>
+
+  <!-- Section 4: 取捨決策 -->
+  <div class="section">
+    <div class="section-label">取捨決策 · 架構盤點中的正式斷捨離</div>
+    <p>MVP 範疇收斂過程中，最關鍵的一個取捨來自舊產品線。轉型初期，團隊對舊產品的部分功能抱持「也許可以沿用」的心態，其中討論最多的是原有的展示品功能系統（SHOW）。隨著新平台的 IA 架構逐步清晰，我們一起盤點了每個模組與 hidol 核心定位的關係——最終，SHOW 功能正式從路線圖中移除：</p>
+
+    <div class="tradeoff-row">
+      <div class="tradeoff-card cut">
+        <div class="tc-label">捨棄</div>
+        <div class="tc-main">舊產品展示品功能（SHOW）</div>
+        <div class="tc-sub">SHOW 是針對舊產品用戶行為設計的模組，邏輯與 hidol 以「粉絲社群互動」為核心的 IA 不相容。強行帶入會稀釋平台定位，也會增加用戶的認知負擔。架構盤點後正式移除，讓新平台的結構更純粹。</div>
+      </div>
+      <div class="tradeoff-card keep">
+        <div class="tc-label">保留並簡化</div>
+        <div class="tc-main">周邊商品入口（串接集團電商）</div>
+        <div class="tc-sub">周邊購買保留作為 IP 體驗的延伸入口，但不自建金流與物流——直接串接集團既有電商平台，免去重複建造的複雜度，設計端只需聚焦在粉絲從互動到購買的情境銜接。</div>
+      </div>
+    </div>
+
+    <div class="screenshots col1" style="margin-top:20px;">
+      <img src="作品集素材/0-1專案_hidol/hidol_初始結論圖.png" alt="MVP 功能架構圖 — 取捨決策">
+    </div>
+    <p class="sub-label">MVP 功能架構：框線標示的區塊為第一版刻意延後或捨棄的範疇</p>
+  </div>
+
+  <!-- Section 5: 設計執行 -->
+  <div class="section">
+    <div class="section-label">設計執行 · 多模組並行</div>
+    <p>方向確立後，設計團隊展開分工。我主導的範疇涵蓋多條並行線：創作者平台基礎建設（內容排程、粉絲團管理、數據分析、人員權限管理）、即時互動體驗、以及整體視覺系統的建立與落地。</p>
+    <p>多模組同時推進意味著每個決策都不是獨立的——IA 結構的一個選擇，會同時影響創作者端與用戶端的體驗邏輯。設計過程中持續與工程、PM 協作對齊，確保每個模組在技術可行性與用戶體驗之間取得平衡。</p>
+
+    <div class="screenshots col2" style="margin-top:20px;">
+      <img src="作品集素材/0-1專案_hidol/0-1_002.png" alt="設計執行過程">
+      <img src="作品集素材/0-1專案_hidol/hidol_05_design1 1.png" alt="視覺系統建立">
     </div>
   </div>
 
+  <!-- Section 6: 上線成果 + 橫向捲動 -->
   <div class="section">
-    <div class="section-label">Step 2 · 0→1 設計執行</div>
-    <p>方向確立後，設計團隊展開分工。我主導的範疇涵蓋多條並行線：創作者平台基礎建設（內容排程、粉絲團管理、數據分析、人員權限管理）完成規劃與設計、即時互動體驗規劃、以及整體視覺系統的建立與落地。</p>
-    <p>多模組同時推進意味著每個決策都不是獨立的 IA 結構的一個選擇，會同時影響創作者端與用戶端的體驗邏輯。設計過程中持續與工程、PM 協作對焦，確保每個模組在技術可行性與用戶體驗之間取得平衡。</p>
-    <div class="screenshots col1" style="margin-top:16px;">
-      <img src="作品集素材/0-1專案_hidol/hidol_初始結論圖.png" alt="平台架構圖">
-    </div>
-  </div>
+    <div class="section-label">上線成果 · 2024/07/16</div>
+    <p>2024 年 7 月 16 日，hidol 在 App Store 與 Google Play 同步上線。首版包含粉絲社群、IP 互動、創作者平台等核心模組；同年 12 月，AI 粉絲應用語音信功能上線，獲得社群正面回饋。</p>
+    <p>上線後收集的用戶問卷文字雲中，「懂我」、「有溫度」、「粉絲感」這些詞語高頻出現——與最初設計時的核心洞察直接呼應，驗證了「讓 IP 發光、平台退居底色」的設計方向。</p>
 
-  <div class="section">
-    <div class="section-label">Step 3 · 上線成果</div>
-    <p class="sub-label" style="margin-bottom:16px;">2024/07/16 App Store & Google Play 同步上線</p>
-    <div class="screenshots col2 equal-h">
-      <img src="作品集素材/作品集使用/hidol_首頁.PNG" alt="首頁">
-      <img src="作品集素材/作品集使用/hidol_粉絲團首頁.PNG" alt="粉絲團">
-      <img src="作品集素材/0-1專案_hidol/AI 語音信.png" alt="AI 粉絲應用語音信">
-      <img src="作品集素材/0-1專案_hidol/創作者平台 - 數據後台.png" alt="創作者平台・數據後台">
+    <div class="scroll-wrap">
+      <div class="scroll-track">
+        <div class="scroll-item">
+          <img src="作品集素材/作品集使用/hidol_首頁.PNG" alt="hidol 首頁">
+          <div class="si-cap">首頁</div>
+        </div>
+        <div class="scroll-item">
+          <img src="作品集素材/作品集使用/hidol_粉絲團首頁.PNG" alt="粉絲團首頁">
+          <div class="si-cap">粉絲團首頁</div>
+        </div>
+        <div class="scroll-item">
+          <img src="作品集素材/作品集使用/hidol_探索.PNG" alt="探索頁">
+          <div class="si-cap">探索</div>
+        </div>
+        <div class="scroll-item">
+          <img src="作品集素材/作品集使用/hidol_主題頁.PNG" alt="主題頁">
+          <div class="si-cap">主題頁</div>
+        </div>
+        <div class="scroll-item">
+          <img src="作品集素材/0-1專案_hidol/AI 語音信.png" alt="AI 語音信">
+          <div class="si-cap">AI 語音信</div>
+        </div>
+        <div class="scroll-item">
+          <img src="作品集素材/0-1專案_hidol/創作者平台 - 數據後台.png" alt="創作者平台">
+          <div class="si-cap">創作者數據後台</div>
+        </div>
+      </div>
     </div>
-  </div>
+    <p class="sub-label">← 左右滑動查看全部頁面</p>
 
-  <div class="section">
-    <div class="section-label">成果</div>
-    <ul class="results-list">
+    <ul class="results-list" style="margin-top:28px;">
       <li><strong>2024/07/16 正式上線</strong>，App Store 4.8★ / Google Play 4.1★</li>
       <li>完成粉絲社群、AI 粉絲應用語音信、創作者平台等多模組建構</li>
       <li>語音信於 <strong>2024/12/24</strong> 首發，獲社群正面回饋</li>
+      <li>用戶問卷文字雲驗證「懂我」感知——與核心設計洞察直接對應</li>
       <li>後續 Moment、成就機制等核心功能均在此架構上延伸展開</li>
     </ul>
   </div>
 
-</div>
+</div><!-- /content -->
 
 <div class="proj-footer">
   <a class="back-link" href="home.html">
     <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
     回到作品集
   </a>
-  <a href="mailto:stud9372@gmail.com?subject=作品集詢問 — hidol — 從 0 到 1" class="btn btn-primary">聯絡我</a>
+  <a href="mailto:stud9372@gmail.com?subject=作品集詢問 — hidol 從 0 到 1" class="btn btn-primary">聯絡我</a>
 </div>
 
-<div id="lb" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;cursor:zoom-out;align-items:center;justify-content:center;">
-  <img id="lb-img" src="" style="max-width:90vw;max-height:90vh;border-radius:8px;object-fit:contain;">
+<!-- Lightbox -->
+<div id="lb">
+  <img id="lb-img" src="">
 </div>
 <script>
-const lb=document.getElementById('lb'),lbImg=document.getElementById('lb-img');
-document.querySelectorAll('.screenshots img').forEach(img=>{
-  img.style.cursor='zoom-in';
-  img.addEventListener('click',e=>{lbImg.src=img.src;lb.style.display='flex';e.stopPropagation();});
+const lb = document.getElementById('lb');
+const lbImg = document.getElementById('lb-img');
+document.querySelectorAll('.screenshots img, .scroll-item img').forEach(img => {
+  img.addEventListener('click', e => {
+    lbImg.src = img.src;
+    lb.style.display = 'flex';
+    e.stopPropagation();
+  });
 });
-lb.addEventListener('click',()=>{lb.style.display='none';lbImg.src='';});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.style.display='none';lbImg.src='';}});
+lb.addEventListener('click', () => { lb.style.display = 'none'; lbImg.src = ''; });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { lb.style.display = 'none'; lbImg.src = ''; } });
 </script>
 </body>
 </html>
