@@ -142,6 +142,34 @@
       .projects { padding: 0 20px 60px; grid-template-columns: 1fr; }
     }
 
+    /* ── FEATURED CARD ── */
+    .project-card.featured {
+      grid-column: 1 / -1;
+      flex-direction: row;
+    }
+    .project-card.featured .card-cover {
+      width: 55%; aspect-ratio: unset; height: 340px;
+      border-bottom: none; border-right: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .project-card.featured .card-body {
+      justify-content: center; padding: 32px 36px;
+    }
+    .project-card.featured .card-title { font-size: 1.45rem; }
+    .project-card.featured .card-subtitle { font-size: .9rem; max-width: 420px; }
+    .project-card.featured .card-num { font-size: .72rem; }
+    .project-card.featured .featured-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: .65rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--cyan); font-weight: 700; margin-bottom: 4px;
+    }
+    @media(max-width:760px){
+      .project-card.featured { flex-direction: column; }
+      .project-card.featured .card-cover { width: 100%; height: auto; aspect-ratio: 16/9; border-right: none; border-bottom: 1px solid var(--border); }
+      .project-card.featured .card-body { padding: 22px 24px 20px; }
+      .project-card.featured .card-title { font-size: 1.2rem; }
+    }
+
     .project-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -292,6 +320,29 @@
 
 <div class="projects">
 
+  <!-- 成就機制 — FEATURED (置頂) -->
+  <a class="project-card featured" href="project_04_achievement.html">
+    <img class="card-cover" src="cover_04_achievement.png" alt="成就機制截圖">
+    <div class="card-body">
+      <div class="featured-tag">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        精選案例
+      </div>
+      <div class="card-num">04 — 遊戲化設計 · 2025</div>
+      <div class="card-title">用戶成就與激勵機制</div>
+      <div class="card-subtitle">從「做了但沒感覺」到「想一直做」。團隊對方向沒有共識時，我用草稿建立共同語言，飛輪框架凝聚跨職能共識，最終上線兩週互動率提升 150%</div>
+      <div class="card-badges">
+        <span class="badge hi">遊戲化 UX</span>
+        <span class="badge">跨職能設計主導</span>
+        <span class="badge">+150% 互動率</span>
+      </div>
+      <div class="card-more">
+        看完整 Case Study
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </div>
+  </a>
+
   <!-- 01 GamaPass -->
   <a class="project-card" href="project_01_gamapass.html">
     <img class="card-cover" src="cover_01_gamapass.png" alt="GamaPass 介面截圖">
@@ -343,25 +394,6 @@
         <span class="badge">工具設計</span>
         <span class="badge">用戶體驗</span>
         <span class="badge hi">AI 輔助</span>
-      </div>
-      <div class="card-more">
-        了解更多
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </div>
-    </div>
-  </a>
-
-  <!-- 04 成就機制 -->
-  <a class="project-card" href="project_04_achievement.html">
-    <img class="card-cover" src="cover_04_achievement.png" alt="成就機制截圖">
-    <div class="card-body">
-      <div class="card-num">04 — 遊戲化設計 · 2025</div>
-      <div class="card-title">用戶成就與獎勵機制</div>
-      <div class="card-subtitle">團隊對方向沒有共識時，我建了一套任務旅程框架讓討論收斂，最終上線兩週互動率提升 150%</div>
-      <div class="card-badges">
-        <span class="badge">遊戲化</span>
-        <span class="badge">激勵機制</span>
-        <span class="badge">全鏈路</span>
       </div>
       <div class="card-more">
         了解更多
