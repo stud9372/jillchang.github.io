@@ -73,13 +73,16 @@
       flex-shrink: 0;
     }
     /* Desktop: large Anubis on right */
-    .hero-anubis-desktop {
-      width: 300px; height: 300px;
-      border-radius: 50%;
-      object-fit: cover;
+    .hero-anubis-wrap {
       flex-shrink: 0;
-      filter: drop-shadow(0 0 40px rgba(167,139,250,.35));
-      display: none; /* hidden on mobile by default */
+      display: none;
+      padding: 24px; /* room for glow to breathe */
+    }
+    .hero-anubis-desktop {
+      width: 300px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 0 32px rgba(167,139,250,.5));
     }
     .hero-desc { font-size: 1.05rem; color: var(--muted); max-width: 520px; margin-bottom: 36px; }
     .hero-meta { display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 40px; }
@@ -99,7 +102,7 @@
     .btn-primary { background: linear-gradient(135deg,#6e6ef9,#a78bfa); color: #fff; }
     .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
     @media(min-width:860px){
-      .hero-anubis-desktop { display: block; }
+      .hero-anubis-wrap { display: block; }
       .hero-anubis-inline { display: none; }
     }
     @media(max-width:859px){
@@ -336,7 +339,9 @@
         </a>
       </div>
     </div>
-    <img src="anubis.png" alt="Anubis" class="hero-anubis-desktop">
+    <div class="hero-anubis-wrap">
+      <img src="anubis.png" alt="Anubis" class="hero-anubis-desktop">
+    </div>
   </div>
 </section>
 
