@@ -160,6 +160,17 @@
   /* Lightbox */
   #lb { display:none; position:fixed; inset:0; background:rgba(0,0,0,.88); z-index:1000; cursor:zoom-out; align-items:center; justify-content:center; }
   #lb-img { max-width:90vw; max-height:90vh; border-radius:8px; object-fit:contain; }
+
+  /* Proj scope — 3-col horizontal banner */
+  .proj-scope { margin-bottom: 44px; }
+  .proj-scope-label { font-size: .67rem; letter-spacing: .13em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 14px; }
+  .scope-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .scope-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
+  .scope-item .scope-icon { color: var(--accent); margin-bottom: 10px; }
+  .scope-item .scope-name { font-size: .93rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .scope-item .scope-desc { font-size: .84rem; color: var(--muted); line-height: 1.7; }
+  @media(max-width:600px){ .scope-grid { grid-template-columns: 1fr; gap: 10px; } }
+
 </style>
 </head>
 <body>

@@ -69,6 +69,33 @@
   /* Caption sub-label */
   .sub-label { font-size: .72rem; color: var(--muted); margin-top: 8px; margin-bottom: 20px; font-style: italic; }
 
+  /* Proj scope — 3-col horizontal banner */
+  .proj-scope { margin-bottom: 44px; }
+  .proj-scope-label { font-size: .67rem; letter-spacing: .13em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 14px; }
+  .scope-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .scope-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
+  .scope-item .scope-icon { color: var(--accent); margin-bottom: 10px; }
+  .scope-item .scope-name { font-size: .93rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .scope-item .scope-desc { font-size: .84rem; color: var(--muted); line-height: 1.7; }
+  @media(max-width:600px){ .scope-grid { grid-template-columns: 1fr; gap: 10px; } }
+
+  /* AI workflow flow diagram */
+  .flow-diagram { margin-bottom: 52px; }
+  .flow-diagram-label { font-size: .67rem; letter-spacing: .13em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 16px; }
+  .flow-track { display: flex; align-items: stretch; gap: 0; }
+  .flow-node { flex: 1; min-width: 0; }
+  .flow-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 10px; text-align: center; display: flex; flex-direction: column; gap: 8px; align-items: center; height: 100%; }
+  .flow-box.active { border-color: var(--accent); background: linear-gradient(135deg,#6e6ef90a,#a78bfa0a); }
+  .flow-stage-name { font-size: .85rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+  .flow-ai-tag { font-size: .62rem; color: var(--accent); background: #6e6ef915; border: 1px solid #6e6ef935; border-radius: 100px; padding: 3px 8px; letter-spacing: .02em; line-height: 1.4; }
+  .flow-exp-tag { font-size: .62rem; color: var(--muted); background: var(--surface2); border: 1px solid var(--border); border-radius: 100px; padding: 3px 8px; font-style: italic; }
+  .flow-sep { display: flex; align-items: center; padding: 0 4px; color: var(--border); font-size: .75rem; flex-shrink: 0; }
+  .flow-footer { font-size: .72rem; color: var(--muted); margin-top: 10px; text-align: right; font-style: italic; }
+  @media(max-width:600px){
+    .flow-track { flex-direction: column; gap: 4px; }
+    .flow-sep { padding: 2px 0; transform: rotate(90deg); align-self: center; }
+  }
+
   .proj-footer { border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; padding: 40px 40px 80px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
   .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
   .back-link:hover { color: var(--text); }
@@ -109,6 +136,83 @@
 </div>
 
 <div class="content">
+
+  <!-- 從這個專案能看到的面向 -->
+  <div class="proj-scope">
+    <div class="proj-scope-label">從這個專案，可以看到我</div>
+    <div class="scope-grid">
+      <div class="scope-item">
+        <div class="scope-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div class="scope-name">AI 工具整合力</div>
+        <div class="scope-desc">把 Vibe Coding、Figma Make 嵌入不同設計階段，讓 AI 在真實工作流中發揮作用，而不只是玩具</div>
+      </div>
+      <div class="scope-item">
+        <div class="scope-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="13 2 13 9 20 9"/><path d="M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9l7 7v9a2 2 0 0 1-2 2z"/></svg>
+        </div>
+        <div class="scope-name">快速驗證思維</div>
+        <div class="scope-desc">從想法到原型快速「跑起來」，讓討論有具體依據，加速決策收斂，減少空談</div>
+      </div>
+      <div class="scope-item">
+        <div class="scope-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="scope-name">團隊賦能</div>
+        <div class="scope-desc">從個人應用到帶動設計團隊建立 AI 協作能力，透過內部分享推動認知與工作方式轉變</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI 工作流流程圖 -->
+  <div class="flow-diagram">
+    <div class="flow-diagram-label">AI 介入我的設計工作流</div>
+    <div class="flow-track">
+      <div class="flow-node">
+        <div class="flow-box">
+          <div class="flow-stage-name">接需求</div>
+          <div class="flow-exp-tag">探索中</div>
+        </div>
+      </div>
+      <div class="flow-sep">›</div>
+      <div class="flow-node">
+        <div class="flow-box active">
+          <div class="flow-stage-name">分析</div>
+          <div class="flow-ai-tag">AI 問題診斷</div>
+        </div>
+      </div>
+      <div class="flow-sep">›</div>
+      <div class="flow-node">
+        <div class="flow-box active">
+          <div class="flow-stage-name">溝通</div>
+          <div class="flow-ai-tag">AI 會議分析</div>
+        </div>
+      </div>
+      <div class="flow-sep">›</div>
+      <div class="flow-node">
+        <div class="flow-box active">
+          <div class="flow-stage-name">概念</div>
+          <div class="flow-ai-tag">AI 多版本原型</div>
+        </div>
+      </div>
+      <div class="flow-sep">›</div>
+      <div class="flow-node">
+        <div class="flow-box">
+          <div class="flow-stage-name">方案討論</div>
+          <div class="flow-exp-tag">探索中</div>
+        </div>
+      </div>
+      <div class="flow-sep">›</div>
+      <div class="flow-node">
+        <div class="flow-box active">
+          <div class="flow-stage-name">產出交付</div>
+          <div class="flow-ai-tag">Vibe Coding</div>
+        </div>
+      </div>
+    </div>
+    <div class="flow-footer">持續學習 · 工作流 ing ↗</div>
+  </div>
 
   <div class="section">
     <div class="section-label">背景</div>
