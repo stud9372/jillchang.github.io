@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>用戶成就與激勵機制 · 張宸禎</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;800&display=swap');
+
+  @page { size: A4; margin: 14mm 16mm; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 178mm; height: 269mm;
+    overflow: hidden;
+    background: #ffffff; color: #1a1a22;
+    font-family: 'Noto Sans TC', -apple-system, 'PingFang TC', sans-serif;
+    font-size: 0; line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 178mm; height: 269mm;
+    display: flex; flex-direction: column;
+  }
+
+  /* ── Header ── */
+  .hdr {
+    border-bottom: 1.5px solid #e5e5ea;
+    padding-bottom: 7px; margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+  .hdr-top {
+    display: flex; justify-content: space-between;
+    align-items: flex-end; margin-bottom: 6px;
+  }
+  .proj-num { font-size: 7pt; color: #6e6ef9; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; margin-bottom: 2px; }
+  .proj-title { font-size: 18pt; font-weight: 800; color: #1a1a22; letter-spacing: -.02em; line-height: 1.1; }
+  .hdr-meta { display: flex; gap: 16px; align-items: flex-end; }
+  .ml { font-size: 6pt; color: #8888a0; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 1px; }
+  .mv { font-size: 8.5pt; font-weight: 700; color: #1a1a22; }
+  .badges { display: flex; gap: 5px; flex-wrap: wrap; }
+  .badge { background: #f2f2f7; border: 1px solid #e5e5ea; color: #6b6b80; font-size: 6.5pt; padding: 2px 8px; border-radius: 100px; font-weight: 500; }
+
+  /* ── Hero ── */
+  .hero {
+    flex-shrink: 0; height: 44mm;
+    overflow: hidden; border-radius: 7px;
+    border: 1px solid #e5e5ea; margin-bottom: 8px;
+  }
+  .hero img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+
+  /* ── Stat row ── */
+  .stat-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 7px; flex-shrink: 0; margin-bottom: 8px;
+  }
+  .stat-card {
+    background: #f9f9fb; border: 1px solid #e5e5ea;
+    border-radius: 6px; padding: 7px 10px;
+    border-top: 3px solid #6e6ef9;
+  }
+  .stat-num { font-size: 14pt; font-weight: 800; color: #6e6ef9; line-height: 1.1; margin-bottom: 2px; letter-spacing: -.02em; }
+  .stat-desc { font-size: 6.5pt; color: #8888a0; line-height: 1.5; }
+
+  /* ── Divider ── */
+  .div { border-top: 1px solid #e5e5ea; margin: 7px 0; flex-shrink: 0; }
+
+  /* ── Section label ── */
+  .section-label { font-size: 6.5pt; letter-spacing: .1em; text-transform: uppercase; color: #8888a0; font-weight: 700; margin-bottom: 4px; }
+  .section-title  { font-size: 9pt; font-weight: 800; color: #1a1a22; margin-bottom: 5px; letter-spacing: -.01em; }
+
+  /* ── Problem ── */
+  .problem { flex-shrink: 0; margin-bottom: 8px; }
+  .problem-body { font-size: 7.5pt; color: #5a5a6e; line-height: 1.7; }
+  .problem-body strong { color: #1a1a22; }
+
+  /* ── Two-column design section ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; flex-shrink: 0; margin-bottom: 8px; }
+
+  /* Left: task zones */
+  .zones { display: flex; flex-direction: column; gap: 5px; margin-top: 5px; }
+  .zone-card { border-radius: 5px; padding: 6px 9px; }
+  .zone-card.z-top { background: #f0fdff; border: 1px solid #a5f3fc; }
+  .zone-card.z-mid { background: #faf5ff; border: 1px solid #ddd6fe; }
+  .zone-card.z-bot { background: #f0f0ff; border: 1px solid #c7d2fe; }
+  .zc-label { font-size: 5.5pt; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; margin-bottom: 2px; }
+  .zone-card.z-top .zc-label { color: #0891b2; }
+  .zone-card.z-mid .zc-label { color: #7c3aed; }
+  .zone-card.z-bot .zc-label { color: #4f46e5; }
+  .zc-title { font-size: 7.5pt; font-weight: 700; color: #1a1a22; margin-bottom: 2px; }
+  .zc-body  { font-size: 6.5pt; color: #5a5a6e; line-height: 1.5; }
+  .zc-body strong { color: #1a1a22; }
+
+  /* Right: screenshots */
+  .screens { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 5px; }
+  .screens img { width: 100%; border-radius: 5px; border: 1px solid #e5e5ea; display: block; object-fit: contain; max-height: 38mm; }
+
+  /* ── Animation flow ── */
+  .anim-section { flex-shrink: 0; margin-bottom: 8px; }
+  .anim-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 5px; }
+  .anim-step {
+    background: #f9f9fb; border: 1px solid #e5e5ea;
+    padding: 6px 8px; font-size: 6.5pt; color: #5a5a6e; line-height: 1.5;
+  }
+  .anim-step:first-child { border-radius: 5px 0 0 5px; }
+  .anim-step:last-child  { border-radius: 0 5px 5px 0; }
+  .anim-step:not(:first-child) { border-left: none; }
+  .anim-step strong { color: #1a1a22; font-size: 7pt; display: block; margin-bottom: 2px; }
+  .anim-step .step-num { font-size: 5.5pt; color: #6e6ef9; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 3px; }
+
+  /* ── Results ── */
+  .results { flex-shrink: 0; margin-bottom: 8px; }
+  .results ul { list-style: none; margin-top: 5px; display: flex; flex-direction: column; gap: 4px; }
+  .results li { display: flex; align-items: flex-start; gap: 7px; font-size: 7.5pt; color: #5a5a6e; line-height: 1.6; }
+  .results li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #6e6ef9; flex-shrink: 0; margin-top: 4px; }
+  .results li strong { color: #1a1a22; }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: auto;
+    border-top: 1px solid #e5e5ea; padding-top: 6px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-shrink: 0;
+  }
+  .footer span { font-size: 7pt; color: #8888a0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="hdr">
+    <div class="hdr-top">
+      <div>
+        <div class="proj-num">04 — 遊戲化設計 · 2025</div>
+        <div class="proj-title">用戶成就與激勵機制</div>
+      </div>
+      <div class="hdr-meta">
+        <div><div class="ml">年份</div><div class="mv">2025</div></div>
+        <div><div class="ml">角色</div><div class="mv">資深產品設計師（主導）</div></div>
+        <div><div class="ml">上線</div><div class="mv">2025/07</div></div>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">遊戲化</span>
+      <span class="badge">激勵機制</span>
+      <span class="badge">全鏈路</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <img src="cover_04_achievement.png" alt="成就機制封面">
+  </div>
+
+  <!-- Stats -->
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-num">+150%</div>
+      <div class="stat-desc">上線兩週<br>用戶停留與互動率</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">4 種</div>
+      <div class="stat-desc">任務類型分類<br>即時 / 累積 / 競爭 / 結算</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">0 → 1</div>
+      <div class="stat-desc">從提案到系統落地<br>全流程設計主導</div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Problem -->
+  <div class="problem">
+    <div class="section-label">背景與問題</div>
+    <div class="section-title">用戶做了事，但感覺不到被看見</div>
+    <div class="problem-body">hidol 上線後數據顯示，用戶完成互動行為後缺乏成就感與回訪動機。核心挑戰：成就系統不只是前端視覺，需要與後端計算、任務狀態管理、即時通知、排行榜深度整合——是一個真正的<strong>全鏈路設計問題</strong>。</div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Design highlights: two columns -->
+  <div class="two-col">
+    <!-- Left: task zones -->
+    <div>
+      <div class="section-label">設計亮點 01 · 任務列表三區結構</div>
+      <div class="zones">
+        <div class="zone-card z-top">
+          <div class="zc-label">頂部</div>
+          <div class="zc-title">任務進度概覽</div>
+          <div class="zc-body">讓用戶一眼掌握目前整體任務的完成狀況，進入頁面即知道「我現在到哪了」</div>
+        </div>
+        <div class="zone-card z-mid">
+          <div class="zc-label">中間</div>
+          <div class="zc-title">競爭型任務</div>
+          <div class="zc-body">排行榜 / 限時比拚，給有競爭意願的用戶一眼找到目標，<strong>不強制、不佔主視覺</strong></div>
+        </div>
+        <div class="zone-card z-bot">
+          <div class="zc-label">下方</div>
+          <div class="zc-title">累積型任務</div>
+          <div class="zc-body"><strong>可完成 → 進行中 → 已完成</strong>，讓用戶永遠先看到「現在能有進展的」</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: screenshots -->
+    <div>
+      <div class="section-label">頁面截圖</div>
+      <div class="screens">
+        <img src="作品集素材/成就相關截圖/成就任務頁面.png" alt="任務列表">
+        <img src="作品集素材/成就相關截圖/任務達成.png" alt="任務達成">
+      </div>
+    </div>
+  </div>
+
+  <!-- Animation flow -->
+  <div class="anim-section">
+    <div class="section-label">設計亮點 02 · 結算動畫：把「炫耀感」設計進分享路徑</div>
+    <div class="anim-flow">
+      <div class="anim-step">
+        <div class="step-num">Step 01</div>
+        <strong>兩者相遇</strong>
+        粉絲與偶像各從左右滾入，象徵激盪出的火花
+      </div>
+      <div class="anim-step">
+        <div class="step-num">Step 02</div>
+        <strong>數字揭曉</strong>
+        你超出了多少比例的人，成就感的峰值
+      </div>
+      <div class="anim-step">
+        <div class="step-num">Step 03</div>
+        <strong>細節展開</strong>
+        具體原因依序出現，讓成就有憑有據
+      </div>
+      <div class="anim-step">
+        <div class="step-num">Step 04</div>
+        <strong>分享亮起</strong>
+        順著視線引導，按鈕最後才出現
+      </div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Results -->
+  <div class="results">
+    <div class="section-label">成果</div>
+    <ul>
+      <li><strong>2025/07 正式上線</strong></li>
+      <li>上線兩週，用戶停留時間與互動率 <strong>提升 150%</strong></li>
+      <li>用戶成就截圖在社群自發流傳，帶動有機成長</li>
+      <li>驗證遊戲化機制在粉絲社群產品的應用價值</li>
+    </ul>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>張宸禎 · 資深產品設計師</span>
+    <span>stud9372@gmail.com</span>
+  </div>
+
+</div>
+</body>
+</html>

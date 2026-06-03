@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>hidol — 從 0 到 1 · 張宸禎</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;800&display=swap');
+
+  @page {
+    size: A4;
+    margin: 14mm 16mm;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 178mm;
+    height: 269mm;
+    overflow: hidden;
+    background: #ffffff;
+    color: #1a1a22;
+    font-family: 'Noto Sans TC', -apple-system, 'PingFang TC', sans-serif;
+    font-size: 0;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Layout shell ──────────────────────────────────── */
+  .page {
+    width: 178mm;
+    height: 269mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Header ────────────────────────────────────────── */
+  .hdr {
+    border-bottom: 1.5px solid #e5e5ea;
+    padding-bottom: 7px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+  .hdr-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 6px;
+  }
+  .hdr-left .proj-num {
+    font-size: 7pt;
+    color: #6e6ef9;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .hdr-left .proj-title {
+    font-size: 18pt;
+    font-weight: 800;
+    color: #1a1a22;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+  }
+  .hdr-meta {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+  }
+  .meta-item .ml { font-size: 6pt; color: #8888a0; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 1px; }
+  .meta-item .mv { font-size: 8.5pt; font-weight: 700; color: #1a1a22; }
+  .badges { display: flex; gap: 5px; flex-wrap: wrap; }
+  .badge {
+    background: #f2f2f7;
+    border: 1px solid #e5e5ea;
+    color: #6b6b80;
+    font-size: 6.5pt;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+
+  /* ── Divider ───────────────────────────────────────── */
+  .div { border-top: 1px solid #e5e5ea; margin: 7px 0; flex-shrink: 0; }
+
+  /* ── Hero ──────────────────────────────────────────── */
+  .hero {
+    flex-shrink: 0;
+    height: 48mm;
+    overflow: hidden;
+    border-radius: 7px;
+    border: 1px solid #e5e5ea;
+    margin-bottom: 8px;
+  }
+  .hero img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center top;
+    display: block;
+  }
+
+  /* ── Intro ─────────────────────────────────────────── */
+  .intro { flex-shrink: 0; margin-bottom: 8px; }
+  .section-label {
+    font-size: 6.5pt;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #8888a0;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .intro-quote {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #1a1a22;
+    margin-bottom: 4px;
+    line-height: 1.5;
+    border-left: 2.5px solid #6e6ef9;
+    padding-left: 8px;
+  }
+  .intro-body {
+    font-size: 7.5pt;
+    color: #5a5a6e;
+    line-height: 1.7;
+  }
+
+  /* ── Two-column middle ─────────────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    flex-shrink: 0;
+    margin-bottom: 8px;
+  }
+  .col-label {
+    font-size: 6.5pt;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #8888a0;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .col-left .alpha-img {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #e5e5ea;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .pills { display: flex; flex-direction: column; gap: 4px; }
+  .pill {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 7pt; color: #5a5a6e;
+  }
+  .swatch { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .col-right .screens {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5px;
+  }
+  .col-right .screens img {
+    width: 100%; border-radius: 5px; border: 1px solid #e5e5ea;
+    display: block; object-fit: contain; max-height: 40mm;
+  }
+
+  /* ── Tradeoff ──────────────────────────────────────── */
+  .tradeoff { flex-shrink: 0; margin-bottom: 8px; }
+  .tradeoff-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 5px;
+  }
+  .t-card {
+    background: #f9f9fb;
+    border-radius: 6px;
+    padding: 7px 10px;
+  }
+  .t-card.cut  { border-left: 3px solid #ef4444; }
+  .t-card.keep { border-left: 3px solid #6e6ef9; }
+  .t-label { font-size: 6pt; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; margin-bottom: 3px; }
+  .t-card.cut  .t-label { color: #ef4444; }
+  .t-card.keep .t-label { color: #6e6ef9; }
+  .t-title { font-size: 8pt; font-weight: 700; color: #1a1a22; margin-bottom: 3px; }
+  .t-body  { font-size: 7pt; color: #5a5a6e; line-height: 1.55; }
+
+  /* ── Results ───────────────────────────────────────── */
+  .results { flex-shrink: 0; margin-bottom: 8px; }
+  .results ul { list-style: none; margin-top: 5px; display: flex; flex-direction: column; gap: 4px; }
+  .results li {
+    display: flex; align-items: flex-start; gap: 7px;
+    font-size: 7.5pt; color: #5a5a6e; line-height: 1.6;
+  }
+  .results li::before {
+    content: '';
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #6e6ef9; flex-shrink: 0; margin-top: 4px;
+  }
+  .results li strong { color: #1a1a22; }
+
+  /* ── Footer ────────────────────────────────────────── */
+  .footer {
+    margin-top: auto;
+    border-top: 1px solid #e5e5ea;
+    padding-top: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .footer span { font-size: 7pt; color: #8888a0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="hdr">
+    <div class="hdr-top">
+      <div class="hdr-left">
+        <div class="proj-num">02 — 社群平台 · 2024</div>
+        <div class="proj-title">hidol — 從 0 到 1</div>
+      </div>
+      <div class="hdr-meta">
+        <div class="meta-item"><div class="ml">年份</div><div class="mv">2024</div></div>
+        <div class="meta-item"><div class="ml">角色</div><div class="mv">資深產品設計師（主導）</div></div>
+        <div class="meta-item"><div class="ml">上線</div><div class="mv">2024/07</div></div>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">0→1 建構</span>
+      <span class="badge">設計策略</span>
+      <span class="badge">視覺系統</span>
+      <span class="badge">工作坊</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <img src="cover_02_hidol.png" alt="hidol cover">
+  </div>
+
+  <!-- Intro -->
+  <div class="intro">
+    <div class="section-label">核心設計觀</div>
+    <div class="intro-quote">「平台本身是底色，最精彩的永遠是 IP 與粉絲之間的故事。」</div>
+    <div class="intro-body">從需求金字塔出發，找到粉絲真正需要的是「懂我熱愛的地方」—— 與同溫層的連結感、被 IP 看見的距離感。這個洞察定義整個視覺方向：深色底調讓每個粉絲團發展截然不同的風格，平台退居底色、讓 IP 發光。</div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Two-column -->
+  <div class="two-col">
+    <div class="col-left">
+      <div class="col-label">視覺系統 · 透明度色階</div>
+      <img class="alpha-img" src="作品集素材/0-1專案_hidol/system_alpha_crop.png" alt="alpha color table">
+      <div class="pills">
+        <div class="pill"><span class="swatch" style="background:#FF3B80"></span>粉色 #FF3B80 — IP 發文、心動互動</div>
+        <div class="pill"><span class="swatch" style="background:#7B5FE0"></span>紫色 #7B5FE0 — 官方活動、平台公告</div>
+        <div class="pill"><span class="swatch" style="background:#6e6ef9"></span>五角形 icon — IP 身分識別標記</div>
+        <div class="pill" style="margin-top:3px; font-size:6.5pt; line-height:1.6; color:#8888a0;">翻牌留言：只有 IP 回覆時出現粉色高亮，未翻牌維持灰色靜默。粉色稀缺感讓「被看見」這件事視覺上非常清楚。</div>
+      </div>
+    </div>
+    <div class="col-right">
+      <div class="col-label">粉絲團頁面 · 色彩語意實際應用</div>
+      <div class="screens">
+        <img src="作品集素材/作品集使用/hidol_粉絲團首頁.PNG" alt="粉絲團首頁">
+        <img src="作品集素材/0-1專案_hidol/IP翻牌留言.png" alt="IP翻牌留言">
+      </div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Tradeoff -->
+  <div class="tradeoff">
+    <div class="section-label">關鍵取捨</div>
+    <div class="tradeoff-grid">
+      <div class="t-card cut">
+        <div class="t-label">捨棄</div>
+        <div class="t-title">舊產品展示品功能（SHOW）</div>
+        <div class="t-body">與 hidol 社群核心 IA 不相容，架構盤點後正式移除，讓新平台結構更純粹聚焦。</div>
+      </div>
+      <div class="t-card keep">
+        <div class="t-label">保留並簡化</div>
+        <div class="t-title">周邊商品（串接集團電商）</div>
+        <div class="t-body">免去自建金流，直接串接既有電商平台，設計端聚焦粉絲互動到購買的情境銜接。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Results -->
+  <div class="results">
+    <div class="section-label">成果</div>
+    <ul>
+      <li><strong>2024/07/16 正式上線</strong>，App Store 4.8★ / Google Play 4.1★</li>
+      <li>完成粉絲社群、AI 語音信、創作者平台等多模組建構</li>
+      <li>用戶問卷文字雲：「懂我」「有溫度」高頻出現，驗證「讓 IP 發光」設計方向</li>
+      <li>後續 Moment、成就機制等功能均在此架構上延伸展開</li>
+    </ul>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>張宸禎 · 資深產品設計師</span>
+    <span>stud9372@gmail.com</span>
+  </div>
+
+</div>
+</body>
+</html>
