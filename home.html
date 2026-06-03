@@ -45,9 +45,15 @@
 
     /* ── HERO ── */
     .hero {
-      max-width: 860px; margin: 0 auto;
+      max-width: 1100px; margin: 0 auto;
       padding: 96px 40px 80px;
     }
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+    }
+    .hero-text { flex: 1; min-width: 0; }
     .hero h1 {
       font-size: clamp(2.2rem, 6vw, 5.5rem);
       font-weight: 800; line-height: 1.1;
@@ -66,6 +72,15 @@
       filter: drop-shadow(0 0 8px rgba(167,139,250,.5));
       flex-shrink: 0;
     }
+    /* Desktop: large Anubis on right */
+    .hero-anubis-desktop {
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 40px rgba(167,139,250,.35));
+      display: none; /* hidden on mobile by default */
+    }
     .hero-desc { font-size: 1.05rem; color: var(--muted); max-width: 520px; margin-bottom: 36px; }
     .hero-meta { display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 40px; }
     .meta-item .meta-label {
@@ -83,7 +98,14 @@
     .btn:hover { opacity: .85; transform: translateY(-1px); }
     .btn-primary { background: linear-gradient(135deg,#6e6ef9,#a78bfa); color: #fff; }
     .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
-    @media(max-width:600px){ .hero { padding: 64px 20px 60px; } }
+    @media(min-width:860px){
+      .hero-anubis-desktop { display: block; }
+      .hero-anubis-inline { display: none; }
+    }
+    @media(max-width:859px){
+      .hero { padding: 64px 20px 60px; }
+      .hero-inner { flex-direction: column; gap: 0; }
+    }
 
     /* ── PRODUCTS ROW ── */
     .products-row {
@@ -284,32 +306,37 @@
 
 <!-- ── HERO ── -->
 <section class="hero">
-  <h1>Hello, I'm <span>JILL</span><img src="anubis.png" alt="" class="hero-anubis-inline"></h1>
-  <p class="hero-desc">
-    產品設計師——把混沌梳理成方向，目標導向推進，並在創意發想的過程中持續找到前行的動力。
-  </p>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>Hello, I'm <span>JILL</span><img src="anubis.png" alt="" class="hero-anubis-inline"></h1>
+      <p class="hero-desc">
+        產品設計師——把混沌梳理成方向，目標導向推進，並在創意發想的過程中持續找到前行的動力。
+      </p>
 
-  <div class="hero-meta">
-    <div class="meta-item">
-      <div class="meta-label">職稱</div>
-      <div class="meta-val">資深設計師</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">擅長</div>
-      <div class="meta-val">問題定義 · 跨職能協作 · 設計決策</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">精選案例</div>
-      <div class="meta-val">5 個專案</div>
-    </div>
-  </div>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <div class="meta-label">職稱</div>
+          <div class="meta-val">資深設計師</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">擅長</div>
+          <div class="meta-val">問題定義 · 跨職能協作 · 設計決策</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">精選案例</div>
+          <div class="meta-val">5 個專案</div>
+        </div>
+      </div>
 
-  <div class="hero-cta">
-    <a href="about.html" class="btn btn-primary">About Me</a>
-    <a href="張宸禎_Resume.pdf" target="_blank" class="btn btn-ghost">
-      Resume
-      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-    </a>
+      <div class="hero-cta">
+        <a href="about.html" class="btn btn-primary">About Me</a>
+        <a href="張宸禎_Resume.pdf" target="_blank" class="btn btn-ghost">
+          Resume
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+      </div>
+    </div>
+    <img src="anubis.png" alt="Anubis" class="hero-anubis-desktop">
   </div>
 </section>
 
