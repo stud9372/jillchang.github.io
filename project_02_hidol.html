@@ -161,6 +161,29 @@
   #lb { display:none; position:fixed; inset:0; background:rgba(0,0,0,.88); z-index:1000; cursor:zoom-out; align-items:center; justify-content:center; }
   #lb-img { max-width:90vw; max-height:90vh; border-radius:8px; object-fit:contain; }
 
+  /* Icon System layout — image left, cards right */
+  .icon-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+    align-items: start;
+    margin: 24px 0 0;
+  }
+  .icon-layout .icon-img img {
+    width: 100%; border-radius: 10px; border: 1px solid var(--border); display: block;
+  }
+  .icon-layout .icon-decisions { display: flex; flex-direction: column; gap: 0; }
+  .icon-elements-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 20px; }
+  .icon-element-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 18px;
+  }
+  .icon-dir-name { font-size: .9rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .icon-dir-name span { font-weight: 400; color: var(--muted); font-size: .85em; margin-left: 4px; }
+  .icon-dir-desc { font-size: .84rem; color: var(--muted); line-height: 1.7; }
+  .icon-dir-desc strong { color: var(--text); }
+  @media(max-width:680px){ .icon-elements-row { grid-template-columns: 1fr; } }
+
   /* Proj scope — 3-col horizontal banner */
   .proj-scope { margin-bottom: 44px; }
   .proj-scope-label { font-size: .67rem; letter-spacing: .13em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 14px; }
@@ -231,10 +254,10 @@
       </div>
       <div class="scope-item">
         <div class="scope-icon">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="8" cy="16" r="3"/><circle cx="16" cy="16" r="3"/></svg>
         </div>
-        <div class="scope-name">用戶情感洞察</div>
-        <div class="scope-desc">深入理解粉絲心理——連結感、被看見的距離感、身分認同——讓設計決策背後有真實的人性依據</div>
+        <div class="scope-name">產品 Icon 建置</div>
+        <div class="scope-desc">在設計團隊分工下，分別推進活動與探索的介面流程，並主導整套 Icon System 視覺語彙的建立與落地</div>
       </div>
     </div>
   </div>
@@ -242,77 +265,33 @@
   <!-- Section 1: 背景與核心洞察 -->
   <div class="section">
     <div class="section-label">背景與核心洞察</div>
-    <p>hidol 是遊戲橘子從 beanfun! 轉型後的全新粉絲社群平台，從零啟動。轉型初期，討論容易陷入「舊功能要不要帶過來」的細節爭論，而非聚焦在新產品真正要解決的問題。</p>
-    <p>我的第一步是把討論拉回核心——用需求金字塔把不同類型 IP 的用戶需求攤開，結合集團現有資源，找出哪種 IP 是短期內最有條件切入的。策略有了依據，取捨才有辦法真正落地。</p>
-    <p>隨著框架越來越清晰，一個核心洞察浮現出來：粉絲不只是想要「另一個追星 app」，他們真正想要的是一個<strong style="color:var(--text)">懂我熱愛的地方</strong>——和同溫層的連結感、被 IP 看見的距離感、以及能把個人喜好化為身分認同的空間。這個洞察成為 hidol 整體設計的起點。</p>
 
-    <div class="screenshots col2" style="margin-top:20px;">
+    <p>2023 年，遊戲橘子決定從 beanfun! 出發，打造全新的粉絲社群平台。這不是舊產品的升級，是從零開始的建造——沒有前例，也沒有現成答案。</p>
+    <p>轉型初期，會議室裡最常聽到的一句話是「這個功能原來也有，要不要帶過來？」討論的重心不斷被舊產品的記憶拉走，而不是聚焦在新平台到底要解決什麼問題。</p>
+
+    <div class="screenshots col2" style="margin-top:24px;">
       <img src="作品集素材/0-1專案_hidol/hidol＿初始5.png" alt="工作坊討論過程">
       <img src="作品集素材/0-1專案_hidol/hidol_02_direction 1.png" alt="策略方向梳理">
     </div>
-    <p class="sub-label">工作坊討論 → 需求金字塔 → 策略方向對齊</p>
+    <p class="sub-label">早期工作坊 → 需求金字塔梳理 → 策略方向對齊</p>
+
+    <p style="margin-top:28px;">我的第一步是把討論拉回核心：用<strong style="color:var(--text)">需求金字塔</strong>把不同類型 IP 的用戶需求攤開，結合集團現有資源，找出哪種 IP 在短期內最有條件切入。策略有了依據，取捨才有辦法真正落地。</p>
+
+    <div class="insight-box" style="margin:24px 0;">
+      <div class="ib-label">核心洞察</div>
+      <p>粉絲不只是想要「另一個追星 app」，他們真正想要的是一個<strong>懂我熱愛的地方</strong>——和同溫層的連結感、被 IP 看見的距離感、以及能把個人喜好化為身分認同的空間。</p>
+    </div>
+
+    <p>這個洞察成為 hidol 整體設計的起點。隨著方向收斂，設計團隊展開分工——我主導的範疇涵蓋創作者平台基礎建設（內容排程、粉絲團管理、數據分析）、即時互動體驗，以及整體 Icon 視覺系統的建立與落地。多條模組並行推進，每個決策都牽動彼此。</p>
+
+    <div class="screenshots col2" style="margin-top:24px;">
+      <img src="作品集素材/0-1專案_hidol/0-1_002.png" alt="設計分工並行推進">
+      <img src="作品集素材/0-1專案_hidol/hidol_05_design1 1.png" alt="視覺系統建立">
+    </div>
+    <p class="sub-label">設計分工並行推進 → 多模組設計 → 視覺系統落地</p>
   </div>
 
-  <!-- Section 2: 視覺底色 -->
-  <div class="section">
-    <div class="section-label">視覺底色 · 讓 IP 成為唯一主角</div>
-
-    <div class="insight-box">
-      <div class="ib-label">核心設計觀</div>
-      <p>「平台本身是底色，最精彩的永遠是 IP 與粉絲之間的故事。」</p>
-    </div>
-
-    <p>這個設計觀定義了 hidol 整個視覺系統的方向：平台本身不能搶戲，要成為最好的承載容器，把 IP 與粉絲之間的情感連結放在最顯眼的位置。</p>
-    <p>具體落地在視覺決策上，就是選擇了深色系作為整體基調。深色介面本身低調沉穩，不干擾 IP 的主題色與圖像，讓每一個粉絲團都能在同一套框架下發展出截然不同的視覺風格。為了在深色背景上保持層次感又不顯笨重，我們的色板捨棄純白，改用多階透明度來構築視覺層次：</p>
-
-    <div class="detail-layout">
-      <div class="detail-text">
-        <p>介面中的文字、底板、分隔線，全部來自同一個白色基礎色，以 <strong style="color:var(--text)">95% / 90% / 80% / 70%</strong> 四個透明度區間進行區分。這讓整個介面的灰階過渡保持和諧，不同 IP 主題疊上來時，底層的灰度關係也不會失控。</p>
-        <p>這個決策的另一層考量是工程效率——單一基礎色搭配透明度，比維護多組靜態灰色值更容易保持一致性，也更容易讓不同工程師的實作結果對齊設計稿。</p>
-      </div>
-      <div class="detail-img">
-        <img src="作品集素材/0-1專案_hidol/system_alpha_crop.png" alt="Alpha 透明度色表">
-        <p class="sub-label">Alpha 色表：以透明度取代靜態灰階，統一介面層次</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Section 3: 色彩語言與 IP 情感編碼 -->
-  <div class="section">
-    <div class="section-label">色彩語言 · IP 情感的視覺編碼</div>
-    <p>hidol 的介面裡存在三種視覺主體：IP 本身的品牌色、平台的官方行為、以及粉絲的互動行為。為了讓用戶在無須閱讀文字的情況下就能辨認脈絡，我們為每種主體制定了專屬的色彩語意。</p>
-
-    <div class="detail-layout" style="margin-top:24px;">
-      <div class="detail-img">
-        <img src="作品集素材/作品集使用/hidol_粉絲團首頁.PNG" alt="粉絲團首頁 — IP 色彩編碼">
-        <p class="sub-label">粉絲團首頁：三層色彩語意在同一個頁面共存</p>
-      </div>
-      <div class="detail-text">
-        <div class="color-row" style="flex-direction:column; gap:10px;">
-          <div class="color-pill">
-            <span class="color-swatch" style="background:#FF3B80;"></span>
-            粉色（#FF3B80）— IP 發文、心動互動
-          </div>
-          <div class="color-pill">
-            <span class="color-swatch" style="background:#7B5FE0;"></span>
-            紫色（#7B5FE0）— 官方活動、平台公告
-          </div>
-          <div class="color-pill">
-            <span class="color-swatch" style="background:rgba(110,110,249,.7);"></span>
-            五角形 icon — IP 身分識別標記
-          </div>
-        </div>
-        <p style="margin-top:16px;">其中最細膩的是「翻牌留言」的色彩邏輯。IP 貼文下的留言，只有 IP 主動回覆才會出現粉色高亮；沒被回應的留言維持灰色靜默。粉色在頁面中具有稀缺感——出現了，就代表被看見了。</p>
-      </div>
-    </div>
-
-    <div class="screenshots col1" style="margin-top:16px; max-width:320px;">
-      <img src="作品集素材/0-1專案_hidol/IP翻牌留言.png" alt="IP 翻牌留言 — 粉色高亮示意">
-    </div>
-    <p class="sub-label">翻牌留言：IP 回覆後粉色高亮，未翻牌維持灰色靜默</p>
-  </div>
-
-  <!-- Section 4: 取捨決策 -->
+  <!-- Section 2: 取捨決策 -->
   <div class="section">
     <div class="section-label">取捨決策 · 架構盤點中的正式斷捨離</div>
     <p>MVP 範疇收斂過程中，最關鍵的一個取捨來自舊產品線。轉型初期，團隊對舊產品的部分功能抱持「也許可以沿用」的心態，其中討論最多的是原有的展示品功能系統（SHOW）。隨著新平台的 IA 架構逐步清晰，我們一起盤點了每個模組與 hidol 核心定位的關係——最終，SHOW 功能正式從路線圖中移除：</p>
@@ -336,15 +315,86 @@
     <p class="sub-label">MVP 功能架構：框線標示的區塊為第一版刻意延後或捨棄的範疇</p>
   </div>
 
-  <!-- Section 5: 設計執行 -->
+  <!-- Section 3: 視覺底色 -->
   <div class="section">
-    <div class="section-label">設計執行 · 多模組並行</div>
-    <p>方向確立後，設計團隊展開分工。我主導的範疇涵蓋多條並行線：創作者平台基礎建設（內容排程、粉絲團管理、數據分析、人員權限管理）、即時互動體驗、以及整體視覺系統的建立與落地。</p>
-    <p>多模組同時推進意味著每個決策都不是獨立的——IA 結構的一個選擇，會同時影響創作者端與用戶端的體驗邏輯。設計過程中持續與工程、PM 協作對齊，確保每個模組在技術可行性與用戶體驗之間取得平衡。</p>
+    <div class="section-label">視覺底色 · 讓 IP 成為唯一主角</div>
 
-    <div class="screenshots col2" style="margin-top:20px;">
-      <img src="作品集素材/0-1專案_hidol/0-1_002.png" alt="設計執行過程">
-      <img src="作品集素材/0-1專案_hidol/hidol_05_design1 1.png" alt="視覺系統建立">
+    <div class="insight-box">
+      <div class="ib-label">核心設計觀</div>
+      <p>「平台本身是底色，最精彩的永遠是 IP 與粉絲之間的故事。」</p>
+    </div>
+
+    <p>這個設計觀定義了 hidol 整個視覺系統的方向：平台本身不能搶戲，要成為最好的承載容器，把 IP 與粉絲之間的情感連結放在最顯眼的位置。</p>
+    <p>具體落地在視覺決策上，就是選擇了深色系作為整體基調。深色介面本身低調沉穩，不干擾 IP 的主題色與圖像，讓每一個粉絲團都能在同一套框架下發展出截然不同的視覺風格。為了在深色背景上保持層次感又不顯笨重，我們的色板捨棄純白，改用多階透明度來構築視覺層次：</p>
+
+    <div class="detail-layout">
+      <div class="detail-text">
+        <p>介面中的文字、底板、分隔線，全部來自同一個白色基礎色，以 <strong style="color:var(--text)">95% / 90% / 80% / 70%</strong> 四個透明度區間進行區分。這讓整個介面的灰階過渡保持和諧，不同 IP 主題疊上來時，底層的灰度關係也不會失控。</p>
+        <p>這個決策的另一層考量是工程效率——單一基礎色搭配透明度，比維護多組靜態灰色值更容易保持一致性，也更容易讓不同工程師的實作結果對齊設計稿。</p>
+      </div>
+      <div class="detail-img">
+        <img src="作品集素材/0-1專案_hidol/system_alpha_crop.png" alt="Alpha 透明度色表">
+        <p class="sub-label">Alpha 色表：以透明度取代靜態灰階，統一介面層次</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: 色彩語言 -->
+  <div class="section">
+    <div class="section-label">色彩語言 · IP 情感的視覺編碼</div>
+    <p>hidol 的介面裡存在三種視覺主體：IP 本身的品牌色、平台的官方行為、以及粉絲的互動行為。為了讓用戶在無須閱讀文字的情況下就能辨認脈絡，我們為每種主體制定了專屬的色彩語意。</p>
+
+    <div class="detail-layout" style="margin-top:24px;">
+      <div class="detail-img">
+        <img src="作品集素材/作品集使用/hidol_粉絲團首頁.PNG" alt="粉絲團首頁 — IP 色彩編碼" style="max-height:320px;width:auto;max-width:100%;display:block;margin:0 auto;">
+        <p class="sub-label">粉絲團首頁：三層色彩語意在同一個頁面共存</p>
+      </div>
+      <div class="detail-text">
+        <div class="color-row" style="flex-direction:column; gap:10px;">
+          <div class="color-pill">
+            <span class="color-swatch" style="background:#FF3B80;"></span>
+            粉色（#FF3B80）— IP 發文、心動互動
+          </div>
+          <div class="color-pill">
+            <span class="color-swatch" style="background:#7B5FE0;"></span>
+            紫色（#7B5FE0）— 官方活動、平台公告
+          </div>
+          <div class="color-pill">
+            <span class="color-swatch" style="background:rgba(110,110,249,.7);"></span>
+            五角形 icon — IP 身分識別標記
+          </div>
+        </div>
+        <p style="margin-top:16px;">其中最細膩的是「翻牌留言」的色彩邏輯。IP 貼文下的留言，只有 IP 主動回覆才會出現粉色高亮；沒被回應的留言維持灰色靜默。粉色在頁面中具有稀缺感——出現了，就代表被看見了。</p>
+        <div style="margin-top:16px; max-width:180px;">
+          <img src="作品集素材/0-1專案_hidol/IP翻牌留言.png" alt="IP 翻牌留言 — 粉色高亮示意" style="width:100%;border-radius:8px;border:1px solid var(--border);display:block;">
+          <p class="sub-label" style="margin-top:6px;">翻牌留言：IP 回覆後粉色高亮，未翻牌維持灰色靜默</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Icon System -->
+  <div class="section">
+    <div class="section-label">Icon System · HiDol 視覺語彙重塑</div>
+    <p>原有 Icon 風格較為單一、缺乏品牌記憶點。我們分析年輕世代愛用社群後，決定保留「線性風格」的清爽感，同時注入更具活力的品牌幾何語彙，服務 20–38 歲 Z 世代用戶，傳遞「酷、神秘、狂熱」的追星氛圍——輕量化視覺不搶戲，舞台永遠屬於創作者。</p>
+
+    <div style="margin-top:24px;">
+      <img src="作品集素材/0-1專案_hidol/system_我參與的部分.png" alt="Icon System — 我參與的部分" style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;">
+      <p class="sub-label">我負責的系統內 icon 範疇、slot web 元件以及介面：活動、探索</p>
+    </div>
+    <div class="icon-elements-row">
+      <div class="icon-element-card">
+        <div class="icon-dir-name">品牌光芒 <span>Spark</span></div>
+        <div class="icon-dir-desc">融入象徵微光的<strong>紅點亮點</strong>元素，代表偶像發光的瞬間，讓 Icon 本身成為品牌情感的載體。</div>
+      </div>
+      <div class="icon-element-card">
+        <div class="icon-dir-name">科技流線 <span>Sleek</span></div>
+        <div class="icon-dir-desc">運用<strong>一筆畫線體</strong>的連貫性，呼應 Logo 中 "dol" 的幾何結構，營造科技感與俐落的視覺語調。</div>
+      </div>
+      <div class="icon-element-card">
+        <div class="icon-dir-name">圓潤幾何 <span>Balanced</span></div>
+        <div class="icon-dir-desc">將 hidol 幾何<strong>「方積」DNA</strong> 融入 Icon，優化圓角潤飾。在方正感（品牌個性）與圓潤感（社群溫度）之間取得平衡，每一個 Icon 既有辨識度又不失親近感。</div>
+      </div>
     </div>
   </div>
 
