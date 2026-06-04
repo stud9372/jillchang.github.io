@@ -220,6 +220,25 @@
       transition: opacity .2s;
     }
     .project-card:hover .card-cover { opacity: .92; }
+    .project-card.locked .card-cover { filter: saturate(.92); }
+    .lock-pill {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(14,14,16,.78);
+      border: 1px solid rgba(255,255,255,.16);
+      color: var(--text);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      backdrop-filter: blur(10px);
+    }
+    .lock-pill svg { width: 12px; height: 12px; }
 
     /* card body */
     .card-body { padding: 22px 24px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
@@ -248,6 +267,194 @@
       transition: gap .2s;
     }
     .project-card:hover .card-more { gap: 9px; }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      background: rgba(0,0,0,.12);
+      backdrop-filter: blur(16px);
+    }
+    .modal-backdrop.open { display: flex; }
+    .beanfun-modal {
+      width: min(1080px, 100%);
+      max-height: min(760px, calc(100vh - 56px));
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      background: #f8fafc;
+      color: #2d2d32;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 32px 110px rgba(0,0,0,.38);
+    }
+    .beanfun-lock {
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #fff;
+    }
+    .beanfun-lock-icon {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 24px;
+      color: #202127;
+    }
+    .beanfun-lock .modal-eyebrow {
+      color: #13a95f;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .beanfun-lock h3 {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      line-height: 1.12;
+      letter-spacing: -.04em;
+      margin-bottom: 14px;
+      color: #202127;
+    }
+    .beanfun-lock p {
+      color: #737b86;
+      font-size: .98rem;
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+    .beanfun-form label {
+      display: block;
+      color: #202127;
+      font-size: .84rem;
+      font-weight: 800;
+      margin-bottom: 9px;
+    }
+    .beanfun-form-row { display: flex; gap: 10px; }
+    .beanfun-form input {
+      width: 100%;
+      min-width: 0;
+      padding: 14px 16px;
+      border-radius: 11px;
+      border: 2px solid #e3e8ef;
+      background: #fff;
+      color: #202127;
+      font-size: .95rem;
+      outline: none;
+    }
+    .beanfun-form input:focus { border-color: #27d17f; box-shadow: 0 0 0 4px #27d17f1a; }
+    .beanfun-form button {
+      border: 0;
+      border-radius: 11px;
+      padding: 0 22px;
+      background: #202127;
+      color: #fff;
+      font-size: .95rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .beanfun-message {
+      min-height: 22px;
+      margin-top: 12px;
+      color: #b4232a;
+      font-size: .82rem;
+      line-height: 1.55;
+    }
+    .beanfun-preview {
+      position: relative;
+      min-height: 520px;
+      overflow: hidden;
+      background: #eef4f7;
+    }
+    .beanfun-preview-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .beanfun-rails {
+      position: absolute;
+      top: -155px;
+      right: -110px;
+      width: 92%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      transform: rotate(-6deg);
+      animation: beanfun-rail-scroll 18s ease-in-out infinite alternate;
+    }
+    .beanfun-column {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-width: 0;
+    }
+    .beanfun-column:nth-child(2) {
+      transform: translateY(78px);
+    }
+    .beanfun-column:nth-child(3) {
+      transform: translateY(156px);
+    }
+    .beanfun-shot {
+      width: 100%;
+      aspect-ratio: 350 / 721;
+      overflow: hidden;
+      max-width: none;
+      align-self: center;
+      border-radius: 18px;
+      background: #fff;
+      filter: drop-shadow(0 24px 44px rgba(31,47,70,.16));
+    }
+    .beanfun-shot.is-offset { align-self: flex-start; }
+    .beanfun-shot.is-offset-right { align-self: flex-end; }
+    .beanfun-shot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .beanfun-preview::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(248,250,252,.88) 0%, rgba(248,250,252,.12) 42%, transparent 100%);
+      pointer-events: none;
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 2;
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,.82);
+      color: #202127;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,.14);
+    }
+    @keyframes beanfun-rail-scroll {
+      0% { transform: translateY(28px) rotate(-6deg); }
+      100% { transform: translateY(-420px) rotate(-6deg); }
+    }
+    @media(max-width: 860px) {
+      .beanfun-modal { grid-template-columns: 1fr; overflow-y: auto; }
+      .beanfun-lock { padding: 34px 26px; }
+      .beanfun-preview { min-height: 300px; order: -1; }
+      .beanfun-rails { width: 94%; right: -74px; top: -126px; gap: 12px; }
+      .beanfun-column { gap: 12px; }
+      .beanfun-column:nth-child(2) { transform: translateY(64px); }
+      .beanfun-column:nth-child(3) { transform: translateY(128px); }
+      .beanfun-form-row { flex-direction: column; }
+      .beanfun-form button { min-height: 50px; }
+    }
 
     /* ── CONTACT SECTION ── */
     .contact-section {
@@ -327,7 +534,7 @@
         </div>
         <div class="meta-item">
           <div class="meta-label">精選案例</div>
-          <div class="meta-val">5 個專案</div>
+          <div class="meta-val">6 個專案</div>
         </div>
       </div>
 
@@ -448,6 +655,82 @@
     </div>
   </a>
 
+  <!-- 06 beanfun! -->
+  <a class="project-card locked" href="#beanfun-locked" id="beanfun-card">
+    <span class="lock-pill">
+      <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      Locked
+    </span>
+    <img class="card-cover" src="作品集素材/beanfun!/beanfun!＿總集合.png" alt="beanfun! 泛娛樂平台介面">
+    <div class="card-body">
+      <div class="card-num">Light mode UI · 泛娛樂平台</div>
+      <div class="card-title">beanfun! 產品線介面設計</div>
+      <div class="card-subtitle">早期參與 beanfun! 產品線，處理白底 light mode 介面與泛娛樂平台體驗。涵蓋 SHOW、同好社群、我的資產等場景，案例正在回憶與組建中。</div>
+      <div class="card-badges">
+        <span class="badge hi">Light mode UI</span>
+        <span class="badge">泛娛樂平台</span>
+        <span class="badge">SHOW / 社群 / 我的</span>
+      </div>
+      <div class="card-more">
+        輸入密碼查看
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<div class="modal-backdrop" id="beanfun-modal" aria-hidden="true">
+  <div class="beanfun-modal" role="dialog" aria-modal="true" aria-labelledby="beanfun-modal-title">
+    <button class="modal-close" id="beanfun-close" type="button" aria-label="關閉">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <section class="beanfun-lock">
+      <svg class="beanfun-lock-icon" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M18 28v-8c0-8 6-14 14-14s14 6 14 14v8" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+        <rect x="12" y="26" width="40" height="32" rx="6" fill="currentColor"/>
+        <circle cx="32" cy="41" r="4" fill="#fff"/>
+        <path d="M32 44v7" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <div class="modal-eyebrow">Locked case study</div>
+      <h3 id="beanfun-modal-title">案例正在回憶與組建中</h3>
+      <p>這段經驗涉及早期 beanfun! 產品線與 light mode 介面整理，目前先保留封面與簡介。請輸入密碼觀看後續內容。</p>
+      <form class="beanfun-form" id="beanfun-form">
+        <label for="beanfun-password">Password</label>
+        <div class="beanfun-form-row">
+          <input id="beanfun-password" type="password" autocomplete="current-password" placeholder="Enter your password">
+          <button type="submit">Submit</button>
+        </div>
+        <div class="beanfun-message" id="beanfun-message" role="status"></div>
+      </form>
+    </section>
+    <section class="beanfun-preview" aria-label="beanfun! 介面動態預覽">
+      <img class="beanfun-preview-bg" src="作品集素材/beanfun!/beanfun!＿總集合背景底.png" alt="">
+      <div class="beanfun-rails" aria-hidden="true">
+        <div class="beanfun-column">
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Onbroding.png" alt=""></div>
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Home.png" alt=""></div>
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Sidebar.png" alt=""></div>
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Profile-1.png" alt=""></div>
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Onbroding.png" alt=""></div>
+        </div>
+        <div class="beanfun-column">
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Profile.png" alt=""></div>
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Profile-2.png" alt=""></div>
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Home.png" alt=""></div>
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Sidebar.png" alt=""></div>
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Profile.png" alt=""></div>
+        </div>
+        <div class="beanfun-column">
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Profile-1.png" alt=""></div>
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Onbroding.png" alt=""></div>
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Profile-2.png" alt=""></div>
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Home.png" alt=""></div>
+          <div class="beanfun-shot"><img src="作品集素材/beanfun!/斜_Sidebar.png" alt=""></div>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>
 
 <!-- ── CONTACT ── -->
@@ -488,5 +771,50 @@
   </div>
 </footer>
 
+<script>
+const beanfunCard = document.getElementById('beanfun-card');
+const beanfunModal = document.getElementById('beanfun-modal');
+const beanfunClose = document.getElementById('beanfun-close');
+const beanfunForm = document.getElementById('beanfun-form');
+const beanfunPassword = document.getElementById('beanfun-password');
+const beanfunMessage = document.getElementById('beanfun-message');
+const beanfunPasswordValue = 'beanfun';
+
+function openBeanfunModal() {
+  beanfunModal.classList.add('open');
+  beanfunModal.setAttribute('aria-hidden', 'false');
+  setTimeout(() => beanfunPassword.focus(), 80);
+}
+
+function closeBeanfunModal() {
+  beanfunModal.classList.remove('open');
+  beanfunModal.setAttribute('aria-hidden', 'true');
+  beanfunPassword.value = '';
+  beanfunMessage.textContent = '';
+}
+
+beanfunCard.addEventListener('click', event => {
+  event.preventDefault();
+  openBeanfunModal();
+});
+
+beanfunClose.addEventListener('click', closeBeanfunModal);
+beanfunModal.addEventListener('click', event => {
+  if (event.target === beanfunModal) closeBeanfunModal();
+});
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && beanfunModal.classList.contains('open')) closeBeanfunModal();
+});
+beanfunForm.addEventListener('submit', event => {
+  event.preventDefault();
+  if (beanfunPassword.value.trim() === beanfunPasswordValue) {
+    beanfunMessage.style.color = '#0d7c45';
+    beanfunMessage.textContent = '密碼正確。完整案例內容目前仍在整理中，會在下一版補上。';
+    return;
+  }
+  beanfunMessage.style.color = '#b4232a';
+  beanfunMessage.textContent = '密碼不正確，請確認後再試一次。';
+});
+</script>
 </body>
 </html>

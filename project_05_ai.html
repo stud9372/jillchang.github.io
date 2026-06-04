@@ -1,302 +1,567 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8">
   <link rel="icon" type="image/png" href="anubis.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jill-Design</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 工具整合設計工作流 — Jill Chang</title>
   <style>
-  :root {
-    --bg: #0e0e10; --surface: #1a1a1f; --surface2: #242429;
-    --border: #2e2e36; --accent: #6e6ef9; --accent2: #a78bfa;
-    --cyan: #22d3ee; --text: #f0f0f5; --muted: #8888a0; --r: 12px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text);
-    font-family: -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
-    line-height: 1.7; }
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(14,14,16,.92); backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
-    height: 60px; padding: 0 40px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  nav .logo { font-weight: 700; font-size: .95rem; letter-spacing: .05em;
-    display: flex; align-items: center; gap: 6px; color: var(--muted);
-    text-decoration: none; }
-  nav .logo:hover { color: var(--text); }
-  nav ul { list-style: none; display: flex; gap: 24px; }
-  nav a { color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
-  nav a:hover { color: var(--text); }
-  @media(max-width:600px){ nav { padding: 0 20px; } }
+    :root {
+      --bg: #0e0e10;
+      --surface: #1a1a1f;
+      --surface2: #242429;
+      --border: #2e2e36;
+      --accent: #6e6ef9;
+      --accent2: #a78bfa;
+      --cyan: #22d3ee;
+      --text: #f0f0f5;
+      --muted: #9a9aae;
+      --soft: #c9c9d6;
+      --col: 820px;
+      --wide: 1120px;
+    }
 
-  .project-hero { max-width: 900px; margin: 0 auto; padding: 72px 40px 56px; border-bottom: 1px solid var(--border); }
-  @media(max-width:600px){ .project-hero { padding: 48px 20px 40px; } }
-  .proj-num { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
-  .proj-title { font-size: clamp(2rem,5vw,3.5rem); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 12px; }
-  .proj-subtitle { font-size: 1rem; color: var(--muted); max-width: 600px; margin-bottom: 20px; }
-  .proj-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
-  .badge { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); font-size: .72rem; padding: 4px 11px; border-radius: 100px; letter-spacing: .04em; }
-  .badge.hi { background: linear-gradient(135deg,#22d3ee18,#6e6ef918); border-color: #22d3ee50; color: var(--cyan); }
-  .proj-meta { display: flex; gap: 32px; flex-wrap: wrap; }
-  .meta-item .meta-label { color: var(--muted); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 3px; }
-  .meta-item .meta-val { font-size: .9rem; font-weight: 600; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.85;
+      font-size: 18px;
+      letter-spacing: .01em;
+    }
+    img, video { max-width: 100%; display: block; }
+    a { color: inherit; }
 
-  .proj-cover { max-width: 900px; margin: 0 auto; padding: 40px 40px 0; }
-  .proj-cover img { width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block; }
-  @media(max-width:600px){ .proj-cover { padding: 24px 20px 0; } }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 64px;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(14,14,16,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .logo {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+    nav .logo:hover { color: var(--text); }
+    nav ul { list-style: none; display: flex; gap: 24px; }
+    nav a { color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+    nav a:hover { color: var(--text); }
 
-  .content { max-width: 900px; margin: 0 auto; padding: 56px 40px 80px; }
-  @media(max-width:600px){ .content { padding: 36px 20px 60px; } }
-  .section { margin-bottom: 52px; }
-  .section-label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; font-weight: 600; }
-  .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
-  .section p { font-size: .95rem; color: var(--muted); line-height: 1.8; max-width: none; margin-bottom: 16px; }
-  .results-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .results-list li { display: flex; align-items: flex-start; gap: 10px; font-size: .9rem; color: var(--muted); line-height: 1.65; }
-  .results-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 8px; }
-  .results-list li strong { color: var(--text); }
+    .col { max-width: var(--col); margin: 0 auto; padding: 0 28px; }
+    .wide { max-width: var(--wide); margin: 0 auto; padding: 0 28px; }
+    .case-cover { max-width: 900px; margin: 0 auto; padding: 0 28px; }
 
-  /* Screenshot grid */
-  .screenshots { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
-  .screenshots img { width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block; transition: opacity .2s; }
-  .screenshots img:hover { opacity: .85; }
-  .screenshots.col2 { grid-template-columns: repeat(2, 1fr); }
-  .screenshots.col1 { grid-template-columns: 1fr; }
-  @media(max-width:600px){ .screenshots, .screenshots.col2 { grid-template-columns: 1fr; } }
+    .hero { padding: 64px 0 0; }
+    .hero-cover img { width: 100%; border-radius: 18px; border: 1px solid var(--border); }
+    .hero-copy { padding: 42px 0 50px; border-bottom: 1px solid var(--border); }
+    .eyebrow {
+      margin-bottom: 14px;
+      color: var(--accent);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      line-height: 1.15;
+      font-weight: 780;
+      letter-spacing: -.025em;
+      margin-bottom: 16px;
+      text-wrap: balance;
+    }
+    .hero-lead {
+      max-width: 720px;
+      color: var(--text);
+      font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+      line-height: 1.55;
+      font-weight: 600;
+      margin-bottom: 30px;
+      text-wrap: pretty;
+    }
+    .badges { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 34px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--muted);
+      font-size: .76rem;
+      letter-spacing: .03em;
+    }
+    .badge.hi { background: linear-gradient(135deg,#22d3ee18,#6e6ef918); border-color: #22d3ee50; color: var(--cyan); }
+    .meta { display: flex; gap: 52px; flex-wrap: wrap; }
+    .meta-label { color: var(--muted); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+    .meta-val { color: var(--text); font-size: .98rem; font-weight: 700; }
 
-  /* Caption sub-label */
-  .sub-label { font-size: .72rem; color: var(--muted); margin-top: 8px; margin-bottom: 20px; font-style: italic; }
+    .section { padding: 84px 0; border-bottom: 1px solid var(--border); }
+    .section:last-of-type { border-bottom: 0; }
+    .section-title {
+      font-size: clamp(1.75rem, 3.1vw, 2.45rem);
+      line-height: 1.22;
+      letter-spacing: -.025em;
+      font-weight: 760;
+      margin-bottom: 22px;
+      text-wrap: balance;
+    }
+    .section p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.9;
+      margin-bottom: 18px;
+      text-wrap: pretty;
+    }
+    strong { color: var(--text); font-weight: 700; }
 
-  /* Proj scope — 3-col horizontal banner */
-  .proj-scope { margin-bottom: 44px; }
-  .proj-scope-label { font-size: .67rem; letter-spacing: .13em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 14px; }
-  .scope-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .scope-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
-  .scope-item .scope-icon { color: var(--accent); margin-bottom: 10px; }
-  .scope-item .scope-name { font-size: .93rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
-  .scope-item .scope-desc { font-size: .84rem; color: var(--muted); line-height: 1.7; }
-  @media(max-width:600px){ .scope-grid { grid-template-columns: 1fr; gap: 10px; } }
+    .intro-card {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 34px;
+    }
+    .scope-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px 24px;
+    }
+    .scope-icon { width: 32px; height: 32px; color: var(--accent); margin-bottom: 18px; }
+    .scope-card .card-title { color: var(--text); font-size: 1.02rem; font-weight: 750; margin-bottom: 9px; }
+    .scope-card .card-body { color: var(--muted); font-size: .92rem; line-height: 1.75; text-wrap: pretty; }
 
-  /* AI workflow flow diagram */
-  .flow-diagram { margin-bottom: 52px; }
-  .flow-diagram-label { font-size: .67rem; letter-spacing: .13em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 16px; }
-  .flow-track { display: flex; align-items: stretch; gap: 0; }
-  .flow-node { flex: 1; min-width: 0; }
-  .flow-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 10px; text-align: center; display: flex; flex-direction: column; gap: 8px; align-items: center; height: 100%; }
-  .flow-box.active { border-color: var(--accent); background: linear-gradient(135deg,#6e6ef90a,#a78bfa0a); }
-  .flow-stage-name { font-size: .85rem; font-weight: 700; color: var(--text); line-height: 1.3; }
-  .flow-ai-tag { font-size: .62rem; color: var(--accent); background: #6e6ef915; border: 1px solid #6e6ef935; border-radius: 100px; padding: 3px 8px; letter-spacing: .02em; line-height: 1.4; }
-  .flow-exp-tag { font-size: .62rem; color: var(--muted); background: var(--surface2); border: 1px solid var(--border); border-radius: 100px; padding: 3px 8px; font-style: italic; }
-  .flow-sep { display: flex; align-items: center; padding: 0 4px; color: var(--border); font-size: .75rem; flex-shrink: 0; }
-  .flow-footer { font-size: .72rem; color: var(--muted); margin-top: 10px; text-align: right; font-style: italic; }
-  @media(max-width:600px){
-    .flow-track { flex-direction: column; gap: 4px; }
-    .flow-sep { padding: 2px 0; transform: rotate(90deg); align-self: center; }
-  }
+    .flow-diagram {
+      margin-top: 44px;
+    }
+    .flow-diagram-label {
+      color: var(--accent);
+      font-size: .74rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+    .flow-track { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+    .flow-box {
+      min-height: 132px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(26,26,31,.78);
+    }
+    .flow-box.active { border-color: rgba(111,112,255,.55); background: linear-gradient(135deg,#6e6ef916,#1a1a1f); }
+    .flow-index { color: var(--muted); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
+    .flow-stage-name { color: var(--text); font-size: 1rem; line-height: 1.35; font-weight: 780; }
+    .flow-ai-tag, .flow-exp-tag {
+      align-self: flex-start;
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: .66rem;
+      line-height: 1.4;
+      border: 1px solid rgba(111,112,255,.35);
+    }
+    .flow-ai-tag { color: #c8c8ff; background: rgba(111,112,255,.15); }
+    .flow-exp-tag { color: var(--muted); background: var(--surface2); border-color: var(--border); }
+    .flow-footer { color: var(--muted); font-size: .82rem; line-height: 1.6; margin-top: 16px; font-style: italic; text-align: right; }
 
-  .proj-footer { border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; padding: 40px 40px 80px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-  .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
-  .back-link:hover { color: var(--text); }
-  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 20px; border-radius: 8px; font-size: .85rem; font-weight: 700; text-decoration: none; transition: opacity .2s, transform .15s; border: none; cursor: pointer; }
-  .btn:hover { opacity: .85; transform: translateY(-1px); }
-  .btn-primary { background: linear-gradient(135deg,#6e6ef9,#a78bfa); color: #fff; }
-  @media(max-width:600px){ .proj-footer { padding: 28px 20px 60px; } }
-</style>
+    .media { margin: 42px 0; }
+    .center-media {
+      max-width: 900px;
+      margin: 42px auto;
+      padding: 0 28px;
+    }
+    .center-media.wide-media {
+      max-width: 1120px;
+    }
+    .media img, .media video {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+    }
+    .media-cap { color: var(--muted); font-size: .82rem; line-height: 1.65; margin-top: 11px; font-style: italic; }
+    .image-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .image-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .image-grid-2 img, .image-grid-3 img { width: 100%; border-radius: 14px; border: 1px solid var(--border); object-fit: cover; object-position: top; }
+    .image-grid-2.contain img { object-fit: contain; background: #fff; }
+    .prototype-grid { max-width: 720px; margin-left: auto; margin-right: auto; }
+    .prototype-grid img { aspect-ratio: 754 / 1708; object-fit: cover; }
+
+    .feature {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 42px;
+      align-items: center;
+      margin-top: 36px;
+    }
+    .feature.reverse { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); }
+    .feature-copy h3 {
+      font-size: clamp(1.45rem, 2.4vw, 2rem);
+      line-height: 1.28;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+    }
+    .feature-copy p { font-size: 1rem; line-height: 1.9; color: var(--muted); }
+
+    .results-list { list-style: none; display: grid; gap: 12px; margin-top: 24px; }
+    .results-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+    .results-list li::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex: 0 0 auto;
+      margin-top: 11px;
+    }
+
+    .reflection {
+      padding: 86px 0 110px;
+      border-bottom: 0;
+    }
+    .reflection-inner {
+      border: 1px solid rgba(111,112,255,.36);
+      border-radius: 22px;
+      background: linear-gradient(135deg,#6e6ef914,#22d3ee05);
+      padding: clamp(32px, 5vw, 58px);
+    }
+    .reflection-inner h2 {
+      font-size: clamp(2rem, 4vw, 3.7rem);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+      margin-bottom: 24px;
+      text-wrap: balance;
+    }
+    .reflection-inner p { color: var(--soft); font-size: 1.08rem; line-height: 2; margin-bottom: 18px; }
+
+    footer {
+      max-width: var(--wide);
+      margin: 0 auto;
+      padding: 38px 28px 84px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted);
+    }
+    .back-link, .mail-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 750;
+    }
+    .back-link:hover, .mail-link:hover { color: var(--text); }
+    .deck-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--cyan);
+      font-size: .98rem;
+      font-weight: 780;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-thickness: 1px;
+      transition: color .2s, gap .2s;
+    }
+    .deck-link:hover {
+      color: var(--text);
+      gap: 12px;
+    }
+
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      background: rgba(0,0,0,.9);
+      cursor: zoom-out;
+    }
+    #lightbox img { max-width: 94vw; max-height: 92vh; border-radius: 14px; object-fit: contain; }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 22px; }
+      .hero { padding-top: 40px; }
+      .section { padding: 64px 0; }
+      .intro-card, .feature, .feature.reverse, .image-grid-2, .image-grid-3 { grid-template-columns: 1fr; }
+      .flow-track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .feature.reverse .feature-copy { order: -1; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 16px; }
+      nav ul { display: none; }
+      .col, .wide, .case-cover, .center-media, footer { padding-left: 22px; padding-right: 22px; }
+      .flow-track { grid-template-columns: 1fr; }
+      .flow-box { min-height: auto; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-<nav>
-  <a class="logo" href="home.html">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-    張宸禎 Portfolio
-  </a>
-  <ul>
-    <li><a href="about.html">關於我</a></li>
-    <li><a href="mailto:stud9372@gmail.com">聯絡</a></li>
-  </ul>
-</nav>
-
-<div class="proj-cover" style="padding-top:32px;">
-  <img src="cover_05_ai.png" alt="AI 工作流">
-</div>
-
-<div class="project-hero" style="padding-top:36px; padding-bottom:40px;">
-  <div class="proj-num">優化設計團隊推進效率</div>
-  <div class="proj-badges">
-    <span class="badge hi">AI Vibe Coding</span>
-    <span class="badge hi">Figma Make</span>
-    <span class="badge">快速原型驗證</span>
-    <span class="badge">團隊賦能</span>
-  </div>
-  <div class="proj-meta">
-    <div class="meta-item"><div class="meta-label">年份</div><div class="meta-val">2024–2025</div></div>
-    <div class="meta-item"><div class="meta-label">角色</div><div class="meta-val">設計師・Scrum 成員</div></div>
-  </div>
-</div>
-
-<div class="content">
-
-  <!-- 從這個專案能看到的面向 -->
-  <div class="proj-scope">
-    <div class="proj-scope-label">從這個專案，可以看到我</div>
-    <div class="scope-grid">
-      <div class="scope-item">
-        <div class="scope-icon">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-        </div>
-        <div class="scope-name">AI 工具整合力</div>
-        <div class="scope-desc">把 Vibe Coding、Figma Make 嵌入不同設計階段，讓 AI 在真實工作流中發揮作用，而不只是玩具</div>
-      </div>
-      <div class="scope-item">
-        <div class="scope-icon">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="13 2 13 9 20 9"/><path d="M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9l7 7v9a2 2 0 0 1-2 2z"/></svg>
-        </div>
-        <div class="scope-name">快速驗證思維</div>
-        <div class="scope-desc">從想法到原型快速「跑起來」，讓討論有具體依據，加速決策收斂，減少空談</div>
-      </div>
-      <div class="scope-item">
-        <div class="scope-icon">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <div class="scope-name">團隊賦能</div>
-        <div class="scope-desc">從個人應用到帶動設計團隊建立 AI 協作能力，透過內部分享推動認知與工作方式轉變</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- AI 工作流流程圖 -->
-  <div class="flow-diagram">
-    <div class="flow-diagram-label">AI 介入我的設計工作流</div>
-    <div class="flow-track">
-      <div class="flow-node">
-        <div class="flow-box active">
-          <div class="flow-stage-name">接需求</div>
-          <div class="flow-ai-tag">自製 Skill 探索</div>
-        </div>
-      </div>
-      <div class="flow-sep">›</div>
-      <div class="flow-node">
-        <div class="flow-box active">
-          <div class="flow-stage-name">分析</div>
-          <div class="flow-ai-tag">AI 問題診斷</div>
-        </div>
-      </div>
-      <div class="flow-sep">›</div>
-      <div class="flow-node">
-        <div class="flow-box active">
-          <div class="flow-stage-name">溝通</div>
-          <div class="flow-ai-tag">AI 會議分析</div>
-        </div>
-      </div>
-      <div class="flow-sep">›</div>
-      <div class="flow-node">
-        <div class="flow-box active">
-          <div class="flow-stage-name">概念</div>
-          <div class="flow-ai-tag">AI 多版本原型</div>
-        </div>
-      </div>
-      <div class="flow-sep">›</div>
-      <div class="flow-node">
-        <div class="flow-box">
-          <div class="flow-stage-name">方案討論</div>
-          <div class="flow-exp-tag">探索中</div>
-        </div>
-      </div>
-      <div class="flow-sep">›</div>
-      <div class="flow-node">
-        <div class="flow-box active">
-          <div class="flow-stage-name">產出交付</div>
-          <div class="flow-ai-tag">動效模擬器</div>
-        </div>
-      </div>
-    </div>
-    <div class="flow-footer">持續學習 · 工作流 ing ↗</div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">背景</div>
-    <p>目標是把 AI 工具嵌入設計流程，不只是加速個人產出，而是讓團隊決策和溝通更有效益。</p>
-  </div>
-
-  <div class="section">
-    <div class="section-label">應用一 · AI 輔助溝通釐清</div>
-    <p>有一個專案討論了三次都在翻盤，問題出在哪裡說不清楚。我把會議記錄丟給 AI，請它幫忙判斷討論卡點，整理出三個問題：個人主觀意識主導、理解前就質疑方案、太急著找解法。用 AI 快速產出簡報，在 Retro 上讓大家看見自己的討論模式。當下反應都很正面，大家覺得終於把問題講清楚了。</p>
-    <div class="screenshots col2">
-      <img src="作品集素材/AI 工具專案/組織溝通AI協助2.png" alt="Scrum Retro 主動優化溝通">
-      <img src="作品集素材/AI 工具專案/組織溝通AI協助1.png" alt="組織溝通 AI 協助">
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">應用二 · 加速設計決策：動效模擬器</div>
-    <p>設計師每次交付動效規格，都要寫落落長的文字描述，工程師看了還不一定能還原。我用 Vibe Coding 做出動效模擬器，讓設計師直接微調參數即時預覽，工程師也能直接參考數值。連續應用於兩個專案，出稿速度大幅提升，RD 開發期間的來回問題也明顯減少。</p>
-    <div class="screenshots">
-      <img src="作品集素材/AI 工具專案/首頁動態應用.png" alt="首頁動態應用">
-      <img src="作品集素材/AI 工具專案/動態應用_2.png" alt="動態應用 2">
-      <img src="作品集素材/AI 工具專案/動態應用_1.png" alt="動態應用 1">
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">應用三 · 流程比較：Prototype 快速多版本發散</div>
-    <p>設計決策需要對比多個方向時，用 AI 快速產出不同版本的互動流程，讓討論有具體的視覺依據，加速收斂。</p>
-  </div>
-
-  <div class="section">
-    <div class="section-label">應用四 · 設計優化提案：AI 輔助問題診斷</div>
-    <p>現有頁面的體驗問題，用 AI 幫助快速列出潛在問題清單、整理優化方向，再由設計師判斷優先級，提升提案品質與說服力。</p>
-    <div class="screenshots col2">
-      <img src="作品集素材/AI 工具專案/優化提案協助/重點設計優化協助3.png" alt="優化提案 1">
-      <img src="作品集素材/AI 工具專案/優化提案協助/重點設計優化協助13.png" alt="優化提案 2">
-    </div>
-    <div style="margin-top:20px;">
-      <a href="hidol-moment-flow-deck.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:8px;background:linear-gradient(135deg,#6e6ef9,#a78bfa);color:#fff;font-size:.85rem;font-weight:700;text-decoration:none;transition:opacity .2s,transform .15s;" onmouseover="this.style.opacity='.85';this.style.transform='translateY(-1px)'" onmouseout="this.style.opacity='1';this.style.transform='translateY(0)'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
-        查看完整設計討論簡報
-      </a>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">成果</div>
-    <ul class="results-list">
-      <li>動效模擬器連續應用兩個專案，出稿效率提升，RD 溝通成本降低</li>
-      <li>製作 AI 專題簡報進行內部分享，<strong>帶動設計團隊建立 AI 協作能力</strong></li>
-    </ul>
-  </div>
-
-  <!-- 結尾 CTA -->
-  <div style="border-top: 1px solid var(--border); padding-top: 40px; margin-top: 12px;">
-    <p style="font-size:1.05rem; color:var(--text); font-weight:600; margin-bottom:8px;">更多分享，歡迎找我一起聊聊</p>
-    <p style="font-size:.9rem; color:var(--muted); line-height:1.8; margin-bottom:24px;">這些嘗試都還在持續進化。不管你是對設計工作流有好奇、想討論 AI 怎麼融入實際工作，或是正在思考團隊怎麼一起往前走——都歡迎找我。</p>
-    <a href="mailto:stud9372@gmail.com?subject=AI 工作流 — 想和你聊聊" style="display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:8px;background:linear-gradient(135deg,#6e6ef9,#a78bfa);color:#fff;font-size:.85rem;font-weight:700;text-decoration:none;transition:opacity .2s,transform .15s;" onmouseover="this.style.opacity='.85';this.style.transform='translateY(-1px)'" onmouseout="this.style.opacity='1';this.style.transform='translateY(0)'">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      找我聊聊
+  <nav>
+    <a class="logo" href="home.html">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      張宸禎 Portfolio
     </a>
-  </div>
+    <ul>
+      <li><a href="about.html">關於我</a></li>
+      <li><a href="mailto:stud9372@gmail.com">聯絡</a></li>
+    </ul>
+  </nav>
 
-</div>
+  <header class="hero">
+    <div class="case-cover hero-cover">
+      <img src="cover_05_ai.png" alt="AI 工具整合設計工作流封面">
+    </div>
+    <div class="col hero-copy">
+      <div class="eyebrow">優化設計團隊推進效率</div>
+      <h1>AI 工具整合設計工作流</h1>
+      <p class="hero-lead">我把 AI 從「嘗鮮工具」拉進日常設計流程，讓它協助釐清需求、加速原型、模擬動效，也帶動團隊建立新的協作能力。</p>
+      <div class="badges">
+        <span class="badge hi">AI Vibe Coding</span>
+        <span class="badge hi">Figma Make</span>
+        <span class="badge">快速原型驗證</span>
+        <span class="badge">團隊賦能</span>
+      </div>
+      <div class="meta">
+        <div>
+          <div class="meta-label">Year</div>
+          <div class="meta-val">2024–2025</div>
+        </div>
+        <div>
+          <div class="meta-label">Role</div>
+          <div class="meta-val">設計師・Scrum 成員</div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<div class="proj-footer">
-  <a class="back-link" href="home.html">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-    回到作品集
-  </a>
-  <a href="mailto:stud9372@gmail.com?subject=作品集詢問 — AI 工具整合設計工作流" class="btn btn-primary">聯絡我</a>
-</div>
+  <main>
+    <section class="section">
+      <div class="col">
+        <div class="eyebrow">從這個專案，可以看到我</div>
+        <div class="intro-card">
+          <div class="scope-card">
+            <svg class="scope-icon" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            <div class="card-title">AI 工具整合力</div>
+            <div class="card-body">把 Vibe Coding、Figma Make 嵌入不同設計階段，讓 AI 在真實工作流中發揮作用，而不只是玩具。</div>
+          </div>
+          <div class="scope-card">
+            <svg class="scope-icon" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24" aria-hidden="true"><polyline points="13 2 13 9 20 9"/><path d="M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9l7 7v9a2 2 0 0 1-2 2z"/></svg>
+            <div class="card-title">快速驗證思維</div>
+            <div class="card-body">從想法到原型快速「跑起來」，讓討論有具體依據，加速決策收斂，減少空談。</div>
+          </div>
+          <div class="scope-card">
+            <svg class="scope-icon" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <div class="card-title">團隊賦能</div>
+            <div class="card-body">從個人應用到帶動設計團隊建立 AI 協作能力，透過內部分享推動認知與工作方式轉變。</div>
+          </div>
+        </div>
+      </div>
+      <div class="center-media wide-media">
+        <div class="flow-diagram">
+          <div class="flow-diagram-label">AI 介入我的設計工作流</div>
+          <div class="flow-track">
+            <div class="flow-box active">
+              <div class="flow-index">01</div>
+              <div class="flow-stage-name">接需求</div>
+              <div class="flow-ai-tag">自製 Skill 探索</div>
+            </div>
+            <div class="flow-box active">
+              <div class="flow-index">02</div>
+              <div class="flow-stage-name">分析</div>
+              <div class="flow-ai-tag">AI 問題診斷</div>
+            </div>
+            <div class="flow-box active">
+              <div class="flow-index">03</div>
+              <div class="flow-stage-name">溝通</div>
+              <div class="flow-ai-tag">AI 會議分析</div>
+            </div>
+            <div class="flow-box active">
+              <div class="flow-index">04</div>
+              <div class="flow-stage-name">概念</div>
+              <div class="flow-ai-tag">AI 多版本原型</div>
+            </div>
+            <div class="flow-box">
+              <div class="flow-index">05</div>
+              <div class="flow-stage-name">方案討論</div>
+              <div class="flow-exp-tag">探索中</div>
+            </div>
+            <div class="flow-box active">
+              <div class="flow-index">06</div>
+              <div class="flow-stage-name">產出交付</div>
+              <div class="flow-ai-tag">動效模擬器</div>
+            </div>
+          </div>
+          <div class="flow-footer">持續學習 · 工作流 ing ↗</div>
+        </div>
+      </div>
+    </section>
 
-<div id="lb" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;cursor:zoom-out;align-items:center;justify-content:center;">
-  <img id="lb-img" src="" style="max-width:90vw;max-height:90vh;border-radius:8px;object-fit:contain;">
-</div>
-<script>
-const lb=document.getElementById('lb'),lbImg=document.getElementById('lb-img');
-document.querySelectorAll('.screenshots img').forEach(img=>{
-  img.style.cursor='zoom-in';
-  img.addEventListener('click',e=>{lbImg.src=img.src;lb.style.display='flex';e.stopPropagation();});
-});
-lb.addEventListener('click',()=>{lb.style.display='none';lbImg.src='';});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.style.display='none';lbImg.src='';}});
-</script>
+    <section class="section">
+      <div class="col">
+        <div class="eyebrow">背景脈絡</div>
+        <h2 class="section-title">我不是把 AI 當成捷徑，而是把它當成設計流程裡的新協作者。</h2>
+        <p>AI 真正有價值的地方，不只是幫我產出更快，而是讓設計討論更早具象化、讓溝通卡點更容易被指出，也讓原本需要大量時間說明的互動與動效，能變成可以直接感受的東西。</p>
+        <p>這個專案比較像一組持續演進的工作流實驗：我把 AI 放進需求分析、組織溝通、概念發散、動效交付與團隊分享，觀察它在哪些地方能真的改變設計工作的效率與品質。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="col">
+        <div class="eyebrow">應用一 · AI 輔助溝通釐清</div>
+        <h2 class="section-title">把反覆翻盤的會議，整理成團隊看得懂的問題。</h2>
+        <p>有一個專案討論了三次都在翻盤，問題出在哪裡卻說不清楚。我把會議記錄交給 AI 協助分析，請它判斷討論卡點，最後整理出三個問題：個人主觀意識主導、理解前就質疑方案、太急著找解法。</p>
+        <p>這不是讓 AI 決定誰對誰錯，而是用它協助把混亂的溝通模式具象化。後來我把分析整理成 Retro 簡報，讓團隊可以一起看見自己討論時的盲點。</p>
+      </div>
+      <div class="center-media media">
+        <div class="image-grid-2 contain">
+          <img src="作品集素材/AI 工具專案/組織溝通AI協助2.png" alt="Scrum Retro 主動優化溝通">
+          <img src="作品集素材/AI 工具專案/組織溝通AI協助1.png" alt="組織溝通 AI 協助">
+        </div>
+        <p class="media-cap">用 AI 協助整理會議卡點，再轉成團隊 Retro 可以討論的材料。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="col">
+        <div class="eyebrow">應用二 · 動效模擬器</div>
+        <h2 class="section-title">把難以描述的動效規格，變成可以直接調參數的工具。</h2>
+        <p>設計師交付動效時，常需要寫很長的描述，但工程師仍然很難準確理解節奏。我用 Vibe Coding 做出動效模擬器，讓設計師可以即時調整參數、預覽效果，也讓工程師能直接參考數值。</p>
+        <p>這個方法後來連續用在兩個專案上，出稿速度提升，RD 開發期間的來回問題也明顯減少。</p>
+      </div>
+      <div class="center-media wide-media media">
+        <div class="image-grid-2">
+          <video src="作品集素材/AI 工具專案/AI_首頁動效交付.mp4" controls muted playsinline preload="metadata"></video>
+          <video src="作品集素材/AI 工具專案/AI_情緒粒子交付.mp4" controls muted playsinline preload="metadata"></video>
+        </div>
+        <p class="media-cap">動效模擬器讓「描述動效」變成「調整參數並即時預覽」，用可播放的方式讓討論從抽象描述回到實際感受。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="col">
+        <div class="eyebrow">應用三 · Prototype 快速多版本發散</div>
+        <h2 class="section-title">讓多個流程方向快速跑起來，再回到設計判斷。</h2>
+        <p>當設計決策需要比較不同路徑時，我會用 AI 快速產出多個可視化版本，讓討論不再停留在「我想像中」的差異，而是能直接看見流程、感受節奏，再回頭做判斷。</p>
+      </div>
+      <div class="center-media media">
+        <div class="image-grid-2 prototype-grid">
+          <img src="作品集素材/AI 工具專案/流程比較prototype_1.png" alt="流程比較 prototype 1">
+          <img src="作品集素材/AI 工具專案/流程比較prototype_2.png" alt="流程比較 prototype 2">
+        </div>
+        <p class="media-cap">快速產出不同版本，讓方案討論從口頭想像進入可比較狀態。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="col">
+        <div class="eyebrow">應用四 · AI 輔助問題診斷</div>
+        <h2 class="section-title">先用 AI 拉出問題清單，再由設計師判斷優先順序。</h2>
+        <p>針對既有頁面的體驗問題，我會用 AI 幫忙快速列出潛在問題與優化方向，但最後仍由設計師回到脈絡、目標與限制做判斷。AI 在這裡不是代替設計思考，而是幫我更快建立討論材料。</p>
+      </div>
+      <div class="center-media media">
+        <div class="image-grid-2 contain">
+          <img src="作品集素材/AI 工具專案/優化提案協助/重點設計優化協助3.png" alt="優化提案協助 1">
+          <img src="作品集素材/AI 工具專案/優化提案協助/重點設計優化協助13.png" alt="優化提案協助 2">
+        </div>
+        <p class="media-cap">AI 協助整理問題與方向，設計師再回到產品脈絡做取捨。</p>
+      </div>
+      <div class="col">
+        <p>
+          <a class="deck-link" href="hidol-moment-flow-deck.html" target="_blank">
+            查看完整設計討論簡報
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="col">
+        <div class="eyebrow">成果</div>
+        <h2 class="section-title">AI 讓我把「設計推進」做得更快，也讓團隊更容易一起理解問題。</h2>
+        <ul class="results-list">
+          <li>動效模擬器連續應用兩個專案，出稿效率提升，RD 溝通成本降低。</li>
+          <li>用 AI 協助整理會議卡點，讓 Retro 能聚焦在具體討論模式，而不是各自感受。</li>
+          <li>製作 AI 專題簡報進行內部分享，帶動設計團隊建立 AI 協作能力。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="reflection">
+      <div class="wide">
+        <div class="reflection-inner">
+          <div class="eyebrow">專案回顧</div>
+          <h2>AI 的價值不是取代設計，而是更快速具體化腦內的思考。</h2>
+          <p>它讓還停在腦中的想法更快變成流程、畫面、動效與可討論的版本。真正被加速的不是產出本身，而是設計師把模糊判斷拿出來驗證、比較與溝通的速度。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="back-link" href="home.html">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      回到作品集
+    </a>
+    <a class="mail-link" href="mailto:stud9372@gmail.com?subject=作品集詢問 — AI 工具整合設計工作流">聯絡我</a>
+  </footer>
+
+  <div id="lightbox"><img src="" alt=""></div>
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    document.querySelectorAll('main img').forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.style.display = 'flex';
+      });
+    });
+    lightbox.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+      lightboxImg.src = '';
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        lightbox.style.display = 'none';
+        lightboxImg.src = '';
+      }
+    });
+  </script>
 </body>
 </html>
