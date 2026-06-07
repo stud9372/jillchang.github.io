@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/png" href="anubis.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Moment — Jill Chang</title>
+  <style>
+  :root {
+    --bg: #0e0e10;
+    --surface: #1a1a1f;
+    --surface2: #242429;
+    --border: #2e2e36;
+    --accent: #6e6ef9;
+    --accent2: #a78bfa;
+    --cyan: #22d3ee;
+    --text: #f0f0f5;
+    --muted: #9a9aae;
+    --soft: #c9c9d6;
+    --col: 820px;
+    --wide: 1120px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    line-height: 1.85;
+    font-size: 18px;
+    letter-spacing: .01em;
+  }
+  .keep-line { white-space: nowrap; }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 64px;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(14,14,16,.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .logo {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+  nav .logo:hover { color: var(--text); }
+  nav ul { list-style: none; display: flex; gap: 24px; }
+  nav a { color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+  nav a:hover { color: var(--text); }
+
+  .col { max-width: var(--col); margin: 0 auto; padding: 0 28px; }
+  .wide { max-width: var(--wide); margin: 0 auto; padding: 0 28px; }
+  .full { max-width: 1320px; margin: 0 auto; padding: 0 28px; }
+
+  .hero { padding: 64px 0 0; }
+  .hero-cover { max-width: 900px; margin: 0 auto; padding: 0 28px; }
+  .hero-cover img { width: 100%; display: block; border-radius: 18px; border: 1px solid var(--border); }
+  .hero-copy { padding: 48px 0 56px; border-bottom: 1px solid var(--border); }
+  .eyebrow {
+    margin-bottom: 14px;
+    color: var(--accent);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+  h1 {
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    line-height: 1.15;
+    font-weight: 780;
+    letter-spacing: -.025em;
+    margin-bottom: 16px;
+    text-wrap: balance;
+  }
+  .hero-lead {
+    max-width: 680px;
+    color: var(--text);
+    font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+    line-height: 1.55;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-wrap: pretty;
+  }
+  .badges { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 34px; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    font-size: .76rem;
+    letter-spacing: .03em;
+  }
+  .badge.hi { background: linear-gradient(135deg,#22d3ee18,#6e6ef918); border-color: #22d3ee50; color: var(--cyan); }
+  .meta { display: flex; gap: 52px; flex-wrap: wrap; }
+  .meta-label { color: var(--muted); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+  .meta-val { color: var(--text); font-size: .98rem; font-weight: 700; }
+
+  .section { padding: 84px 0; border-bottom: 1px solid var(--border); }
+  .section:last-of-type { border-bottom: 0; }
+  .section-title {
+    font-size: clamp(1.75rem, 3.1vw, 2.45rem);
+    line-height: 1.22;
+    letter-spacing: -.025em;
+    font-weight: 760;
+    margin-bottom: 22px;
+    text-wrap: balance;
+  }
+  .section p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.9;
+    margin-bottom: 18px;
+    text-wrap: pretty;
+  }
+  .section p:last-child { margin-bottom: 0; }
+  strong { color: var(--text); font-weight: 700; }
+
+  .intro-card {
+    margin-top: 34px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .scope-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 24px;
+  }
+  .scope-card .card-title { color: var(--text); font-size: 1.02rem; font-weight: 750; margin-bottom: 9px; }
+  .scope-card .card-body { color: var(--muted); font-size: .92rem; line-height: 1.75; text-wrap: pretty; }
+
+  .quote {
+    margin: 32px 0;
+    padding: 20px 28px;
+    border-left: 4px solid var(--accent);
+    background: linear-gradient(90deg,#6e6ef912,transparent);
+    color: var(--text);
+    font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+    line-height: 1.55;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+  .quote.small { font-size: 1.12rem; font-weight: 600; line-height: 1.7; }
+
+  .media { margin: 42px 0; }
+  .media img, .media video {
+    width: 100%;
+    display: block;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+  }
+  .media-cap {
+    color: var(--muted);
+    font-size: .82rem;
+    line-height: 1.6;
+    margin-top: 11px;
+    font-style: italic;
+    text-wrap: pretty;
+  }
+  .image-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .image-grid-2 img, .image-grid-2 video { width: 100%; display: block; border-radius: 14px; border: 1px solid var(--border); }
+  .equal-h img { height: 420px; object-fit: cover; object-position: center; }
+
+  .step-row, .insight-row, .principle-row {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 14px;
+    margin-top: 34px;
+  }
+  .step-card, .insight-card, .principle-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 24px;
+  }
+  .num {
+    color: var(--accent);
+    font-size: .66rem;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .card-head { color: var(--text); font-size: 1.08rem; font-weight: 760; line-height: 1.45; margin-bottom: 9px; text-wrap: balance; }
+  .card-body { color: var(--muted); font-size: .94rem; line-height: 1.78; text-wrap: pretty; }
+
+  .decision-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 30px 0 6px; }
+  .decision-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+  .decision-card.drop { border-color: #ff6b7a40; background: #ff44550a; }
+  .decision-card.pick { border-color: #6e6ef950; background: linear-gradient(135deg,#6e6ef90d,#a78bfa0d); }
+  .decision-card.drop .num { color: #ff9aa5; }
+  .decision-card.pick .num { color: var(--accent2); }
+
+  .feature-block { padding: 84px 0; border-bottom: 1px solid var(--border); }
+  .feature-block:last-child { border-bottom: 0; padding-bottom: 0; }
+  .feature-head { max-width: var(--col); margin: 0 auto 34px; padding: 0 28px; }
+  .feature-title { font-size: clamp(1.55rem, 2.8vw, 2.1rem); line-height: 1.3; letter-spacing: -.02em; font-weight: 760; margin-bottom: 14px; text-wrap: balance; }
+  .feature-desc { color: var(--muted); font-size: 1.02rem; line-height: 1.9; text-wrap: pretty; }
+
+  .feature-layout { max-width: var(--wide); margin: 0 auto; padding: 0 28px; display: grid; grid-template-columns: 1.25fr .9fr; gap: 52px; align-items: center; }
+  .feature-layout.reverse { grid-template-columns: .9fr 1.25fr; }
+  .feature-copy p { color: var(--muted); font-size: 1rem; line-height: 1.9; margin-bottom: 18px; text-wrap: pretty; }
+  .feature-stack { max-width: var(--wide); margin: 0 auto; padding: 0 28px; }
+  .feature-stack .feature-copy {
+    max-width: var(--col);
+    margin: 28px auto 0;
+  }
+  .phone-media { max-width: 360px; margin: 0 auto; }
+  .phone-media img, .phone-media video { width: 100%; display: block; border-radius: 22px; border: 1px solid var(--border); }
+  .wide-media img, .wide-media video { width: 100%; display: block; border-radius: 16px; border: 1px solid var(--border); }
+
+  .wide-composite {
+    max-width: var(--wide);
+    margin: 34px auto 0;
+    padding: 0 28px;
+  }
+
+  .finding-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+  .finding-card { background: var(--surface2); border-radius: 14px; padding: 22px; }
+
+  .impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 38px; background: var(--border); border-radius: 18px; overflow: hidden; }
+  .impact-cell { background: var(--surface); padding: 42px 34px; }
+  .impact-num { color: var(--text); font-size: clamp(2.4rem, 5vw, 4.2rem); line-height: 1; font-weight: 850; letter-spacing: -.04em; margin-bottom: 12px; }
+  .impact-num span { color: var(--accent); }
+  .impact-desc { color: var(--muted); font-size: .95rem; line-height: 1.65; text-wrap: pretty; }
+
+  .reflection {
+    background: linear-gradient(135deg,#6e6ef910,#22d3ee08);
+    border: 1px solid #6e6ef930;
+    border-radius: 18px;
+    padding: 40px 44px;
+    margin-top: 32px;
+  }
+  .reflection-wrap { max-width: var(--wide); margin: 0 auto; padding: 0 28px; }
+  .reflection-head { padding: 0 44px; }
+  .reflection p { color: var(--soft); font-size: 1.05rem; line-height: 1.9; }
+
+  .proj-footer {
+    border-top: 1px solid var(--border);
+    max-width: var(--wide);
+    margin: 0 auto;
+    padding: 42px 28px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); text-decoration: none; font-size: .9rem; transition: color .2s; }
+  .back-link:hover { color: var(--text); }
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 11px 22px; border-radius: 9px; font-size: .9rem; font-weight: 750; text-decoration: none; border: none; cursor: pointer; transition: opacity .2s, transform .15s; }
+  .btn:hover { opacity: .86; transform: translateY(-1px); }
+  .btn-primary { background: linear-gradient(135deg,#6e6ef9,#a78bfa); color: #fff; }
+
+  #lb { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.9); z-index: 1000; cursor: zoom-out; align-items: center; justify-content: center; }
+  #lb img { max-width: 92vw; max-height: 92vh; border-radius: 10px; object-fit: contain; }
+
+  @media(max-width: 900px) {
+    .intro-card, .step-row, .insight-row, .principle-row, .impact-grid { grid-template-columns: 1fr; }
+    .feature-layout, .feature-layout.reverse { grid-template-columns: 1fr; gap: 34px; }
+    .feature-layout.reverse .feature-copy { order: 0; }
+    .phone-media { max-width: 420px; }
+  }
+  @media(max-width: 700px) {
+    body { font-size: 16px; }
+    nav { padding: 0 20px; }
+    nav ul { gap: 16px; }
+    .col, .wide, .full, .feature-head, .feature-layout, .feature-stack, .wide-composite, .reflection-wrap { padding-left: 20px; padding-right: 20px; }
+    .section, .feature-block { padding: 64px 0; }
+    .hero { padding-top: 24px; }
+    .hero-copy { padding: 36px 0 44px; }
+    .image-grid-2, .decision-pair, .finding-row { grid-template-columns: 1fr; }
+    .equal-h img { height: auto; }
+    .reflection { padding: 28px 24px; }
+    .reflection-head { padding: 0; }
+  }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="home.html">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    張宸禎 Portfolio
+  </a>
+  <ul>
+    <li><a href="about.html">關於我</a></li>
+    <li><a href="mailto:stud9372@gmail.com">聯絡</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="full hero-cover">
+    <img src="cover_03_moment.png" alt="Moment 封面">
+  </div>
+  <div class="col hero-copy">
+    <div class="eyebrow">提取粉絲情感洞察，落實平台的策略轉型</div>
+    <h1>Moment</h1>
+    <p class="hero-lead">追星記錄工具。從工作坊探索到介面落地，這個專案的介面設計與動效，從定調到執行，全部由我一手完成。</p>
+    <div class="badges">
+      <span class="badge hi">全流程獨立主導</span>
+      <span class="badge">工作坊主持</span>
+      <span class="badge">UX / UI</span>
+      <span class="badge">動效設計</span>
+      <span class="badge">工具體驗迭代</span>
+    </div>
+    <div class="meta">
+      <div><div class="meta-label">年份</div><div class="meta-val">2024</div></div>
+      <div><div class="meta-label">角色</div><div class="meta-val">資深產品設計師（主導）</div></div>
+      <div><div class="meta-label">上線</div><div class="meta-val">2024 / 10</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="col">
+      <div class="eyebrow">專案重點</div>
+      <h2 class="section-title">這個專案可以看到我如何把模糊的粉絲情感，轉化成<span class="keep-line">可以落地的產品體驗。</span></h2>
+      <p>Moment 是 hidol 策略轉型後第一個以粉絲體驗為核心的功能。我主導問題探索工作坊，整理粉絲留下物件背後的情緒脈絡，並將洞察轉化為個人頁、首頁與情緒紀錄的完整設計。</p>
+    </div>
+    <div class="wide">
+      <div class="intro-card">
+        <div class="scope-card"><div class="card-title">工作坊主持</div><div class="card-body">設計並帶領問題探索工作坊，從模糊的追星體驗中，帶出共識並收斂設計方向。</div></div>
+        <div class="scope-card"><div class="card-title">設計判斷力</div><div class="card-body">處理功能取捨、版面決策，以及讓情緒層存在卻不搶主角的視覺拿捏。</div></div>
+        <div class="scope-card"><div class="card-title">動效設計</div><div class="card-body">定調情緒動效的節奏，讓每種情緒都有獨立的視覺感受，並從 0 到 1 完成執行。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="col">
+      <div class="eyebrow">背景脈絡</div>
+      <h2 class="section-title">hidol 從服務 IP 端轉向以粉絲體驗為核心，但「粉絲體驗」<span class="keep-line">一開始仍然太抽象。</span></h2>
+      <p>Moment 是這個新方向落地的第一個功能。它要回答的不是「要不要做一個紀錄工具」，而是更前面的問題：追星這件事，究竟有沒有值得被好好保存的價值？</p>
+      <p>我們從用戶問卷裡看見一個值得探索的切入點。粉絲留下來的東西，看似是票根、貼紙或周邊，但真正被保存的，往往是那一段只有自己才懂的情緒。</p>
+      <div class="quote">粉絲收藏的不是票根，而是那段情緒。</div>
+    </div>
+    <div class="wide">
+      <div class="media">
+        <div class="wide-media">
+          <img src="作品集素材/0513版本/Moment專案/Moment專案_圖片1.png" alt="回顧產品策略與目標" class="zoomable">
+        </div>
+        <div class="media-cap">回顧產品策略與目標，釐清 Moment 要承接的粉絲體驗問題。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="col">
+      <div class="eyebrow">工作坊主持與問題探索</div>
+      <h2 class="section-title">我們沒有急著定義功能，而是先找來真正熱愛追星的人，一起理解<span class="keep-line">他們在珍惜什麼。</span></h2>
+      <p>工作坊當天，我請每個人帶來一件自己追星時留下的小物。有票根、有周邊，甚至只是手機裡的一張截圖。大家互相猜這個人為什麼會留下它，並回想那個當下的感受。這個破冰環節讓整個房間很快進入狀態，也讓每個人開始說出自己和物件之間的故事。</p>
+      <div class="quote small">每個人心裡都有一個只有自己才懂的追星邏輯。</div>
+    </div>
+    <div class="full">
+      <div class="media">
+        <div class="wide-media equal-h">
+          <img src="作品集素材/工作方/工作方照片.jpg" alt="工作坊現場" class="zoomable">
+        </div>
+        <div class="media-cap">工作坊現場。</div>
+      </div>
+    </div>
+    <div class="wide">
+      <div class="step-row">
+        <div class="step-card"><div class="num">Step 01 · 發散</div><div class="card-head">Crazy Eight 腦力激盪</div><div class="card-body">先把大家腦中的想法全部攤開，不評判，只記錄。</div></div>
+        <div class="step-card"><div class="num">Step 02 · 收斂</div><div class="card-head">市場現況盤點</div><div class="card-body">檢視現有記錄工具的做法，讓方向第一次聚焦。</div></div>
+        <div class="step-card"><div class="num">Step 03 · 挑戰</div><div class="card-head">翻轉卡自我挑戰</div><div class="card-body">我用自製翻轉卡讓大家反問自己的想法，進一步逼出盲點。</div></div>
+      </div>
+      <div class="media">
+        <div class="image-grid-2">
+          <img src="作品集素材/0513版本/Moment專案/Moment專案_圖片2.png" alt="Crazy Eight 發散" class="zoomable">
+          <img src="作品集素材/0513版本/Moment專案/Moment專案_圖片3-3.png" alt="方向收斂" class="zoomable">
+        </div>
+        <div class="media-cap">Crazy Eight 發散與方向收斂。</div>
+      </div>
+    </div>
+    <div class="col">
+      <p>工作坊結束後，我帶著滿桌的便利貼，從故事脈絡開始抽絲剝繭。我先找出大家留下物件的原因，再整理成產品機會，最後和 PM 團隊對焦目的、排定優先級，完成提案。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="col">
+      <div class="eyebrow">洞察整理</div>
+      <h2 class="section-title">工作坊讓我們看見，粉絲需要的不是一個<span class="keep-line">單純收納物件的地方。</span></h2>
+      <p>使用者真正想保存的是投入過程中的感受。物件只是入口，記錄本身要能累積，也要讓情緒被看見。</p>
+    </div>
+    <div class="wide">
+      <div class="insight-row">
+        <div class="insight-card"><div class="num">洞察 01</div><div class="card-head">粉絲收藏的是情緒，不只是物品。</div><div class="card-body">票根、周邊與截圖都是載體，真正留下來的是那個當下的心情。</div></div>
+        <div class="insight-card"><div class="num">洞察 02</div><div class="card-head">記錄過程比最後成果更重要。</div><div class="card-body">每一筆新增的紀錄都會讓收藏更有重量，也讓使用者更願意持續回來。</div></div>
+        <div class="insight-card"><div class="num">洞察 03</div><div class="card-head">持續記錄比豐富功能更重要。</div><div class="card-body">功能不能一開始就變複雜。先讓人願意開始，才有機會形成習慣。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="col">
+      <div class="eyebrow">設計策略</div>
+      <h2 class="section-title">我把洞察轉成三個設計原則，作為後續功能取捨與<span class="keep-line">介面決策的依據。</span></h2>
+      <p>每個功能都要先問一個問題：這是核心，還是加分？這個判斷讓團隊能在有限資源下，把重點放在真正能讓使用者開始記錄、持續記錄的地方。</p>
+    </div>
+    <div class="wide">
+      <div class="principle-row">
+        <div class="principle-card"><div class="num">原則 01</div><div class="card-head">降低記錄門檻</div><div class="card-body">掃描辨識快速記錄，讓使用者先開始，而不是先面對複雜流程。</div></div>
+        <div class="principle-card"><div class="num">原則 02</div><div class="card-head">讓累積可視化</div><div class="card-body">用時間軸呈現紀錄的成長，讓每一次新增都能被感受到。</div></div>
+        <div class="principle-card"><div class="num">原則 03</div><div class="card-head">讓情緒有存在感</div><div class="card-body">情緒不是裝飾，而是讓紀錄和當下重新連結的橋樑。</div></div>
+      </div>
+      <div class="decision-pair">
+        <div class="decision-card drop"><div class="num">捨棄</div><div class="card-head">AI 角色回饋</div><div class="card-body">這個構想有趣，但 IP 洽談成本高，吸引力也還沒有被驗證。它是加分項，不是 MVP 的地基。</div></div>
+        <div class="decision-card pick"><div class="num">選擇</div><div class="card-head">掃描辨識快速記錄</div><div class="card-body">先降低上手門檻，讓更多人真正開始記錄，才有機會建立後續應用動機。</div></div>
+      </div>
+      <div class="media">
+        <div class="wide-media">
+          <img src="作品集素材/0513版本/Moment專案/Moment專案_圖片4.png" alt="提案收斂" class="zoomable">
+        </div>
+        <div class="media-cap">提案文件。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="col">
+      <div class="eyebrow">介面設計</div>
+      <h2 class="section-title">方向確定後，我負責把抽象的情緒保存，轉化成可以被操作、被累積、<span class="keep-line">被感受到的介面。</span></h2>
+      <p>以下三個設計重點，分別對應「如何開始記錄」、「如何看見累積」與「如何讓情緒有感覺」。</p>
+    </div>
+
+    <article class="feature-block">
+      <div class="feature-head">
+        <div class="num">設計重點 01</div>
+        <h3 class="feature-title">個人頁採用時間軸，讓每一筆紀錄都有清楚的位置，也能隨著使用者的投入<span class="keep-line">慢慢累積。</span></h3>
+        <p class="feature-desc">時間軸讓 Moment 與既有貼文各自有位置，不會彼此競爭。點點背景則讓空狀態不顯得冷清，也延續了後續首頁的視覺語彙。</p>
+      </div>
+      <div class="wide-composite">
+        <div class="wide-media">
+          <img src="作品集素材/Moment/Moment_MVP元件.png" alt="Moment MVP 元件拆解" class="zoomable">
+        </div>
+      </div>
+      <div class="feature-layout" style="margin-top:42px;">
+        <div class="wide-media">
+          <div class="image-grid-2">
+            <img src="作品集素材/Moment/Moment＿大面積版_方案二.png" alt="方案二：大面積版" class="zoomable">
+            <img src="作品集素材/Moment/Moment＿筆記版_方案三.png" alt="方案三：筆記版" class="zoomable">
+          </div>
+        </div>
+        <div class="feature-copy">
+          <p><strong>曾經考慮的大面積版</strong>，視覺存在感較弱，使用者容易略過。</p>
+          <p><strong>筆記版</strong>雖然更有自由感，但初次進入時認知負擔較高。</p>
+          <p>最後採用時間軸，是因為它更符合「慢慢累積」的心智，也能讓使用者理解這是一個會和自己一起成長的區域。</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="feature-block">
+      <div class="feature-head">
+        <div class="num">設計重點 02</div>
+        <h3 class="feature-title">首頁從克制的 MVP 版本，逐步演進成<span class="keep-line">更有揭幕感的入口。</span></h3>
+        <p class="feature-desc">上線初期的目標是先驗證使用者是否會回訪與記錄，所以設計刻意克制。確認需求成立後，改版開始讓豐富的 Moment 在首頁被看見。</p>
+      </div>
+      <div class="feature-layout reverse">
+        <div class="feature-copy">
+          <p>MVP 階段先避免投入過多視覺資源，讓團隊確認使用者對「記錄」本身是否有需求。</p>
+          <p>改版後，我設計了由外往內展開亮起的動效，讓入口像舞台燈逐步打開。點點背景也從個人頁延伸到首頁，讓兩個場景使用同一套設計語彙。</p>
+        </div>
+        <div class="wide-media">
+          <div class="image-grid-2">
+            <img src="作品集素材/Moment/首頁＿Moment呈現改版前.png" alt="首頁改版前" class="zoomable">
+            <img src="作品集素材/Moment/首頁＿Moment呈現改版後.png" alt="首頁改版後" class="zoomable">
+          </div>
+          <div class="media-cap">首頁改版前與改版後。</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="feature-block">
+      <div class="feature-head">
+        <div class="num">設計重點 03</div>
+        <h3 class="feature-title">情緒紀錄不是單純換色，而是從概念原型、走廊測試到動效細節<span class="keep-line">逐步成形。</span></h3>
+        <p class="feature-desc">這段設計的重點，是讓情緒保有輔助感，同時又有足夠的存在感。它不能喧賓奪主，但也不能只是裝飾。</p>
+      </div>
+
+      <div class="feature-stack">
+        <div class="wide-media">
+          <video src="作品集素材/Moment/AI_情緒提案.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="feature-copy">
+          <div class="num">概念起源</div>
+          <p>在情緒功能正式立案前，我用 Vibe Coding 快速做了一個互動展示，讓想像中的情緒反饋真的跑起來。這個原型沒有工程規格，但它讓團隊第一次直觀感受到情緒可以做到什麼。展示結束後，現場氛圍明顯熱了起來，功能的推動也因此有了更多共識與動力。</p>
+          <p>完整流程可延伸至 <a href="project_05_ai.html" style="color:var(--accent); text-decoration:none;">AI 應用二</a>。</p>
+        </div>
+      </div>
+
+      <div class="feature-layout reverse" style="margin-top:64px;">
+        <div class="feature-copy">
+          <div class="num">走廊測試</div>
+          <p>我們以文字、圖案、氛圍三種方向快速做原型，和研究團隊進行走廊測試，觀察使用者對情緒感知的強度與偏好。</p>
+          <div class="finding-row">
+            <div class="finding-card"><div class="num">發現 01</div><div class="card-body"><strong>使用者害怕 emoji。</strong>現有 emoji 已承載太多約定俗成的解讀，所以我們決定自己畫。</div></div>
+            <div class="finding-card"><div class="num">發現 02</div><div class="card-body"><strong>氛圍色讓畫面更有情緒。</strong>它無聲地染上整體畫面，比單一圖示更容易產生共感。</div></div>
+          </div>
+        </div>
+        <div class="phone-media">
+          <video src="作品集素材/Moment/情緒方案概念.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </div>
+
+      <div class="feature-layout" style="margin-top:64px;">
+        <div class="phone-media">
+          <video src="作品集素材/Moment/Moment_首頁外攤＋情緒動畫.mp4" autoplay loop muted playsinline></video>
+          <div class="media-cap">外層情緒展開動效。</div>
+        </div>
+        <div class="feature-copy">
+          <div class="num">最終方案 · 外層</div>
+          <p>自繪表情搭配氛圍色成為最終方案。表情直接傳達情緒，氛圍色則無聲地染上整體畫面。外層設計特別控制顯示程度，不把所有效果一次攤開，讓首頁保有呼吸感，也引導使用者點入看更多。</p>
+        </div>
+      </div>
+
+      <div class="feature-layout reverse" style="margin-top:64px;">
+        <div class="feature-copy">
+          <div class="num">最終方案 · 內頁</div>
+          <p>點入紀錄內頁後，情緒反饋會變得更完整。每種情緒都有獨立的動效邏輯：開心是輕快彈出，燃是爆發擴散，難過是緩慢淡入。這讓情緒真的有感覺，而不是只換一個顏色。</p>
+        </div>
+        <div class="phone-media">
+          <video src="作品集素材/Moment/Moment情緒詳細頁.mp4" autoplay loop muted playsinline></video>
+          <div class="media-cap">情緒詳細頁。</div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="section">
+    <div class="col">
+      <div class="eyebrow">成果</div>
+      <h2 class="section-title">Moment 成為 hidol 策略轉型後，第一個真正以粉絲情感體驗為核心的<span class="keep-line">產品功能。</span></h2>
+      <p>App 端於 2024 年 10 月上線，Web 端於 11 月完整上線。情緒互動模組迭代後，Moment 外層按讚與留言互動率提升約 33%。12 月起，團隊也持續強化應用動機與流程優化。</p>
+    </div>
+    <div class="wide">
+      <div class="impact-grid">
+        <div class="impact-cell"><div class="impact-num"><span>↑</span>33%</div><div class="impact-desc">情緒互動模組迭代後，外層按讚與留言互動率提升。</div></div>
+        <div class="impact-cell"><div class="impact-num">2024<span>.</span>10</div><div class="impact-desc">App 端正式上線，成為策略轉型後第一個核心功能。</div></div>
+        <div class="impact-cell"><div class="impact-num">2024<span>.</span>11</div><div class="impact-desc">Web 端完整上線，並於 12 月起持續優化應用動機。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="reflection-wrap">
+      <div class="reflection-head">
+        <div class="eyebrow">專案回顧</div>
+        <h2 class="section-title">這個專案讓我更確定，好的設計不只是把功能做出來，而是讓團隊一起看見<span class="keep-line">真正值得被解決的問題。</span></h2>
+      </div>
+      <div class="reflection">
+        <p>工作坊最大的價值，不是找到答案，而是讓團隊開始問對問題。在專案開始時，我們以為自己正在設計一個記錄工具。專案結束後，我發現真正被設計的，其實是情緒被保存的方式。這個視角的轉變，決定了 Moment 後來所有的設計方向。</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="proj-footer">
+  <a class="back-link" href="home.html">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    回到作品集
+  </a>
+  <a href="mailto:stud9372@gmail.com?subject=作品集詢問 — Moment — 紀錄型粉絲工具" class="btn btn-primary">聯絡我</a>
+</div>
+
+<div id="lb"><img id="lb-img" src="" alt="放大預覽"></div>
+
+<script>
+const lb = document.getElementById('lb');
+const lbImg = document.getElementById('lb-img');
+document.querySelectorAll('.zoomable').forEach(el => {
+  el.style.cursor = 'zoom-in';
+  el.addEventListener('click', e => {
+    lbImg.src = el.currentSrc || el.src;
+    lb.style.display = 'flex';
+    e.stopPropagation();
+  });
+});
+lb.addEventListener('click', () => {
+  lb.style.display = 'none';
+  lbImg.src = '';
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    lb.style.display = 'none';
+    lbImg.src = '';
+  }
+});
+</script>
+</body>
+</html>
